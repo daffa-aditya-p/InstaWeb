@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    #050505;
+  background-size: 44px 44px, 44px 44px, auto;
+  color: #f6f6f6;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+::selection {
+  background: rgba(89, 240, 217, 0.32);
+  color: #ffffff;
+}
+
+@layer components {
+  .glass-panel {
+    @apply border border-white/10 bg-white/[0.055] shadow-glow backdrop-blur-2xl;
+  }
+
+  .muted-panel {
+    @apply border border-white/10 bg-ink-850/80 shadow-soft;
+  }
+
+  .field-shell {
+    @apply w-full rounded-lg border border-white/10 bg-black/30 px-3.5 py-3 text-sm text-white outline-none transition placeholder:text-white/[0.35] focus:border-brand-aqua/70 focus:ring-2 focus:ring-brand-aqua/20;
+  }
+
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.18em] text-brand-aqua;
+  }
+
+  .surface-link {
+    @apply rounded-lg px-3 py-2 text-sm text-white/60 transition hover:bg-white/[0.08] hover:text-white;
+  }
+
+  .surface-link-active {
+    @apply bg-white/10 text-white;
+  }
+}

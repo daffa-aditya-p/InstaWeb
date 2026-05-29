@@ -1,0 +1,785 @@
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.197.35.208:5000
+Press CTRL+C to quit
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 124-311-270
+127.0.0.1 - - [28/May/2026 09:33:24] "GET /api/health HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:36:23] "OPTIONS /api/register HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:36:24] "POST /api/register HTTP/1.1" 201 -
+127.0.0.1 - - [28/May/2026 09:36:24] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:36:25] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:36:25] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:36:25] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:36:30] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:36:30] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:36:31] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:36:31] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:36:33] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:36:34] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:37:33] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:37:33] "POST /api/pages HTTP/1.1" 201 -
+127.0.0.1 - - [28/May/2026 09:37:34] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:37:37] "OPTIONS /api/login HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:37:38] "POST /api/login HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:37:38] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:37:38] "OPTIONS /api/pages/ligazone109 HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:37:38] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:37:39] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:37:39] "OPTIONS /api/pages/ligazone109 HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:37:39] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:37:39] "GET /api/pages/ligazone109 HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:37:41] "GET /api/pages/ligazone109 HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:37:42] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:37:43] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:37:43] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:37:43] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:37:46] "OPTIONS /api/pages/ligazone109 HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:37:46] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:37:46] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:37:46] "GET /api/pages/ligazone109 HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:37:46] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:37:47] "GET /api/pages/ligazone109 HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:37:47] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:37:59] "OPTIONS /api/pages/ligazone109/sections HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:37:59] "POST /api/pages/ligazone109/sections HTTP/1.1" 201 -
+127.0.0.1 - - [28/May/2026 09:38:19] "OPTIONS /api/pages/ligazone109/sections/6/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:38:19] "PUT /api/pages/ligazone109/sections/6/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:38:24] "PUT /api/pages/ligazone109/sections/6/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:38:31] "OPTIONS /api/pages/ligazone109/sections/6/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:38:31] "PUT /api/pages/ligazone109/sections/6/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:38:33] "PUT /api/pages/ligazone109/sections/6/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:38:35] "PUT /api/pages/ligazone109/sections/6/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:38:38] "OPTIONS /api/pages/ligazone109/sections/6/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:38:38] "PUT /api/pages/ligazone109/sections/6/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:38:41] "PUT /api/pages/ligazone109/sections/6/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:38:44] "OPTIONS /api/pages/ligazone109/sections/6/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:38:44] "PUT /api/pages/ligazone109/sections/6/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:38:50] "OPTIONS /api/pages/ligazone109/sections/6/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:38:50] "PUT /api/pages/ligazone109/sections/6/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:39:14] "OPTIONS /api/pages/startup-studio HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:39:14] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:39:15] "OPTIONS /api/pages/startup-studio HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:39:16] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:39:16] "GET /api/pages/startup-studio HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:39:16] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:39:18] "GET /api/pages/startup-studio HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:39:19] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:42:35] "OPTIONS /api/pages/startup-studio/sections/1/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:42:36] "PUT /api/pages/startup-studio/sections/1/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:43:07] "OPTIONS /api/pages/ligazone109/sections/6/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:43:08] "PUT /api/pages/ligazone109/sections/6/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:43:17] "OPTIONS /api/pages/startup-studio HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:43:17] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:43:17] "OPTIONS /api/pages/startup-studio HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:43:17] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:43:17] "GET /api/pages/startup-studio HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:43:17] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:43:17] "GET /api/pages/startup-studio HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:43:18] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:43:20] "OPTIONS /api/pages/ligazone109/sections/6/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:43:21] "PUT /api/pages/ligazone109/sections/6/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:43:24] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:43:24] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:43:24] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:43:25] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:43:38] "OPTIONS /api/pages/ligazone109 HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:43:39] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:43:39] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:43:39] "GET /api/pages/ligazone109 HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:43:39] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:43:39] "GET /api/pages/ligazone109 HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:43:39] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:43:47] "OPTIONS /api/pages/ligazone109/sections HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:43:47] "POST /api/pages/ligazone109/sections HTTP/1.1" 201 -
+127.0.0.1 - - [28/May/2026 09:44:03] "OPTIONS /api/pages/ligazone109/sections/7/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:44:03] "PUT /api/pages/ligazone109/sections/7/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:44:07] "PUT /api/pages/ligazone109/sections/7/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:44:09] "OPTIONS /api/pages/ligazone109/sections/7/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:44:09] "PUT /api/pages/ligazone109/sections/7/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:44:16] "OPTIONS /api/pages/startup-studio HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:44:16] "OPTIONS /api/pages/startup-studio HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:44:16] "GET /api/pages/startup-studio HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:44:16] "GET /api/pages/startup-studio HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:44:28] "OPTIONS /api/pages/ligazone109/sections/7/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:44:28] "PUT /api/pages/ligazone109/sections/7/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:44:31] "PUT /api/pages/ligazone109/sections/7/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:44:35] "OPTIONS /api/pages/ligazone109/sections/7/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:44:36] "PUT /api/pages/ligazone109/sections/7/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:44:36] "PUT /api/pages/ligazone109/sections/7/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:44:41] "OPTIONS /api/pages/ligazone109/sections/7/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:44:41] "PUT /api/pages/ligazone109/sections/7/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:44:42] "PUT /api/pages/ligazone109/sections/7/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:44:49] "OPTIONS /api/pages/ligazone109/sections/7/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:44:50] "PUT /api/pages/ligazone109/sections/7/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:44:57] "OPTIONS /api/pages/ligazone109/sections HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:44:57] "POST /api/pages/ligazone109/sections HTTP/1.1" 201 -
+127.0.0.1 - - [28/May/2026 09:45:45] "OPTIONS /api/pages/ligazone109/sections HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:45:46] "POST /api/pages/ligazone109/sections HTTP/1.1" 201 -
+127.0.0.1 - - [28/May/2026 09:45:57] "OPTIONS /api/pages/ligazone109/sections/9/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:45:57] "PUT /api/pages/ligazone109/sections/9/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:45:58] "PUT /api/pages/ligazone109/sections/9/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:05] "OPTIONS /api/pages/ligazone109 HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:05] "OPTIONS /api/pages/ligazone109 HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:05] "GET /api/pages/ligazone109 HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:05] "GET /api/pages/ligazone109 HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:12] "OPTIONS /api/pages/ligazone109 HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:12] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:12] "GET /api/pages/ligazone109 HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:12] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:12] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:13] "GET /api/pages/ligazone109 HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:13] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:15] "OPTIONS /api/pages/ligazone109/publish HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:15] "PUT /api/pages/ligazone109/publish HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:18] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:18] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:19] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:24] "OPTIONS /api/pages/ligazone109/publish HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:24] "PUT /api/pages/ligazone109/publish HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:24] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:24] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:28] "OPTIONS /api/pages/ligazone109 HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:28] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:28] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:28] "GET /api/pages/ligazone109 HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:28] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:28] "GET /api/pages/ligazone109 HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:28] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:30] "OPTIONS /api/pages/ligazone109/publish HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:31] "PUT /api/pages/ligazone109/publish HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:36] "OPTIONS /api/pages/ligazone109/publish HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:36] "PUT /api/pages/ligazone109/publish HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:37] "PUT /api/pages/ligazone109/publish HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:39] "OPTIONS /api/pages/ligazone109 HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:39] "OPTIONS /api/pages/ligazone109 HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:40] "GET /api/pages/ligazone109 HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:40] "GET /api/pages/ligazone109 HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:43] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:43] "GET /api/pages/ligazone109 HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:43] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:44] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:44] "GET /api/pages/ligazone109 HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:45] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:45] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:45] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:46] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:49] "POST /api/login HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:49] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:49] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:49] "GET /api/public/pages/startup-studio HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:56] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:56] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:46:57] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:47:04] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:47:04] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:47:04] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:47:19] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:47:19] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:47:19] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:47:26] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:47:26] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:47:26] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:47:28] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:47:28] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:47:30] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:47:31] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:47:37] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:47:37] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:47:37] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:47:39] "OPTIONS /api/pages/ligazone109 HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:47:39] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:47:39] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:47:39] "GET /api/pages/ligazone109 HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:47:39] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:47:40] "GET /api/pages/ligazone109 HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:47:40] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:48:29] "OPTIONS /api/logout HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:48:29] "POST /api/logout HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:48:36] "OPTIONS /api/login HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:48:36] "POST /api/login HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:48:37] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:48:37] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:48:37] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:48:37] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:48:44] "OPTIONS /api/admin/analytics HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:48:44] "OPTIONS /api/admin/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:48:44] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:48:44] "OPTIONS /api/admin/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:48:44] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:48:44] "GET /api/admin/analytics HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:48:44] "GET /api/admin/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:48:44] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:48:44] "GET /api/admin/analytics HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:48:44] "GET /api/admin/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:48:45] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:49:34] "OPTIONS /api/logout HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:49:35] "POST /api/logout HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:49:53] "OPTIONS /api/login HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:49:53] "POST /api/login HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:49:53] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:49:54] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:49:54] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:49:54] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:49:57] "OPTIONS /api/admin/analytics HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:49:57] "OPTIONS /api/admin/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:49:57] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:49:57] "OPTIONS /api/admin/analytics HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:49:57] "OPTIONS /api/admin/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:49:57] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:49:57] "GET /api/admin/analytics HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:49:57] "GET /api/admin/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:49:57] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:49:58] "GET /api/admin/analytics HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:49:58] "GET /api/admin/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:49:58] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:49:58] "OPTIONS /api/admin/users HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:49:58] "OPTIONS /api/admin/users HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:49:58] "GET /api/admin/users HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:49:59] "GET /api/admin/users HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:50:37] "OPTIONS /api/admin/users/7 HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:50:37] "DELETE /api/admin/users/7 HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:50:38] "OPTIONS /api/admin/analytics HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:50:38] "OPTIONS /api/admin/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:50:38] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:50:38] "GET /api/admin/analytics HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:50:38] "GET /api/admin/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:50:38] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:50:38] "OPTIONS /api/admin/users HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:50:39] "GET /api/admin/users HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:50:46] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:50:46] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:50:46] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:50:47] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:50:56] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:50:56] "POST /api/pages HTTP/1.1" 201 -
+127.0.0.1 - - [28/May/2026 09:50:56] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:03] "OPTIONS /api/pages/dfffa/publish HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:03] "PUT /api/pages/dfffa/publish HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:03] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:03] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:06] "PUT /api/pages/dfffa/publish HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:06] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:08] "OPTIONS /api/pages/dfffa HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:08] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:08] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:08] "GET /api/pages/dfffa HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:08] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:08] "GET /api/pages/dfffa HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:08] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:12] "OPTIONS /api/pages/dfffa/sections HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:13] "POST /api/pages/dfffa/sections HTTP/1.1" 201 -
+127.0.0.1 - - [28/May/2026 09:51:21] "OPTIONS /api/pages/dfffa/sections HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:22] "POST /api/pages/dfffa/sections HTTP/1.1" 201 -
+127.0.0.1 - - [28/May/2026 09:51:27] "OPTIONS /api/pages/dfffa/sections HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:28] "POST /api/pages/dfffa/sections HTTP/1.1" 201 -
+127.0.0.1 - - [28/May/2026 09:51:34] "OPTIONS /api/pages/dfffa/sections HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:34] "POST /api/pages/dfffa/sections HTTP/1.1" 201 -
+127.0.0.1 - - [28/May/2026 09:51:40] "OPTIONS /api/pages/dfffa/sections HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:40] "POST /api/pages/dfffa/sections HTTP/1.1" 201 -
+127.0.0.1 - - [28/May/2026 09:51:46] "OPTIONS /api/pages/dfffa/sections/10/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:46] "PUT /api/pages/dfffa/sections/10/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:50] "OPTIONS /api/admin/analytics HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:50] "OPTIONS /api/admin/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:50] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:50] "OPTIONS /api/admin/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:50] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:50] "GET /api/admin/analytics HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:50] "GET /api/admin/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:51] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:51] "GET /api/admin/analytics HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:51] "GET /api/admin/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:51] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:51] "OPTIONS /api/admin/users HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:51] "OPTIONS /api/admin/users HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:51] "GET /api/admin/users HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:51] "GET /api/admin/users HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:56] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:56] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:56] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:56] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:59] "OPTIONS /api/pages/dfffa/publish HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:59] "PUT /api/pages/dfffa/publish HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:51:59] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:02] "PUT /api/pages/dfffa/publish HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:02] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:02] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:05] "OPTIONS /api/pages/dfffa/publish HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:06] "PUT /api/pages/dfffa/publish HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:06] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:09] "OPTIONS /api/admin/analytics HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:09] "OPTIONS /api/admin/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:09] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:09] "OPTIONS /api/admin/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:09] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:09] "GET /api/admin/analytics HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:10] "GET /api/admin/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:10] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:10] "GET /api/admin/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:10] "GET /api/admin/analytics HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:10] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:10] "OPTIONS /api/admin/users HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:10] "GET /api/admin/users HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:10] "GET /api/admin/users HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:38] "OPTIONS /api/admin/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:38] "POST /api/admin/templates HTTP/1.1" 201 -
+127.0.0.1 - - [28/May/2026 09:52:38] "OPTIONS /api/admin/analytics HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:38] "OPTIONS /api/admin/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:38] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:38] "GET /api/admin/analytics HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:39] "GET /api/admin/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:39] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:39] "OPTIONS /api/admin/users HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:39] "GET /api/admin/users HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:42] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:42] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:42] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:43] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:45] "OPTIONS /api/pages/dfffa HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:45] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:45] "OPTIONS /api/pages/dfffa HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:45] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:45] "GET /api/pages/dfffa HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:46] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:46] "GET /api/pages/dfffa HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:46] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:54] "OPTIONS /api/pages/dfffa/sections HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 09:52:55] "POST /api/pages/dfffa/sections HTTP/1.1" 201 -
+127.0.0.1 - - [28/May/2026 10:03:17] "OPTIONS /api/public/pages/dfffa HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:03:17] "OPTIONS /api/public/pages/dfffa HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:03:17] "GET /api/public/pages/dfffa HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:03:17] "GET /api/public/pages/dfffa HTTP/1.1" 200 -
+ * Detected change in 'C:\\Users\\Lenovo\\project\\web\\InstaWeb\\backend\\app\\seed.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 124-311-270
+127.0.0.1 - - [28/May/2026 10:49:59] "OPTIONS /api/public/pages/dfffa HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:49:59] "OPTIONS /api/public/pages/dfffa HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:49:59] "GET /api/public/pages/dfffa HTTP/1.1" 404 -
+127.0.0.1 - - [28/May/2026 10:49:59] "GET /api/public/pages/dfffa HTTP/1.1" 404 -
+127.0.0.1 - - [28/May/2026 10:50:01] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:50:01] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:50:01] "GET /api/pages HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 1536, in __call__
+    return self.wsgi_app(environ, start_response)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 1514, in wsgi_app
+    response = self.handle_exception(e)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask_cors\extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask_cors\extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask_jwt_extended\view_decorators.py", line 170, in decorator
+    return current_app.ensure_sync(fn)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\project\web\InstaWeb\backend\app\routes\pages.py", line 84, in index_pages
+    pages = Page.query.filter_by(user_id=user.id).order_by(Page.updated_at.desc()).all()
+                                         ^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'id'
+127.0.0.1 - - [28/May/2026 10:50:02] "GET /api/pages HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 1536, in __call__
+    return self.wsgi_app(environ, start_response)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 1514, in wsgi_app
+    response = self.handle_exception(e)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask_cors\extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask_cors\extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask_jwt_extended\view_decorators.py", line 170, in decorator
+    return current_app.ensure_sync(fn)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\project\web\InstaWeb\backend\app\routes\pages.py", line 84, in index_pages
+    pages = Page.query.filter_by(user_id=user.id).order_by(Page.updated_at.desc()).all()
+                                         ^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'id'
+127.0.0.1 - - [28/May/2026 10:50:37] "OPTIONS /api/logout HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:50:37] "POST /api/logout HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:50:40] "OPTIONS /api/login HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:50:41] "POST /api/login HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:50:41] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:50:41] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:50:41] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:50:42] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:50:47] "OPTIONS /api/pages/startup-studio/publish HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:50:47] "PUT /api/pages/startup-studio/publish HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:50:47] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:50:47] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:50:53] "OPTIONS /api/pages/startup-studio/publish HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:50:53] "PUT /api/pages/startup-studio/publish HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:50:53] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:50:54] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:50:56] "OPTIONS /api/pages/startup-studio HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:50:57] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:50:57] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:50:57] "GET /api/pages/startup-studio HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:50:57] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:50:57] "GET /api/pages/startup-studio HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:50:57] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:52:36] "OPTIONS /api/pages/startup-studio/sections/1/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:52:36] "PUT /api/pages/startup-studio/sections/1/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:53:22] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:53:23] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:53:23] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:53:23] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:53:29] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:53:29] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:53:30] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:54:15] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:54:15] "POST /api/pages HTTP/1.1" 201 -
+127.0.0.1 - - [28/May/2026 10:54:16] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:55:29] "OPTIONS /api/pages/ligazone HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:55:29] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:55:29] "OPTIONS /api/pages/ligazone HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:55:29] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:55:29] "GET /api/pages/ligazone HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:55:29] "GET /api/pages/ligazone HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:55:29] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:55:29] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:55:40] "OPTIONS /api/pages/ligazone/sections HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 10:55:40] "POST /api/pages/ligazone/sections HTTP/1.1" 201 -
+127.0.0.1 - - [28/May/2026 11:00:06] "OPTIONS /api/pages/ligazone/sections HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 11:00:06] "POST /api/pages/ligazone/sections HTTP/1.1" 201 -
+127.0.0.1 - - [28/May/2026 11:00:18] "OPTIONS /api/pages/ligazone/sections HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 11:00:18] "POST /api/pages/ligazone/sections HTTP/1.1" 201 -
+127.0.0.1 - - [28/May/2026 11:00:29] "OPTIONS /api/pages/ligazone/sections HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 11:00:29] "POST /api/pages/ligazone/sections HTTP/1.1" 201 -
+127.0.0.1 - - [28/May/2026 11:00:46] "OPTIONS /api/pages/ligazone/sections HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 11:00:47] "POST /api/pages/ligazone/sections HTTP/1.1" 201 -
+127.0.0.1 - - [28/May/2026 11:00:53] "OPTIONS /api/pages/ligazone/sections HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 11:00:53] "POST /api/pages/ligazone/sections HTTP/1.1" 201 -
+127.0.0.1 - - [28/May/2026 11:01:02] "OPTIONS /api/pages/ligazone/sections HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 11:01:03] "POST /api/pages/ligazone/sections HTTP/1.1" 201 -
+127.0.0.1 - - [28/May/2026 11:01:08] "OPTIONS /api/pages/ligazone/sections HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 11:01:08] "POST /api/pages/ligazone/sections HTTP/1.1" 201 -
+127.0.0.1 - - [28/May/2026 11:01:15] "OPTIONS /api/pages/ligazone/sections HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 11:01:16] "POST /api/pages/ligazone/sections HTTP/1.1" 201 -
+127.0.0.1 - - [28/May/2026 11:01:22] "OPTIONS /api/pages/ligazone/sections HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 11:01:22] "POST /api/pages/ligazone/sections HTTP/1.1" 201 -
+127.0.0.1 - - [28/May/2026 11:01:26] "POST /api/pages/ligazone/sections HTTP/1.1" 201 -
+127.0.0.1 - - [28/May/2026 11:01:32] "OPTIONS /api/pages/ligazone/sections HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 11:01:32] "POST /api/pages/ligazone/sections HTTP/1.1" 201 -
+127.0.0.1 - - [28/May/2026 11:01:38] "OPTIONS /api/pages/ligazone/sections HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 11:01:38] "POST /api/pages/ligazone/sections HTTP/1.1" 201 -
+127.0.0.1 - - [28/May/2026 11:01:44] "OPTIONS /api/pages/ligazone/sections HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 11:01:45] "POST /api/pages/ligazone/sections HTTP/1.1" 201 -
+127.0.0.1 - - [28/May/2026 11:01:57] "OPTIONS /api/pages/ligazone/sections HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 11:01:57] "POST /api/pages/ligazone/sections HTTP/1.1" 201 -
+127.0.0.1 - - [28/May/2026 11:03:03] "OPTIONS /api/pages/ligazone/sections/reorder HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 11:03:04] "PUT /api/pages/ligazone/sections/reorder HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 11:03:05] "PUT /api/pages/ligazone/sections/reorder HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 11:03:10] "OPTIONS /api/pages/ligazone HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 11:03:11] "OPTIONS /api/pages/ligazone HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 11:03:11] "GET /api/pages/ligazone HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 11:03:11] "GET /api/pages/ligazone HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 11:03:19] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 11:03:19] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 11:03:19] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 11:03:19] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 11:03:22] "OPTIONS /api/pages/ligazone HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 11:03:23] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 11:03:23] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 11:03:23] "GET /api/pages/ligazone HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 11:03:23] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 11:03:23] "GET /api/pages/ligazone HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 11:03:23] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:12:21] "OPTIONS /api/pages/ligazone HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:12:21] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:12:21] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:12:22] "OPTIONS /api/pages/ligazone HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:12:22] "GET /api/pages/ligazone HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:12:22] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:12:23] "GET /api/pages/ligazone HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:12:23] "GET /api/templates HTTP/1.1" 200 -
+ * Detected change in 'C:\\Users\\Lenovo\\project\\web\\InstaWeb\\backend\\app\\routes\\pages.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 124-311-270
+127.0.0.1 - - [28/May/2026 17:17:49] "OPTIONS /api/pages/ligazone HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:17:49] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:17:49] "GET /api/pages/ligazone HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:17:49] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:18:45] "OPTIONS /api/pages/ligazone HTTP/1.1" 200 -
+ * Detected change in 'C:\\Users\\Lenovo\\project\\web\\InstaWeb\\backend\\app\\seed.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 124-311-270
+127.0.0.1 - - [28/May/2026 17:18:57] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:18:57] "GET /api/pages/ligazone HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:18:57] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:20:12] "OPTIONS /api/pages/ligazone HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:20:12] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:20:13] "GET /api/pages/ligazone HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:20:13] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:21:40] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:21:40] "OPTIONS /api/pages/ligazone HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:21:40] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:21:40] "GET /api/pages/ligazone HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:23:31] "OPTIONS /api/pages/ligazone HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:23:31] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:23:32] "GET /api/pages/ligazone HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:23:33] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:24:29] "OPTIONS /api/pages/ligazone/sections/11/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:24:30] "PUT /api/pages/ligazone/sections/11/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:24:31] "PUT /api/pages/ligazone/sections/11/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:24:39] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:24:39] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:24:39] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:24:39] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:24:44] "OPTIONS /api/pages/ligazone HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:24:45] "DELETE /api/pages/ligazone HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:24:45] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:24:45] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:25:34] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:25:35] "POST /api/pages HTTP/1.1" 201 -
+127.0.0.1 - - [28/May/2026 17:25:35] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:25:38] "OPTIONS /api/pages/portofolio HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:25:39] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:25:39] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:25:39] "GET /api/pages/portofolio HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:25:39] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:25:39] "GET /api/pages/portofolio HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:25:39] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:25:53] "OPTIONS /api/pages/portofolio/sections HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:25:53] "POST /api/pages/portofolio/sections HTTP/1.1" 201 -
+127.0.0.1 - - [28/May/2026 17:26:05] "OPTIONS /api/pages/portofolio/sections/36/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:26:06] "PUT /api/pages/portofolio/sections/36/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:26:09] "PUT /api/pages/portofolio/sections/36/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:26:11] "OPTIONS /api/pages/portofolio/sections/36/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:26:12] "PUT /api/pages/portofolio/sections/36/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:26:31] "OPTIONS /api/pages/portofolio/sections/36/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:26:32] "PUT /api/pages/portofolio/sections/36/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:26:33] "PUT /api/pages/portofolio/sections/36/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:26:34] "PUT /api/pages/portofolio/sections/36/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:26:36] "PUT /api/pages/portofolio/sections/36/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:26:38] "OPTIONS /api/pages/portofolio/sections/36/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:26:39] "PUT /api/pages/portofolio/sections/36/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:26:39] "PUT /api/pages/portofolio/sections/36/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:26:42] "PUT /api/pages/portofolio/sections/36/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:26:43] "PUT /api/pages/portofolio/sections/36/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:26:45] "OPTIONS /api/pages/portofolio/sections/36/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:26:45] "PUT /api/pages/portofolio/sections/36/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:26:46] "PUT /api/pages/portofolio/sections/36/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:26:48] "PUT /api/pages/portofolio/sections/36/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:26:49] "PUT /api/pages/portofolio/sections/36/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:26:51] "OPTIONS /api/pages/portofolio/sections/36/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:26:51] "PUT /api/pages/portofolio/sections/36/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:26:53] "PUT /api/pages/portofolio/sections/36/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:26:56] "PUT /api/pages/portofolio/sections/36/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:26:56] "OPTIONS /api/pages/portofolio/sections/36/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:26:58] "PUT /api/pages/portofolio/sections/36/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:26:58] "PUT /api/pages/portofolio/sections/36/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:26:58] "PUT /api/pages/portofolio/sections/36/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:27:54] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:27:59] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:28:00] "GET /api/pages HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 1536, in __call__
+    return self.wsgi_app(environ, start_response)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 1514, in wsgi_app
+    response = self.handle_exception(e)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask_cors\extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask_cors\extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask_jwt_extended\view_decorators.py", line 170, in decorator
+    return current_app.ensure_sync(fn)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\project\web\InstaWeb\backend\app\routes\pages.py", line 87, in index_pages
+    pages = Page.query.filter_by(user_id=user.id).order_by(Page.updated_at.desc()).all()
+                                         ^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'id'
+127.0.0.1 - - [28/May/2026 17:28:01] "GET /api/pages HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 1536, in __call__
+    return self.wsgi_app(environ, start_response)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 1514, in wsgi_app
+    response = self.handle_exception(e)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask_cors\extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask_cors\extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask_jwt_extended\view_decorators.py", line 170, in decorator
+    return current_app.ensure_sync(fn)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\project\web\InstaWeb\backend\app\routes\pages.py", line 87, in index_pages
+    pages = Page.query.filter_by(user_id=user.id).order_by(Page.updated_at.desc()).all()
+                                         ^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'id'
+127.0.0.1 - - [28/May/2026 17:28:05] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:28:05] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:28:05] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:28:05] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:28:40] "OPTIONS /api/pages/startup-studio HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:28:41] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:28:42] "OPTIONS /api/pages/startup-studio HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:28:42] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:28:42] "GET /api/pages/startup-studio HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:28:42] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:28:44] "GET /api/pages/startup-studio HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:28:45] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:29:06] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:29:06] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:29:07] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:29:07] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:29:14] "OPTIONS /api/logout HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:29:15] "POST /api/logout HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:44:00] "OPTIONS /api/login HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:44:01] "POST /api/login HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:44:01] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:44:01] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:44:02] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:44:10] "OPTIONS /api/public/pages/startup-studio HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:44:10] "GET /api/public/pages/startup-studio HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 17:44:10] "GET /api/public/pages/startup-studio HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 18:34:26] "OPTIONS /api/public/pages/startup-studio HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 18:34:26] "OPTIONS /api/public/pages/startup-studio HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 18:53:05] "OPTIONS /api/public/pages/startup-studio HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 18:53:05] "OPTIONS /api/public/pages/startup-studio HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:04:51] "OPTIONS /api/pages/startup-studio HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:04:51] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:04:51] "OPTIONS /api/pages/startup-studio HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:04:51] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:04:52] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:04:52] "GET /api/pages/startup-studio HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:04:52] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:04:52] "GET /api/pages/startup-studio HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:05:05] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:05:05] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:05:05] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:05:05] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:05:14] "OPTIONS /api/logout HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:05:14] "POST /api/logout HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:05:38] "OPTIONS /api/login HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:05:38] "POST /api/login HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:05:39] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:05:39] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:05:39] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:05:40] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:05:43] "OPTIONS /api/admin/analytics HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:05:44] "OPTIONS /api/admin/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:05:44] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:05:44] "OPTIONS /api/admin/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:05:44] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:05:44] "GET /api/admin/analytics HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:05:44] "GET /api/admin/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:05:44] "GET /api/admin/analytics HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:05:44] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:05:45] "GET /api/admin/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:05:45] "OPTIONS /api/admin/users HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:05:45] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:05:46] "GET /api/admin/users HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:05:46] "GET /api/admin/users HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:06:03] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:06:04] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:06:04] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:06:04] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:06:06] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:06:06] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:06:07] "OPTIONS /api/admin/analytics HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:06:08] "OPTIONS /api/admin/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:06:08] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:06:08] "OPTIONS /api/admin/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:06:08] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:06:08] "GET /api/admin/analytics HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:06:08] "GET /api/admin/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:06:08] "GET /api/admin/analytics HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:06:08] "GET /api/admin/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:06:08] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:06:08] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:06:09] "OPTIONS /api/admin/users HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:06:09] "OPTIONS /api/admin/users HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:06:09] "GET /api/admin/users HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:06:09] "GET /api/admin/users HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:06:25] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:06:26] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:06:26] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:06:32] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:06:33] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:06:33] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:07:10] "OPTIONS /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:07:10] "POST /api/pages HTTP/1.1" 201 -
+127.0.0.1 - - [28/May/2026 19:07:10] "GET /api/pages HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:07:17] "OPTIONS /api/pages/michie HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:07:17] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:07:17] "OPTIONS /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:07:17] "GET /api/pages/michie HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:07:17] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:07:17] "GET /api/pages/michie HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:07:17] "GET /api/templates HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:07:42] "OPTIONS /api/pages/michie/sections HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:07:42] "POST /api/pages/michie/sections HTTP/1.1" 201 -
+127.0.0.1 - - [28/May/2026 19:07:49] "OPTIONS /api/pages/michie/sections/11/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:07:49] "PUT /api/pages/michie/sections/11/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:07:51] "PUT /api/pages/michie/sections/11/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:07:54] "PUT /api/pages/michie/sections/11/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:07:55] "OPTIONS /api/pages/michie/sections/11/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:07:55] "PUT /api/pages/michie/sections/11/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:07:58] "PUT /api/pages/michie/sections/11/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:08:00] "OPTIONS /api/pages/michie/sections/11/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:08:01] "PUT /api/pages/michie/sections/11/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:08:18] "OPTIONS /api/pages/michie/sections HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:08:19] "POST /api/pages/michie/sections HTTP/1.1" 201 -
+127.0.0.1 - - [28/May/2026 19:08:32] "OPTIONS /api/pages/michie/sections/12/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:08:32] "PUT /api/pages/michie/sections/12/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:08:33] "PUT /api/pages/michie/sections/12/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:08:36] "PUT /api/pages/michie/sections/12/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:08:40] "OPTIONS /api/pages/michie/sections/12/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:08:40] "PUT /api/pages/michie/sections/12/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:08:42] "PUT /api/pages/michie/sections/12/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:08:46] "OPTIONS /api/pages/michie/sections/12/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:08:47] "PUT /api/pages/michie/sections/12/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:08:49] "PUT /api/pages/michie/sections/12/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:08:51] "PUT /api/pages/michie/sections/12/fields HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:11:52] "OPTIONS /api/pages/upload HTTP/1.1" 200 -
+127.0.0.1 - - [28/May/2026 19:11:53] "POST /api/pages/upload HTTP/1.1" 405 -
