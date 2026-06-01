@@ -3,8 +3,8 @@ from flask_jwt_extended import jwt_required
 
 from ..authz import role_required
 from ..extensions import db
-from ..models import Page, PageSection, SectionFieldValue, Template, TemplateField, User
-from ..responses import forbidden, invalid_field, not_found, success
+from ..models import Invitation, Page, PageSection, PageView, SectionFieldValue, Subscription, Template, TemplateField, User
+from ..responses import error, forbidden, invalid_field, not_found, success
 from ..serializers import page_to_dict, template_to_dict, user_to_dict
 from ..validators import add_error, validate_required_string, validate_slug
 
@@ -101,6 +101,9 @@ def analytics():
             "sections": PageSection.query.count(),
             "templates": Template.query.count(),
             "roles": roles,
+            "total_page_views": PageView.query.count(),
+            "active_subscriptions": Subscription.query.filter_by(status="active").filter(Subscription.plan != "free").count(),
+            "total_invitations": Invitation.query.count(),
         },
     )
 
@@ -243,4 +246,75 @@ def delete_template(slug):
     db.session.delete(template)
     db.session.commit()
     return success("Template deleted successful")
+
+
+# ---------------------------------------------------------------------------
+# GET /api/admin/subscriptions — List all subscriptions
+# ---------------------------------------------------------------------------
+
+@admin_bp.get("/subscriptions")
+@jwt_required()
+@role_required("admin", "super_admin")
+def admin_subscriptions():
+    subs = Subscription.query.order_by(Subscription.created_at.desc()).all()
+    items = []
+    for s in subs:
+        items.append({
+            "id": s.id,
+            "user": {"id": s.user.id, "name": s.user.name, "email": s.user.email},
+            "plan": s.plan,
+            "billing_cycle": s.billing_cycle,
+            "status": s.status,
+            "amount": s.amount,
+            "started_at": s.started_at.isoformat() if s.started_at else None,
+            "expires_at": s.expires_at.isoformat() if s.expires_at else None,
+        })
+    return success("All subscriptions", {"subscriptions": items})
+
+
+# ---------------------------------------------------------------------------
+# PUT /api/admin/subscriptions/<id> — Admin can change user plan
+# ---------------------------------------------------------------------------
+
+@admin_bp.put("/subscriptions/<int:sub_id>")
+@jwt_required()
+@role_required("super_admin")
+def admin_update_subscription(sub_id):
+    sub = Subscription.query.get(sub_id)
+    if not sub:
+        return not_found()
+    payload = request.get_json(silent=True) or {}
+    if "plan" in payload and payload["plan"] in ("free", "plus", "pro_plus"):
+        sub.plan = payload["plan"]
+    if "status" in payload and payload["status"] in ("active", "expired", "cancelled"):
+        sub.status = payload["status"]
+    db.session.commit()
+    return success("Subscription updated")
+
+
+# ---------------------------------------------------------------------------
+# GET /api/admin/revenue — Revenue summary
+# ---------------------------------------------------------------------------
+
+@admin_bp.get("/revenue")
+@jwt_required()
+@role_required("admin", "super_admin")
+def admin_revenue():
+    from sqlalchemy import func
+
+    total = (
+        db.session.query(func.sum(Subscription.amount))
+        .filter(Subscription.status == "active")
+        .scalar()
+        or 0
+    )
+    active_plus = Subscription.query.filter_by(plan="plus", status="active").count()
+    active_pro = Subscription.query.filter_by(plan="pro_plus", status="active").count()
+    total_subs = Subscription.query.filter(Subscription.status == "active").count()
+    return success("Revenue summary", {
+        "total_revenue": total,
+        "active_subscriptions": total_subs,
+        "plus_subscribers": active_plus,
+        "pro_plus_subscribers": active_pro,
+    })
 

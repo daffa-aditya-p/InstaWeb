@@ -2,7 +2,7 @@ from functools import wraps
 
 from flask_jwt_extended import get_jwt_identity
 
-from .models import Page, User
+from .models import Page, PageCollaborator, User
 from .responses import forbidden, not_found
 
 
@@ -39,7 +39,13 @@ def get_page_or_response(identifier, user=None, allow_admin=True):
         page = Page.query.filter_by(slug=identifier).first()
     if page is None:
         return None, not_found()
-    if user and page.user_id != user.id and not (allow_admin and user.role in ADMIN_ROLES):
-        return None, forbidden()
+    if user:
+        is_owner = page.user_id == user.id
+        is_admin = allow_admin and user.role in ADMIN_ROLES
+        is_collaborator = PageCollaborator.query.filter_by(
+            page_id=page.id, user_id=user.id
+        ).first() is not None
+        if not (is_owner or is_admin or is_collaborator):
+            return None, forbidden()
     return page, None
 

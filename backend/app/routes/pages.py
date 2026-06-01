@@ -8,7 +8,7 @@ from werkzeug.utils import secure_filename
 
 from ..authz import current_user, get_page_or_response
 from ..extensions import db
-from ..models import Page, PageSection, SectionFieldValue, Template
+from ..models import Page, PageSection, SectionFieldValue, Template, PageCollaborator
 from ..responses import forbidden, invalid_field, not_found, success
 from ..serializers import page_to_dict, section_to_dict
 from ..validators import add_error, validate_optional_string, validate_required_string, validate_slug
@@ -45,12 +45,19 @@ def validate_page_payload(payload, create=True, page=None):
     return errors
 
 
-def own_page(slug):
+def own_page(slug, allow_collaborator=True):
     user = current_user()
     page = Page.query.filter_by(slug=slug).first()
     if page is None:
         return None, not_found()
-    if page.user_id != user.id and user.role not in {"admin", "super_admin"}:
+    is_owner = page.user_id == user.id
+    is_admin = user.role in {"admin", "super_admin"}
+    is_collaborator = False
+    if allow_collaborator:
+        is_collaborator = PageCollaborator.query.filter_by(
+            page_id=page.id, user_id=user.id
+        ).first() is not None
+    if not (is_owner or is_admin or is_collaborator):
         return None, forbidden()
     return page, None
 
@@ -84,7 +91,10 @@ def create_page():
 @jwt_required()
 def index_pages():
     user = current_user()
-    pages = Page.query.filter_by(user_id=user.id).order_by(Page.updated_at.desc()).all()
+    pages = Page.query.filter(
+        (Page.user_id == user.id) | 
+        Page.id.in_(db.session.query(PageCollaborator.page_id).filter_by(user_id=user.id))
+    ).order_by(Page.updated_at.desc()).all()
     return success(
         "Get all pages successful",
         {"pages": [page_to_dict(page) for page in pages]},
@@ -126,7 +136,7 @@ def update_page(slug):
 @pages_bp.delete("/pages/<slug>")
 @jwt_required()
 def delete_page(slug):
-    page, response = own_page(slug)
+    page, response = own_page(slug, allow_collaborator=False)
     if response:
         return response
     db.session.delete(page)
@@ -307,6 +317,137 @@ def remove_section(slug, section_id):
     return success("Section removed successful")
 
 
+@pages_bp.post("/pages/<slug>/duplicate")
+@jwt_required()
+def duplicate_page(slug):
+    page, response = own_page(slug)
+    if response:
+        return response
+
+    # Generate a unique slug
+    base_slug = page.slug + "-copy"
+    new_slug = base_slug
+    counter = 2
+    while Page.query.filter_by(slug=new_slug).first() is not None:
+        new_slug = f"{base_slug}-{counter}"
+        counter += 1
+
+    user = current_user()
+    new_page = Page(
+        user_id=user.id,
+        title=page.title + " (Copy)",
+        slug=new_slug,
+        summary=page.summary,
+        is_published=False,
+        meta_title=page.meta_title,
+        meta_description=page.meta_description,
+        og_image=page.og_image,
+    )
+    db.session.add(new_page)
+    db.session.flush()
+
+    for section in sorted(page.sections, key=lambda s: s.position):
+        new_section = PageSection(
+            page_id=new_page.id,
+            template_id=section.template_id,
+            position=section.position,
+        )
+        db.session.add(new_section)
+        db.session.flush()
+
+        for fv in section.field_values:
+            db.session.add(
+                SectionFieldValue(
+                    page_section_id=new_section.id,
+                    template_field_id=fv.template_field_id,
+                    value=fv.value,
+                )
+            )
+
+    db.session.commit()
+    return success("Page duplicated successful", page_to_dict(new_page, include_sections=True), 201)
+
+
+@pages_bp.post("/pages/<slug>/sections/<int:section_id>/duplicate")
+@jwt_required()
+def duplicate_section(slug, section_id):
+    page, response = own_page(slug)
+    if response:
+        return response
+
+    section = PageSection.query.filter_by(id=section_id, page_id=page.id).first()
+    if section is None:
+        return not_found()
+
+    # Shift sections after the original to make room
+    for s in sorted(page.sections, key=lambda item: item.position, reverse=True):
+        if s.position > section.position:
+            s.position += 1
+
+    new_section = PageSection(
+        page_id=page.id,
+        template_id=section.template_id,
+        position=section.position + 1,
+    )
+    db.session.add(new_section)
+    db.session.flush()
+
+    for fv in section.field_values:
+        db.session.add(
+            SectionFieldValue(
+                page_section_id=new_section.id,
+                template_field_id=fv.template_field_id,
+                value=fv.value,
+            )
+        )
+
+    db.session.flush()
+    normalize_positions(page)
+    db.session.commit()
+    return success("Section duplicated successful", section_to_dict(new_section), 201)
+
+
+@pages_bp.get("/pages/<slug>/export")
+@jwt_required()
+def export_page(slug):
+    page, response = own_page(slug)
+    if response:
+        return response
+
+    return success("Page exported successful", page_to_dict(page, include_sections=True))
+
+
+@pages_bp.put("/pages/<slug>/seo")
+@jwt_required()
+def update_page_seo(slug):
+    page, response = own_page(slug)
+    if response:
+        return response
+
+    payload = request.get_json(silent=True) or {}
+
+    if "meta_title" in payload:
+        value = payload["meta_title"]
+        if value is not None and not isinstance(value, str):
+            return invalid_field({"meta_title": ["The meta_title must be a string."]})
+        page.meta_title = value
+
+    if "meta_description" in payload:
+        value = payload["meta_description"]
+        if value is not None and not isinstance(value, str):
+            return invalid_field({"meta_description": ["The meta_description must be a string."]})
+        page.meta_description = value
+
+    if "og_image" in payload:
+        value = payload["og_image"]
+        if value is not None and not isinstance(value, str):
+            return invalid_field({"og_image": ["The og_image must be a string."]})
+        page.og_image = value
+
+    db.session.commit()
+    return success("Page SEO updated successful", page_to_dict(page))
+
+
 @pages_bp.post("/upload")
 @jwt_required()
 def upload_file():
@@ -348,5 +489,3 @@ def upload_file():
         "status": "success",
         "url": file_url
     }), 200
-
-

@@ -42,10 +42,14 @@ def create_app(config_class=Config):
 
 def register_blueprints(app):
     from .routes.admin import admin_bp
+    from .routes.analytics import analytics_bp
     from .routes.auth import auth_bp
+    from .routes.collaborators import collaborator_bp
+    from .routes.invitations import invitation_bp
     from .routes.pages import pages_bp
     from .routes.profile import profile_bp
     from .routes.public import public_bp
+    from .routes.subscriptions import subscription_bp
     from .routes.templates import templates_bp
 
     app.register_blueprint(auth_bp, url_prefix="/api")
@@ -54,6 +58,10 @@ def register_blueprints(app):
     app.register_blueprint(public_bp, url_prefix="/api")
     app.register_blueprint(profile_bp, url_prefix="/api")
     app.register_blueprint(admin_bp, url_prefix="/api/admin")
+    app.register_blueprint(analytics_bp, url_prefix="/api")
+    app.register_blueprint(subscription_bp, url_prefix="/api")
+    app.register_blueprint(collaborator_bp, url_prefix="/api")
+    app.register_blueprint(invitation_bp, url_prefix="/api")
 
 
 def register_jwt_handlers(jwt_manager):

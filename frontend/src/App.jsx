@@ -14,6 +14,9 @@ const PreviewPage = React.lazy(() => import("./pages/PreviewPage"));
 const ProfilePage = React.lazy(() => import("./pages/ProfilePage"));
 const PublicSitePage = React.lazy(() => import("./pages/PublicSitePage"));
 const RegisterPage = React.lazy(() => import("./pages/RegisterPage"));
+const AnalyticsPage = React.lazy(() => import("./pages/AnalyticsPage"));
+const PricingPage = React.lazy(() => import("./pages/PricingPage"));
+const InboxPage = React.lazy(() => import("./pages/InboxPage"));
 
 function RouteLoadingSpinner() {
   return (
@@ -66,6 +69,9 @@ export default function App() {
             <Route path="/pages/:slug/builder" element={<BuilderPage />} />
             <Route path="/pages/:slug/preview" element={<PreviewPage />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/analytics" element={<AnalyticsPage />} />
+            <Route path="/pricing" element={<PricingPage />} />
+            <Route path="/inbox" element={<InboxPage />} />
             <Route element={<AdminRoute />}>
               <Route path="/admin" element={<AdminPage />} />
             </Route>

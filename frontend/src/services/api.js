@@ -60,6 +60,10 @@ export const pagesApi = {
         headers: { "Content-Type": "multipart/form-data" },
       })
     ),
+  duplicate: (slug) => unwrap(api.post(`/pages/${slug}/duplicate`)),
+  duplicateSection: (slug, sectionId) => unwrap(api.post(`/pages/${slug}/sections/${sectionId}/duplicate`)),
+  exportPage: (slug) => unwrap(api.get(`/pages/${slug}/export`)),
+  updateSeo: (slug, data) => unwrap(api.put(`/pages/${slug}/seo`, data)),
 };
 
 export const templatesApi = {
@@ -81,5 +85,35 @@ export const adminApi = {
   createTemplate: (payload) => unwrap(api.post("/admin/templates", payload)),
   updateTemplate: (slug, payload) => unwrap(api.put(`/admin/templates/${slug}`, payload)),
   deleteTemplate: (slug) => unwrap(api.delete(`/admin/templates/${slug}`)),
+  subscriptions: () => unwrap(api.get("/admin/subscriptions")),
+  updateSubscription: (id, payload) => unwrap(api.put(`/admin/subscriptions/${id}`, payload)),
+  revenue: () => unwrap(api.get("/admin/revenue")),
 };
 
+export const analyticsApi = {
+  overview: () => unwrap(api.get("/analytics/overview")),
+  summary: (slug) => unwrap(api.get(`/analytics/pages/${slug}/summary`)),
+  details: (slug) => unwrap(api.get(`/analytics/pages/${slug}/details`)),
+  visitors: (slug) => unwrap(api.get(`/analytics/pages/${slug}/visitors`)),
+};
+
+export const subscriptionApi = {
+  get: () => unwrap(api.get("/subscription")),
+  create: (data) => unwrap(api.post("/subscription/create", data)),
+  status: (orderId) => unwrap(api.get(`/subscription/status/${orderId}`)),
+  verify: (data) => unwrap(api.post("/subscription/verify", data)),
+};
+
+export const collaboratorApi = {
+  list: (slug) => unwrap(api.get(`/pages/${slug}/collaborators`)),
+  add: (slug, data) => unwrap(api.post(`/pages/${slug}/collaborators`, data)),
+  remove: (slug, id) => unwrap(api.delete(`/pages/${slug}/collaborators/${id}`)),
+};
+
+export const invitationApi = {
+  send: (slug, data) => unwrap(api.post(`/pages/${slug}/invite`, data)),
+  inbox: () => unwrap(api.get("/inbox")),
+  accept: (id) => unwrap(api.put(`/inbox/${id}/accept`)),
+  decline: (id) => unwrap(api.put(`/inbox/${id}/decline`)),
+  count: () => unwrap(api.get("/inbox/count")),
+};

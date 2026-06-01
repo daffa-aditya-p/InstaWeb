@@ -16,3 +16,12 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     JSON_SORT_KEYS = False
     CORS_ORIGINS = os.getenv("CORS_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173")
+
+    # Midtrans Sandbox
+    MIDTRANS_SERVER_KEY = os.getenv("MIDTRANS_SERVER_KEY", "")
+    MIDTRANS_CLIENT_KEY = os.getenv("MIDTRANS_CLIENT_KEY", "Mid-client-F_unA-FZad4yCO6Z")
+    MIDTRANS_MERCHANT_ID = os.getenv("MIDTRANS_MERCHANT_ID", "G751254483")
+    MIDTRANS_IS_PRODUCTION = False
+    MIDTRANS_SNAP_URL = "https://app.sandbox.midtrans.com/snap/v1/transactions"
+    MIDTRANS_API_URL = "https://api.sandbox.midtrans.com/v2"
+    MAX_CONTENT_LENGTH = 10 * 1024 * 1024  # 10MB upload limit

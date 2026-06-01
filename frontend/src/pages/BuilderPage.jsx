@@ -6,16 +6,21 @@ import {
   FiArrowDown,
   FiArrowLeft,
   FiArrowUp,
+  FiCopy,
+  FiDownload,
   FiEye,
   FiExternalLink,
   FiGlobe,
   FiImage,
   FiPlus,
   FiSave,
+  FiSearch,
   FiTrash2,
   FiUpload,
   FiSliders,
   FiEdit,
+  FiUsers,
+  FiX,
 } from "react-icons/fi";
 
 import { WebsiteRenderer } from "../components/sections/SectionRenderer";
@@ -27,7 +32,8 @@ import { Modal } from "../components/ui/Modal";
 import { Skeleton } from "../components/ui/Skeleton";
 import { useDocumentTitle } from "../hooks/useDocumentTitle";
 import { useShortcut } from "../hooks/useShortcut";
-import { apiError, pagesApi, templatesApi } from "../services/api";
+import { apiError, pagesApi, templatesApi, collaboratorApi, invitationApi } from "../services/api";
+import { useAuthStore } from "../store/authStore";
 import { fieldSummary } from "../utils/fields";
 
 const CATEGORIES = [
@@ -37,6 +43,7 @@ const CATEGORIES = [
   { id: "features", name: "Features & Grids" },
   { id: "clients", name: "Client Love" },
   { id: "forms", name: "Forms & Contact" },
+  { id: "advanced", name: "Advanced" },
 ];
 
 const getTemplateCategory = (slug) => {
@@ -82,6 +89,8 @@ const getTemplateCategory = (slug) => {
     slug === "newsletter"
   )
     return "forms";
+  if (slug === "custom_html" || slug === "iframe_embed")
+    return "advanced";
   return "features";
 };
 
@@ -576,6 +585,20 @@ export default function BuilderPage() {
   const [removeTarget, setRemoveTarget] = useState(null);
   const [activeTab, setActiveTab] = useState("content");
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [showInviteModal, setShowInviteModal] = useState(false);
+  const [inviteEmail, setInviteEmail] = useState("");
+  const [inviteMessage, setInviteMessage] = useState("");
+  const [inviting, setInviting] = useState(false);
+  const [collaborators, setCollaborators] = useState([]);
+  const [showSeoModal, setShowSeoModal] = useState(false);
+  const [seoForm, setSeoForm] = useState({ meta_title: "", meta_description: "", og_image: "" });
+  const [savingSeo, setSavingSeo] = useState(false);
+  const subscription = useAuthStore((s) => s.subscription);
+  const fetchSub = useAuthStore((s) => s.fetchSubscription);
+  const userPlan = subscription?.plan || "free";
+
+  // Always fetch fresh subscription status on mount
+  useEffect(() => { fetchSub(); }, [fetchSub]);
 
   const categoryCounts = useMemo(() => {
     const counts = { all: templates.length };
@@ -763,6 +786,106 @@ export default function BuilderPage() {
     }
   };
 
+  const fetchCollaborators = useCallback(async () => {
+    if (userPlan !== "pro_plus" || !page?.slug) return;
+    try {
+      const res = await collaboratorApi.list(page.slug);
+      setCollaborators(res.data?.collaborators || []);
+    } catch { /* ignore */ }
+  }, [userPlan, page?.slug]);
+
+  useEffect(() => { fetchCollaborators(); }, [fetchCollaborators]);
+
+  const handleInvite = async () => {
+    if (!inviteEmail.trim()) return;
+    setInviting(true);
+    try {
+      await invitationApi.send(page.slug, { email: inviteEmail.trim(), message: inviteMessage.trim() });
+      toast.success(`Undangan terkirim ke ${inviteEmail}`);
+      setInviteEmail("");
+      setInviteMessage("");
+      setShowInviteModal(false);
+      fetchCollaborators();
+    } catch (err) {
+      toast.error(apiError(err).message);
+    } finally {
+      setInviting(false);
+    }
+  };
+
+  const openSeoModal = () => {
+    setSeoForm({
+      meta_title: page?.meta_title || "",
+      meta_description: page?.meta_description || "",
+      og_image: page?.og_image || "",
+    });
+    setShowSeoModal(true);
+  };
+
+  const saveSeo = async () => {
+    setSavingSeo(true);
+    try {
+      await pagesApi.updateSeo(slug, seoForm);
+      setPage((current) => ({ ...current, ...seoForm }));
+      toast.success("SEO settings saved");
+      setShowSeoModal(false);
+    } catch (error) {
+      toast.error(apiError(error).message);
+    } finally {
+      setSavingSeo(false);
+    }
+  };
+
+  const exportToHtml = () => {
+    const sections = [...(page.sections || [])].sort((a, b) => a.position - b.position);
+    const sectionHtml = sections.map((section) => {
+      const fieldsHtml = section.fields
+        .filter((f) => !f.slug.startsWith("style_"))
+        .map((f) => {
+          if (f.type === "image" && f.value) {
+            return `<img src="${f.value}" alt="${f.name}" style="max-width:100%;height:auto;" />`;
+          }
+          return `<p>${f.value || ""}</p>`;
+        })
+        .join("\n        ");
+      return `    <section style="padding:48px 24px;">
+      <h2 style="margin-bottom:16px;">${section.template?.name || "Section"}</h2>
+      ${fieldsHtml}
+    </section>`;
+    }).join("\n");
+
+    const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>${page.title || "Exported Page"}</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1a1a1a; }
+    section { border-bottom: 1px solid #e5e5e5; }
+    img { border-radius: 8px; margin-top: 8px; }
+    h2 { font-size: 1.5rem; }
+    p { margin-top: 8px; line-height: 1.6; }
+  </style>
+</head>
+<body>
+${sectionHtml}
+</body>
+</html>`;
+
+    const blob = new Blob([html], { type: "text/html" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `${page.slug || "page"}.html`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    toast.success("HTML file downloaded");
+  };
+
   if (loading) {
     return (
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-[360px_1fr]">
@@ -803,6 +926,26 @@ export default function BuilderPage() {
         <div className="flex flex-wrap gap-2">
           <Button icon={FiEye} onClick={() => navigate(`/pages/${page.slug}/preview`)}>
             Preview
+          </Button>
+          <Button
+              variant="secondary"
+              size="sm"
+              icon={FiUsers}
+              onClick={() => {
+                if (userPlan === "pro_plus") {
+                  setShowInviteModal(true);
+                } else {
+                  toast("Fitur Invite hanya untuk paket Pro+. Upgrade di halaman Pricing!", { icon: "👑" });
+                }
+              }}
+            >
+              <span className="hidden sm:inline">Invite</span>
+            </Button>
+          <Button icon={FiSearch} onClick={openSeoModal}>
+            SEO
+          </Button>
+          <Button icon={FiDownload} onClick={exportToHtml}>
+            Export
           </Button>
           {page.is_published ? (
             <>
@@ -886,6 +1029,22 @@ export default function BuilderPage() {
                       aria-label="Move section down"
                     >
                       <FiArrowDown className="h-3.5 w-3.5" />
+                    </Button>
+                    <Button
+                      size="icon"
+                      variant="ghost"
+                      onClick={async () => {
+                        try {
+                          await pagesApi.duplicateSection(slug, section.id);
+                          await load();
+                          toast.success("Section duplicated");
+                        } catch (error) {
+                          toast.error(apiError(error).message);
+                        }
+                      }}
+                      aria-label="Duplicate section"
+                    >
+                      <FiCopy className="h-3.5 w-3.5" />
                     </Button>
                     <Button
                       size="icon"
@@ -1233,7 +1392,13 @@ export default function BuilderPage() {
             {filteredTemplates.map((tpl) => {
               let tag = null;
               let tagClasses = "";
-              if (tpl.slug === "navbar" || tpl.slug === "footer") {
+              if (tpl.slug === "custom_html") {
+                tag = "Advanced";
+                tagClasses = "bg-amber-500/10 text-amber-400 border border-amber-500/20";
+              } else if (tpl.slug === "iframe_embed") {
+                tag = "Advanced";
+                tagClasses = "bg-rose-500/10 text-rose-400 border border-rose-500/20";
+              } else if (tpl.slug === "navbar" || tpl.slug === "footer") {
                 tag = "Global";
                 tagClasses = "bg-indigo-500/10 text-indigo-400 border border-indigo-500/20";
               } else if (tpl.slug === "hero_variant" || tpl.slug === "hero_glow" || tpl.slug === "feature_split" || tpl.slug === "bento_grid" || tpl.slug === "product_showcase") {
@@ -1255,6 +1420,14 @@ export default function BuilderPage() {
                   key={tpl.id}
                   type="button"
                   onClick={async () => {
+                    if (tpl.slug === "custom_html" && userPlan === "free") {
+                      toast.error("Custom HTML requires Plus or Pro+ plan. Upgrade now!");
+                      return;
+                    }
+                    if (tpl.slug === "iframe_embed" && userPlan !== "pro_plus") {
+                      toast.error("Iframe embed requires Pro+ plan. Upgrade now!");
+                      return;
+                    }
                     try {
                       const response = await pagesApi.addSection(slug, {
                         template_id: Number(tpl.id),
@@ -1296,6 +1469,111 @@ export default function BuilderPage() {
                 </button>
               );
             })}
+          </div>
+        </div>
+      </Modal>
+
+      {showInviteModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+             onClick={() => setShowInviteModal(false)}>
+          <div className="w-full max-w-md rounded-xl border border-white/10 bg-ink-950 p-6 shadow-2xl"
+               onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h3 className="text-lg font-semibold text-white">Undang Kolaborator</h3>
+                <p className="text-xs text-white/40 mt-1">Maksimal 5 orang per halaman</p>
+              </div>
+              <button onClick={() => setShowInviteModal(false)} className="text-white/40 hover:text-white">
+                <FiX className="h-5 w-5" />
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <label className="text-xs font-medium text-white/50 mb-1.5 block">Email pengguna</label>
+                <input
+                  type="email"
+                  className="field-shell w-full"
+                  placeholder="contoh@email.com"
+                  value={inviteEmail}
+                  onChange={(e) => setInviteEmail(e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="text-xs font-medium text-white/50 mb-1.5 block">Pesan (opsional)</label>
+                <textarea
+                  className="field-shell w-full resize-none"
+                  rows={2}
+                  placeholder="Hei, yuk bantu edit halaman ini!"
+                  value={inviteMessage}
+                  onChange={(e) => setInviteMessage(e.target.value)}
+                />
+              </div>
+            </div>
+
+            {collaborators.length > 0 && (
+              <div className="mt-5 border-t border-white/10 pt-4">
+                <p className="text-xs font-medium text-white/50 mb-3">Kolaborator saat ini</p>
+                <div className="space-y-2">
+                  {collaborators.map((c) => (
+                    <div key={c.id} className="flex items-center gap-3 rounded-lg bg-white/[0.04] px-3 py-2">
+                      <div className="grid h-7 w-7 place-items-center rounded-full bg-brand-aqua/15 text-xs font-semibold text-brand-aqua">
+                        {(c.user?.name || c.email || "?")[0].toUpperCase()}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm text-white/80 truncate">{c.user?.name || "User"}</p>
+                        <p className="text-xs text-white/40 truncate">{c.user?.email || c.email}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <div className="mt-6 flex gap-3">
+              <Button
+                variant="secondary"
+                className="flex-1"
+                onClick={() => setShowInviteModal(false)}
+              >
+                Batal
+              </Button>
+              <Button
+                variant="primary"
+                className="flex-1"
+                disabled={!inviteEmail.trim() || inviting}
+                onClick={handleInvite}
+              >
+                {inviting ? "Mengirim..." : "Kirim Undangan"}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <Modal open={showSeoModal} title="SEO Settings" onClose={() => setShowSeoModal(false)}>
+        <div className="space-y-4">
+          <Input
+            label="Meta Title"
+            value={seoForm.meta_title}
+            onChange={(e) => setSeoForm({ ...seoForm, meta_title: e.target.value })}
+          />
+          <Textarea
+            label="Meta Description"
+            rows={3}
+            value={seoForm.meta_description}
+            onChange={(e) => setSeoForm({ ...seoForm, meta_description: e.target.value })}
+          />
+          <Input
+            label="OG Image URL"
+            value={seoForm.og_image}
+            onChange={(e) => setSeoForm({ ...seoForm, og_image: e.target.value })}
+          />
+          <div className="flex justify-end gap-2 pt-2">
+            <Button onClick={() => setShowSeoModal(false)}>Cancel</Button>
+            <Button type="button" variant="primary" disabled={savingSeo} onClick={saveSeo}>
+              {savingSeo ? "Saving..." : "Save"}
+            </Button>
           </div>
         </div>
       </Modal>

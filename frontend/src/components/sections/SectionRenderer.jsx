@@ -2046,6 +2046,50 @@ function ContactVariantComponent({ section }) {
   );
 }
 
+// 23. custom_html
+function CustomHTMLComponent({ section }) {
+  const htmlCode = getField(section, "html_code") || "<div>Custom HTML Content</div>";
+  const { bgClass, padClass, borderClass } = getStyleConfig(section);
+
+  return (
+    <section className={`px-0 sm:px-0 border-t ${bgClass} ${borderClass} ${padClass}`}>
+      <div className="w-full">
+        <iframe
+          srcDoc={htmlCode}
+          width="100%"
+          style={{ minHeight: "100vh" }}
+          className="border-0 w-full bg-transparent"
+          title="Custom HTML Embed"
+          sandbox="allow-scripts allow-same-origin"
+        ></iframe>
+      </div>
+    </section>
+  );
+}
+
+// 24. iframe_embed
+function IframeEmbedComponent({ section }) {
+  const iframeUrl = getField(section, "iframe_url") || "https://example.com";
+  const iframeHeight = getField(section, "iframe_height") || "600px";
+  const { bgClass, padClass, borderClass, cardBgClass } = getStyleConfig(section);
+
+  return (
+    <section className={`px-6 sm:px-10 border-t ${bgClass} ${borderClass} ${padClass}`}>
+      <div className={`mx-auto max-w-6xl w-full overflow-hidden rounded-xl border shadow-glow ${borderClass} ${cardBgClass}`}>
+        <iframe
+          src={iframeUrl}
+          width="100%"
+          height={iframeHeight}
+          className="border-0 w-full bg-transparent"
+          title="Embed"
+          loading="lazy"
+          allowFullScreen
+        ></iframe>
+      </div>
+    </section>
+  );
+}
+
 // ----------------------------------------------------
 // UNKNOWN TEMPLATE FALLBACK
 // ----------------------------------------------------
@@ -2105,6 +2149,8 @@ export function SectionRenderer({ section }) {
       app_download: AppDownloadComponent,
       case_studies: CaseStudiesComponent,
       contact_variant: ContactVariantComponent,
+      custom_html: CustomHTMLComponent,
+      iframe_embed: IframeEmbedComponent,
     }[slug] || UnknownSection;
 
   return (

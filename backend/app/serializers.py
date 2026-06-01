@@ -83,6 +83,9 @@ def page_to_dict(page, include_sections=False):
         "summary": page.summary,
         "is_published": page.is_published,
         "published_at": format_datetime(page.published_at),
+        "meta_title": page.meta_title,
+        "meta_description": page.meta_description,
+        "og_image": page.og_image,
         "created_at": format_datetime(page.created_at),
         "updated_at": format_datetime(page.updated_at),
     }

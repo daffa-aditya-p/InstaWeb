@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import {
+  FiCopy,
   FiEdit3,
   FiEye,
   FiExternalLink,
@@ -20,6 +21,7 @@ import { Skeleton } from "../components/ui/Skeleton";
 import { useDocumentTitle } from "../hooks/useDocumentTitle";
 import { useShortcut } from "../hooks/useShortcut";
 import { apiError, pagesApi } from "../services/api";
+import { useAuthStore } from "../store/authStore";
 import { slugify } from "../utils/slugify";
 
 const emptyForm = { title: "", slug: "", summary: "" };
@@ -27,6 +29,7 @@ const emptyForm = { title: "", slug: "", summary: "" };
 export default function PagesPage() {
   useDocumentTitle("Pages");
   const navigate = useNavigate();
+  const user = useAuthStore((s) => s.user);
   const [pages, setPages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -176,16 +179,23 @@ export default function PagesPage() {
             >
               <div>
                 <div className="mb-4 flex items-start justify-between gap-3">
-                  <Badge tone={page.is_published ? "green" : "neutral"}>
-                    {page.is_published ? "Published" : "Draft"}
-                  </Badge>
-                  <button
-                    className="text-white/40 transition hover:text-brand-rose"
-                    onClick={() => setDeleteTarget(page)}
-                    aria-label={`Delete ${page.title}`}
-                  >
-                    <FiTrash2 className="h-4 w-4" />
-                  </button>
+                  <div className="flex flex-wrap gap-2">
+                    <Badge tone={page.is_published ? "green" : "neutral"}>
+                      {page.is_published ? "Published" : "Draft"}
+                    </Badge>
+                    {page.user_id !== user?.id && (
+                      <Badge tone="purple">Collaborator</Badge>
+                    )}
+                  </div>
+                  {page.user_id === user?.id && (
+                    <button
+                      className="text-white/40 transition hover:text-brand-rose"
+                      onClick={() => setDeleteTarget(page)}
+                      aria-label={`Delete ${page.title}`}
+                    >
+                      <FiTrash2 className="h-4 w-4" />
+                    </button>
+                  )}
                 </div>
                 <Link to={`/pages/${page.slug}/builder`}>
                   <h2 className="text-xl font-semibold text-white transition group-hover:text-brand-aqua">
@@ -206,6 +216,23 @@ export default function PagesPage() {
                 </Button>
                 <Button size="sm" icon={FiEdit3} onClick={() => openEdit(page)} className="w-full sm:w-auto">
                   Edit
+                </Button>
+                <Button
+                  size="sm"
+                  icon={FiCopy}
+                  className="w-full sm:w-auto"
+                  onClick={async () => {
+                    const loadingToast = toast.loading("Duplicating page...");
+                    try {
+                      const response = await pagesApi.duplicate(page.slug);
+                      setPages((current) => [...current, response.data]);
+                      toast.success("Page duplicated", { id: loadingToast });
+                    } catch (error) {
+                      toast.error(apiError(error).message, { id: loadingToast });
+                    }
+                  }}
+                >
+                  Duplicate
                 </Button>
                 {page.is_published ? (
                   <>

@@ -1,25 +1,41 @@
+import { useEffect, useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import {
   FiBarChart2,
   FiGrid,
+  FiInbox,
   FiLayers,
   FiLogOut,
+  FiStar,
+  FiTrendingUp,
   FiUser,
 } from "react-icons/fi";
 
 import { useAuthStore } from "../../store/authStore";
+import { invitationApi } from "../../services/api";
 import { Button } from "../ui/Button";
 import { Badge } from "../ui/Badge";
 
 const navItems = [
   { label: "Dashboard", href: "/dashboard", icon: FiBarChart2 },
   { label: "Pages", href: "/pages", icon: FiLayers },
+  { label: "Analytics", href: "/analytics", icon: FiTrendingUp },
+  { label: "Pricing", href: "/pricing", icon: FiStar },
+  { label: "Inbox", href: "/inbox", icon: FiInbox },
 ];
 
 export function AppShell() {
   const navigate = useNavigate();
   const { user, logout } = useAuthStore();
   const isAdmin = ["admin", "super_admin"].includes(user?.role);
+  const [inboxCount, setInboxCount] = useState(0);
+
+  useEffect(() => {
+    invitationApi
+      .count()
+      .then((res) => setInboxCount(res.data.count))
+      .catch(() => {});
+  }, []);
 
   const handleLogout = async () => {
     await logout();
@@ -59,6 +75,11 @@ export function AppShell() {
                 >
                   <Icon className="h-4 w-4" />
                   {item.label}
+                  {item.label === "Inbox" && inboxCount > 0 && (
+                    <span className="ml-1 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-brand-rose px-1.5 text-[10px] font-bold text-white">
+                      {inboxCount > 99 ? "99+" : inboxCount}
+                    </span>
+                  )}
                 </NavLink>
               );
             })}
