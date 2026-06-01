@@ -29,7 +29,7 @@ export function AppShell() {
   return (
     <div className="min-h-screen bg-ink-950/70">
       <header className="sticky top-0 z-40 border-b border-white/10 bg-ink-950/75 backdrop-blur-2xl">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-2.5 sm:px-6 lg:px-8">
           <button
             className="flex items-center gap-3"
             onClick={() => navigate("/dashboard")}
@@ -44,7 +44,7 @@ export function AppShell() {
             </div>
           </button>
 
-          <nav className="order-3 flex w-full gap-1 overflow-x-auto sm:order-none sm:w-auto">
+          <nav className="scrollbar-none order-3 -mx-4 flex w-[calc(100%+2rem)] gap-1 overflow-x-auto px-4 pb-1 sm:order-none sm:mx-0 sm:w-auto sm:px-0 sm:pb-0">
             {navItems.map((item) => {
               const Icon = item.icon;
               return (

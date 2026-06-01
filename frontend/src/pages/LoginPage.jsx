@@ -33,7 +33,7 @@ export default function LoginPage() {
   return (
     <AuthScreen>
       <motion.form
-        className="glass-panel w-full max-w-md rounded-lg p-6"
+        className="glass-panel w-full max-w-md rounded-lg p-5 sm:p-8"
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
         onSubmit={submit}
@@ -55,7 +55,7 @@ export default function LoginPage() {
             onChange={(event) => setForm({ ...form, password: event.target.value })}
           />
         </div>
-        <Button className="mt-6 w-full" icon={FiLogIn} type="submit" variant="primary" disabled={loading}>
+        <Button className="mt-6 w-full" size="lg" icon={FiLogIn} type="submit" variant="primary" disabled={loading}>
           {loading ? "Signing in..." : "Login"}
         </Button>
         <p className="mt-5 text-center text-sm text-white/[0.55]">
@@ -90,7 +90,7 @@ export function BrandHeader({ title }) {
           <div className="text-xs text-white/[0.45]">Modern website builder</div>
         </div>
       </div>
-      <h1 className="mt-8 text-3xl font-semibold text-white">{title}</h1>
+      <h1 className="mt-6 sm:mt-8 text-2xl sm:text-3xl font-semibold text-white">{title}</h1>
       <p className="mt-2 text-sm leading-6 text-white/[0.55]">
         Manage pages, sections, templates, and live previews from one polished workspace.
       </p>

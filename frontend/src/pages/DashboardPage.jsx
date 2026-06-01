@@ -69,7 +69,7 @@ export default function DashboardPage() {
         </div>
       </section>
 
-      <section className="grid gap-4 md:grid-cols-3">
+      <section className="grid grid-cols-1 gap-4 md:grid-cols-3">
         {loading
           ? [1, 2, 3].map((item) => <Skeleton key={item} className="h-28" />)
           : metrics.map((metric) => {

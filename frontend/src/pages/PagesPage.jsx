@@ -156,19 +156,19 @@ export default function PagesPage() {
             Create pages, open the builder, preview live content, and publish when ready.
           </p>
         </div>
-        <Button icon={FiPlus} variant="primary" onClick={openNew}>
+        <Button icon={FiPlus} variant="primary" onClick={openNew} className="w-full sm:w-auto">
           New Page
         </Button>
       </div>
 
       {loading ? (
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
           {[1, 2, 3].map((item) => (
             <Skeleton className="h-56" key={item} />
           ))}
         </div>
       ) : pages.length ? (
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
           {pages.map((page) => (
             <article
               className="muted-panel group flex min-h-64 flex-col justify-between rounded-lg p-5 transition hover:-translate-y-1 hover:border-brand-aqua/35"
@@ -197,14 +197,14 @@ export default function PagesPage() {
                   {page.summary || "No summary provided."}
                 </p>
               </div>
-              <div className="mt-6 flex flex-wrap gap-2">
-                <Button size="sm" icon={FiLayers} onClick={() => navigate(`/pages/${page.slug}/builder`)}>
+              <div className="mt-6 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
+                <Button size="sm" icon={FiLayers} onClick={() => navigate(`/pages/${page.slug}/builder`)} className="w-full sm:w-auto">
                   Build
                 </Button>
-                <Button size="sm" icon={FiEye} onClick={() => navigate(`/pages/${page.slug}/preview`)}>
+                <Button size="sm" icon={FiEye} onClick={() => navigate(`/pages/${page.slug}/preview`)} className="w-full sm:w-auto">
                   Preview
                 </Button>
-                <Button size="sm" icon={FiEdit3} onClick={() => openEdit(page)}>
+                <Button size="sm" icon={FiEdit3} onClick={() => openEdit(page)} className="w-full sm:w-auto">
                   Edit
                 </Button>
                 {page.is_published ? (
@@ -217,6 +217,7 @@ export default function PagesPage() {
                       rel="noopener noreferrer"
                       icon={FiExternalLink}
                       variant="primary"
+                      className="w-full sm:w-auto"
                     >
                       Open Live Site
                     </Button>
@@ -225,6 +226,7 @@ export default function PagesPage() {
                       icon={FiGlobe}
                       variant="secondary"
                       onClick={() => togglePublish(page)}
+                      className="col-span-2 sm:col-span-none w-full sm:w-auto"
                     >
                       Unpublish
                     </Button>
@@ -235,6 +237,7 @@ export default function PagesPage() {
                     icon={FiGlobe}
                     variant="primary"
                     onClick={() => togglePublish(page)}
+                    className="w-full sm:w-auto"
                   >
                     Publish
                   </Button>

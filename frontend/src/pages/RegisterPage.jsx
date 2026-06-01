@@ -34,7 +34,7 @@ export default function RegisterPage() {
   return (
     <AuthScreen>
       <motion.form
-        className="glass-panel w-full max-w-md rounded-lg p-6"
+        className="glass-panel w-full max-w-md rounded-lg p-5 sm:p-8"
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
         onSubmit={submit}
@@ -62,7 +62,7 @@ export default function RegisterPage() {
             onChange={(event) => setForm({ ...form, password: event.target.value })}
           />
         </div>
-        <Button className="mt-6 w-full" icon={FiUserPlus} type="submit" variant="primary" disabled={loading}>
+        <Button className="mt-6 w-full" size="lg" icon={FiUserPlus} type="submit" variant="primary" disabled={loading}>
           {loading ? "Creating..." : "Register"}
         </Button>
         <p className="mt-5 text-center text-sm text-white/[0.55]">

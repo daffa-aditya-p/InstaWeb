@@ -44,6 +44,8 @@ const getTemplateCategory = (slug) => {
   if (
     slug === "hero" ||
     slug === "hero_variant" ||
+    slug === "hero_glow" ||
+    slug === "callout_box" ||
     slug === "about" ||
     slug === "product_showcase" ||
     slug === "app_download" ||
@@ -53,6 +55,7 @@ const getTemplateCategory = (slug) => {
   if (
     slug === "services" ||
     slug === "feature_grid" ||
+    slug === "feature_split" ||
     slug === "stats" ||
     slug === "timeline" ||
     slug === "process_steps" ||
@@ -65,6 +68,7 @@ const getTemplateCategory = (slug) => {
     return "features";
   if (
     slug === "logo_cloud" ||
+    slug === "logo_marquee" ||
     slug === "testimonials" ||
     slug === "team" ||
     slug === "case_studies"
@@ -445,6 +449,86 @@ function TemplateMockup({ slug }) {
     );
   }
 
+  if (slug === "hero_glow") {
+    return (
+      <div className="flex h-16 w-full flex-col justify-center items-center gap-0.5 rounded bg-white/[0.03] p-1 border border-white/5 text-center relative overflow-hidden">
+        <div className="h-1.5 w-10 rounded-full bg-brand-aqua/20 border border-brand-aqua/30 text-[4px] text-brand-aqua scale-90" />
+        <div className="h-2.5 w-20 rounded bg-white/20" />
+        <div className="h-1 w-24 rounded bg-white/10" />
+        <div className="flex gap-1 my-0.5">
+          <div className="h-2 w-6 rounded bg-brand-aqua/80" />
+          <div className="h-2 w-6 rounded border border-white/25 bg-white/5" />
+        </div>
+        <div className="w-24 h-4 rounded-t border border-t-brand-aqua/60 border-x-brand-aqua/30 border-b-0 bg-slate-900/90 relative mt-0.5 shadow-[0_-2px_8px_rgba(34,211,238,0.3)]">
+          <div className="absolute inset-0 bg-gradient-to-t from-brand-aqua/5 to-brand-aqua/20" />
+          <div className="h-1 w-12 rounded bg-white/20 mx-auto mt-1" />
+        </div>
+      </div>
+    );
+  }
+
+  if (slug === "logo_marquee") {
+    return (
+      <div className="flex flex-col justify-center gap-1 rounded bg-white/[0.03] p-1.5 h-16 border border-white/5 relative overflow-hidden">
+        <div className="h-1 w-10 rounded-full bg-white/15 mx-auto" />
+        <div className="flex items-center gap-1.5 justify-around w-[120%] -ml-[10%] opacity-85">
+          {["A", "B", "C", "D", "E"].map((letter, i) => (
+            <span key={i} className="text-[6px] text-white/35 font-bold tracking-wider">
+              {letter}cme
+            </span>
+          ))}
+        </div>
+        <div className="absolute bottom-1 right-2 text-[5px] text-brand-aqua font-mono tracking-tighter opacity-80 flex items-center gap-0.5">
+          <span>◀</span><span>▶</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (slug === "callout_box") {
+    return (
+      <div className="flex h-16 w-full items-center gap-2 rounded bg-white/[0.03] p-2 border border-white/5">
+        <div className="flex-1 rounded border border-brand-aqua/30 bg-brand-aqua/[0.03] p-1 flex items-center gap-1.5 h-12 shadow-[0_0_8px_rgba(34,211,238,0.1)]">
+          <div className="h-5 w-5 rounded bg-brand-aqua/20 flex items-center justify-center border border-brand-aqua/30">
+            <span className="text-[7px] text-brand-aqua font-bold">★</span>
+          </div>
+          <div className="flex-1 space-y-0.5">
+            <div className="h-2 w-16 rounded bg-white/20" />
+            <div className="h-1 w-20 rounded bg-white/10" />
+          </div>
+          <div className="flex flex-col gap-0.5">
+            <div className="h-2.5 w-8 rounded bg-brand-aqua text-[4px] font-bold text-center text-slate-900 flex items-center justify-center">Go</div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (slug === "feature_split") {
+    return (
+      <div className="flex flex-col justify-between gap-1 rounded bg-white/[0.03] p-1.5 h-16 border border-white/5">
+        <div className="flex items-center gap-1.5 justify-between">
+          <div className="flex-1 space-y-0.5">
+            <div className="h-1.5 w-10 rounded bg-white/20" />
+            <div className="h-0.5 w-12 rounded bg-white/10" />
+          </div>
+          <div className="h-5 w-7 rounded bg-white/10 flex items-center justify-center border border-white/5">
+            <FiImage className="h-1.5 w-1.5 text-white/20" />
+          </div>
+        </div>
+        <div className="flex items-center gap-1.5 justify-between">
+          <div className="h-5 w-7 rounded bg-white/10 flex items-center justify-center border border-white/5">
+            <FiImage className="h-1.5 w-1.5 text-white/20" />
+          </div>
+          <div className="flex-1 space-y-0.5 text-right flex flex-col items-end">
+            <div className="h-1.5 w-10 rounded bg-white/20" />
+            <div className="h-0.5 w-12 rounded bg-white/10" />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (slug === "contact" || slug === "contact_variant") {
     return (
       <div className="flex h-16 w-full items-center gap-1.5 rounded bg-white/[0.03] p-1.5 border border-white/5">
@@ -681,7 +765,7 @@ export default function BuilderPage() {
 
   if (loading) {
     return (
-      <div className="grid gap-4 lg:grid-cols-[360px_1fr]">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-[360px_1fr]">
         <Skeleton className="h-[760px]" />
         <Skeleton className="h-[760px]" />
       </div>
@@ -700,19 +784,20 @@ export default function BuilderPage() {
   const orderedSections = [...(page.sections || [])].sort((a, b) => a.position - b.position);
 
   return (
-    <div className="space-y-4">
-      <div className="glass-panel flex flex-col justify-between gap-4 rounded-lg p-4 lg:flex-row lg:items-center">
+    <div className="flex flex-col" style={{ height: "calc(100vh - 88px)" }}>
+      {/* ── Top bar ── */}
+      <div className="glass-panel flex flex-col justify-between gap-3 p-3 sm:p-4 lg:flex-row lg:items-center shrink-0 rounded-lg mx-0">
         <div className="flex items-center gap-3">
           <Button as={Link} to="/pages" icon={FiArrowLeft} size="icon" aria-label="Back to pages" />
           <div>
             <div className="flex flex-wrap items-center gap-2">
-              <h1 className="text-xl font-semibold text-white">{page.title}</h1>
+              <h1 className="text-lg sm:text-xl font-semibold text-white">{page.title}</h1>
               <Badge tone={page.is_published ? "green" : "neutral"}>
                 {page.is_published ? "Published" : "Draft"}
               </Badge>
               <Badge tone={autosaveState === "Saved" ? "aqua" : "amber"}>{autosaveState}</Badge>
             </div>
-            <p className="mt-1 text-xs text-white/[0.45]">/{page.slug}</p>
+            <p className="mt-0.5 text-xs text-white/[0.45]">/{page.slug}</p>
           </div>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -751,20 +836,24 @@ export default function BuilderPage() {
         </div>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-[360px_1fr]">
-        <aside className="glass-panel h-fit rounded-lg lg:sticky lg:top-24">
-          <div className="border-b border-white/10 p-4">
+      {/* ── Main split panel (fills remaining viewport) ── */}
+      <div className="flex-1 min-h-0 mt-3 grid grid-cols-1 gap-3 lg:grid-cols-[360px_1fr]">
+        {/* ── Left sidebar ── */}
+        <aside className="glass-panel rounded-lg flex flex-col min-h-0 overflow-hidden lg:max-h-full max-h-[70vh]">
+          {/* Add Section button */}
+          <div className="border-b border-white/10 p-3 shrink-0">
             <Button className="w-full" icon={FiPlus} variant="primary" onClick={() => setAddOpen(true)}>
               Add Section
             </Button>
           </div>
 
-          <div className="max-h-[34rem] overflow-y-auto p-3">
+          {/* Section list - scrollable, max 40% of sidebar */}
+          <div className="overflow-y-auto p-3 shrink-0" style={{ maxHeight: "35%" }}>
             <div className="space-y-2">
               {orderedSections.map((section, index) => (
                 <motion.div layout key={section.id}>
                   <button
-                    className={`w-full rounded-lg border p-3 text-left transition ${
+                    className={`w-full rounded-lg border p-2.5 text-left transition ${
                       selectedSectionId === section.id
                         ? "border-brand-aqua/55 bg-brand-aqua/10"
                         : "border-white/10 bg-white/[0.05] hover:bg-white/[0.08]"
@@ -772,13 +861,13 @@ export default function BuilderPage() {
                     onClick={() => setSelectedSectionId(section.id)}
                   >
                     <div className="flex items-start justify-between gap-2">
-                      <div>
-                        <div className="text-sm font-semibold text-white">{section.template.name}</div>
-                        <p className="mt-1 line-clamp-2 text-xs leading-5 text-white/[0.52]">
+                      <div className="min-w-0">
+                        <div className="text-sm font-semibold text-white truncate">{section.template.name}</div>
+                        <p className="mt-0.5 line-clamp-1 text-xs leading-5 text-white/[0.52]">
                           {fieldSummary(section)}
                         </p>
                       </div>
-                      <span className="text-xs text-white/[0.38]">#{index + 1}</span>
+                      <span className="text-xs text-white/[0.38] shrink-0">#{index + 1}</span>
                     </div>
                   </button>
                   <div className="mt-1 flex justify-end gap-1">
@@ -788,7 +877,7 @@ export default function BuilderPage() {
                       onClick={() => reorder(section.id, -1)}
                       aria-label="Move section up"
                     >
-                      <FiArrowUp className="h-4 w-4" />
+                      <FiArrowUp className="h-3.5 w-3.5" />
                     </Button>
                     <Button
                       size="icon"
@@ -796,7 +885,7 @@ export default function BuilderPage() {
                       onClick={() => reorder(section.id, 1)}
                       aria-label="Move section down"
                     >
-                      <FiArrowDown className="h-4 w-4" />
+                      <FiArrowDown className="h-3.5 w-3.5" />
                     </Button>
                     <Button
                       size="icon"
@@ -804,7 +893,7 @@ export default function BuilderPage() {
                       onClick={() => setRemoveTarget(section)}
                       aria-label="Remove section"
                     >
-                      <FiTrash2 className="h-4 w-4" />
+                      <FiTrash2 className="h-3.5 w-3.5" />
                     </Button>
                   </div>
                 </motion.div>
@@ -812,260 +901,274 @@ export default function BuilderPage() {
             </div>
           </div>
 
-          <div className="border-t border-white/10 p-4">
+          {/* ── Field editor panel ── fills remaining space, scrolls independently */}
+          <div className="flex-1 min-h-0 border-t border-white/10 flex flex-col">
             {selectedSection ? (
-              <div className="space-y-4">
-                <div>
+              <>
+                {/* Editor header - fixed */}
+                <div className="p-3 pb-2 shrink-0">
                   <h2 className="text-sm font-semibold text-white">Field editor</h2>
-                  <p className="mt-1 text-xs text-white/[0.5]">{selectedSection.template.name}</p>
+                  <p className="mt-0.5 text-xs text-white/[0.5]">{selectedSection.template.name}</p>
                 </div>
 
+                {/* Tab switcher - fixed */}
                 {selectedSection.fields.filter(field => field.slug.startsWith("style_")).length > 0 && (
-                  <div className="flex rounded-lg bg-white/[0.04] p-1 border border-white/5">
-                    <button
-                      type="button"
-                      className={`flex-1 flex items-center justify-center gap-1.5 rounded-md py-1.5 text-xs font-medium transition ${
-                        activeTab === "content"
-                          ? "bg-brand-aqua/10 text-brand-aqua border border-brand-aqua/20 shadow-[0_0_12px_rgba(34,211,238,0.1)] font-semibold"
-                          : "text-white/60 hover:text-white border border-transparent"
-                      }`}
-                      onClick={() => setActiveTab("content")}
-                    >
-                      <FiEdit className="h-3.5 w-3.5" />
-                      <span>Content Editor</span>
-                    </button>
-                    <button
-                      type="button"
-                      className={`flex-1 flex items-center justify-center gap-1.5 rounded-md py-1.5 text-xs font-medium transition ${
-                        activeTab === "style"
-                          ? "bg-brand-aqua/10 text-brand-aqua border border-brand-aqua/20 shadow-[0_0_12px_rgba(34,211,238,0.1)] font-semibold"
-                          : "text-white/60 hover:text-white border border-transparent"
-                      }`}
-                      onClick={() => setActiveTab("style")}
-                    >
-                      <FiSliders className="h-3.5 w-3.5" />
-                      <span>Visual Styles</span>
-                    </button>
+                  <div className="px-3 pb-2 shrink-0">
+                    <div className="grid grid-cols-2 gap-1 rounded-lg bg-white/[0.04] p-1 border border-white/5">
+                      <button
+                        type="button"
+                        className={`flex items-center justify-center gap-1.5 rounded-md py-1.5 text-xs font-medium transition ${
+                          activeTab === "content"
+                            ? "bg-brand-aqua/10 text-brand-aqua border border-brand-aqua/20 shadow-[0_0_12px_rgba(34,211,238,0.1)] font-semibold"
+                            : "text-white/60 hover:text-white border border-transparent"
+                        }`}
+                        onClick={() => setActiveTab("content")}
+                      >
+                        <FiEdit className="h-3.5 w-3.5" />
+                        <span>Content</span>
+                      </button>
+                      <button
+                        type="button"
+                        className={`flex items-center justify-center gap-1.5 rounded-md py-1.5 text-xs font-medium transition ${
+                          activeTab === "style"
+                            ? "bg-brand-aqua/10 text-brand-aqua border border-brand-aqua/20 shadow-[0_0_12px_rgba(34,211,238,0.1)] font-semibold"
+                            : "text-white/60 hover:text-white border border-transparent"
+                        }`}
+                        onClick={() => setActiveTab("style")}
+                      >
+                        <FiSliders className="h-3.5 w-3.5" />
+                        <span>Styles</span>
+                      </button>
+                    </div>
                   </div>
                 )}
 
-                {activeTab === "content" ? (
-                  <div className="space-y-4">
-                    {selectedSection.fields
-                      .filter((field) => !field.slug.startsWith("style_"))
-                      .map((field) => (
-                        <div className="space-y-2" key={field.id}>
-                          {field.type === "image" ? (
-                            <>
-                              <div className="flex items-end gap-2">
-                                <div className="flex-1">
-                                  <Input
-                                    label={field.name}
-                                    value={draftValues[field.id] || ""}
-                                    onChange={(event) => changeField(field.id, event.target.value)}
-                                  />
-                                </div>
-                                <label className="flex h-[38px] cursor-pointer items-center justify-center gap-1.5 rounded-lg border border-brand-aqua/20 bg-brand-aqua/10 px-3.5 text-xs font-semibold text-brand-aqua transition duration-200 hover:bg-brand-aqua/25 hover:border-brand-aqua/45 hover:shadow-[0_0_12px_rgba(34,211,238,0.15)] active:scale-95">
-                                  <FiUpload className="h-3.5 w-3.5" />
-                                  <span>Upload Image</span>
-                                  <input
-                                    type="file"
-                                    accept="image/*"
-                                    className="hidden"
-                                    onChange={async (event) => {
-                                      const file = event.target.files?.[0];
-                                      if (!file) return;
-                                      const formData = new FormData();
-                                      formData.append("file", file);
-                                      const loadingToast = toast.loading("Uploading image...");
-                                      try {
-                                        const response = await pagesApi.upload(formData);
-                                        changeField(field.id, response.url);
-                                        toast.success("Image uploaded successfully!", { id: loadingToast });
-                                      } catch (error) {
-                                        toast.error(apiError(error).message, { id: loadingToast });
-                                      }
-                                    }}
-                                  />
-                                </label>
-                              </div>
-                              {draftValues[field.id] ? (
-                                <img
-                                  src={draftValues[field.id]}
-                                  alt=""
-                                  className="h-24 w-full rounded-lg border border-white/10 object-cover"
-                                />
-                              ) : (
-                                <div className="grid h-24 place-items-center rounded-lg border border-dashed border-white/[0.15] text-white/40">
-                                  <FiImage className="h-5 w-5" />
-                                </div>
-                              )}
-                            </>
-                          ) : (
-                            <Textarea
-                              label={field.name}
-                              rows={field.slug.includes("description") || field.slug.includes("subtitle") ? 4 : 2}
-                              value={draftValues[field.id] || ""}
-                              onChange={(event) => changeField(field.id, event.target.value)}
-                            />
-                          )}
-                        </div>
-                      ))}
-                  </div>
-                ) : (
-                  <div className="space-y-5">
-                    {selectedSection.fields
-                      .filter((field) => field.slug.startsWith("style_"))
-                      .map((field) => {
-                        if (field.slug === "style_bg") {
-                          const bgChoices = [
-                            { value: "dark", label: "Slate Black", class: "bg-slate-900 border-slate-700" },
-                            { value: "light", label: "Cream Light", class: "bg-amber-50 border-amber-200" },
-                            { value: "gradient-teal", label: "Teal Aurora", class: "bg-gradient-to-r from-teal-400 to-emerald-500" },
-                            { value: "gradient-purple", label: "Cosmic Violet", class: "bg-gradient-to-r from-purple-500 to-indigo-600" },
-                            { value: "brand-dark", label: "Cyberpunk Black", class: "bg-black border-zinc-800" },
-                          ];
-                          const currentValue = draftValues[field.id] || "dark";
-                          return (
-                            <div className="space-y-2" key={field.id}>
-                              <label className="text-xs font-semibold text-white/70">{field.name}</label>
-                              <div className="grid grid-cols-5 gap-2">
-                                {bgChoices.map((choice) => {
-                                  const isActive = currentValue === choice.value;
-                                  return (
-                                    <button
-                                      key={choice.value}
-                                      type="button"
-                                      onClick={() => changeField(field.id, choice.value)}
-                                      className={`h-10 w-10 rounded-full border-2 transition-all duration-200 ${choice.class} ${
-                                        isActive
-                                          ? "border-brand-aqua ring-2 ring-brand-aqua/50 scale-110 shadow-glow"
-                                          : "border-transparent hover:scale-105"
-                                      }`}
-                                      title={choice.label}
-                                    />
-                                  );
-                                })}
-                              </div>
-                              <div className="text-[10px] text-white/40 font-medium">
-                                Active: {bgChoices.find(c => c.value === currentValue)?.label || "Slate Black"}
-                              </div>
-                            </div>
-                          );
-                        }
-
-                        if (field.slug === "style_padding") {
-                          const currentValue = draftValues[field.id] || "cozy";
-                          const paddingChoices = [
-                            { value: "tight", label: "Tight", match: ["tight", "compact", "none"] },
-                            { value: "cozy", label: "Cozy", match: ["cozy"] },
-                            { value: "spacing", label: "Spacing", match: ["spacing", "comfortable"] },
-                            { value: "tall", label: "Tall", match: ["tall"] },
-                          ];
-                          
-                          return (
-                            <div className="space-y-2" key={field.id}>
-                              <label className="text-xs font-semibold text-white/70">{field.name}</label>
-                              <div className="flex rounded-md bg-white/[0.04] p-1 border border-white/5">
-                                {paddingChoices.map((choice) => {
-                                  const isActive = choice.match.includes(currentValue);
-                                  return (
-                                    <button
-                                      key={choice.value}
-                                      type="button"
-                                      onClick={() => changeField(field.id, choice.value)}
-                                      className={`flex-1 rounded py-1.5 text-xs font-medium transition ${
-                                        isActive
-                                          ? "bg-white/10 text-white shadow-sm font-semibold"
-                                          : "text-white/60 hover:text-white hover:bg-white/[0.02]"
-                                      }`}
-                                    >
-                                      {choice.label}
-                                    </button>
-                                  );
-                                })}
-                              </div>
-                            </div>
-                          );
-                        }
-
-                        if (field.slug === "style_text_color") {
-                          const currentValue = draftValues[field.id] || "default";
-                          const textColorChoices = [
-                            { value: "default", label: "Default", class: "bg-zinc-300 border-zinc-500", match: ["default", "white", "brand-muted"] },
-                            { value: "brand-aqua", label: "Aqua", class: "bg-cyan-400 border-cyan-300", match: ["brand-aqua"] },
-                            { value: "brand-rose", label: "Rose", class: "bg-rose-500 border-rose-400", match: ["brand-rose", "rose"] },
-                            { value: "brand-lime", label: "Lime", class: "bg-emerald-400 border-emerald-300", match: ["brand-lime", "lime"] },
-                            { value: "brand-amber", label: "Amber", class: "bg-amber-50 border-amber-400", match: ["brand-amber", "brand-teal"] },
-                          ];
-
-                          return (
-                            <div className="space-y-2" key={field.id}>
-                              <label className="text-xs font-semibold text-white/70">{field.name}</label>
-                              <div className="flex items-center gap-3">
-                                {textColorChoices.map((choice) => {
-                                  const isActive = choice.match.includes(currentValue);
-                                  return (
-                                    <button
-                                      key={choice.value}
-                                      type="button"
-                                      onClick={() => changeField(field.id, choice.value)}
-                                      className={`h-7 w-7 rounded-full border transition-all duration-200 ${choice.class} ${
-                                        isActive
-                                          ? "ring-2 ring-brand-aqua/70 scale-110 shadow-glow"
-                                          : "hover:scale-105 opacity-85 hover:opacity-100"
-                                      }`}
-                                      title={choice.label}
-                                    />
-                                  );
-                                })}
-                              </div>
-                              <div className="text-[10px] text-white/40 font-medium">
-                                Active: {textColorChoices.find(c => c.match.includes(currentValue))?.label || "Default"}
-                              </div>
-                            </div>
-                          );
-                        }
-
-                        return (
+                {/* Scrollable field area */}
+                <div className="flex-1 min-h-0 overflow-y-auto px-3 pb-2">
+                  {activeTab === "content" ? (
+                    <div className="space-y-3">
+                      {selectedSection.fields
+                        .filter((field) => !field.slug.startsWith("style_"))
+                        .map((field) => (
                           <div className="space-y-2" key={field.id}>
-                            <Input
-                              label={field.name}
-                              value={draftValues[field.id] || ""}
-                              onChange={(event) => changeField(field.id, event.target.value)}
-                            />
+                            {field.type === "image" ? (
+                              <>
+                                <div className="flex items-end gap-2">
+                                  <div className="flex-1">
+                                    <Input
+                                      label={field.name}
+                                      value={draftValues[field.id] || ""}
+                                      onChange={(event) => changeField(field.id, event.target.value)}
+                                    />
+                                  </div>
+                                  <label className="flex h-[38px] cursor-pointer items-center justify-center gap-1.5 rounded-lg border border-brand-aqua/20 bg-brand-aqua/10 px-3 text-xs font-semibold text-brand-aqua transition duration-200 hover:bg-brand-aqua/25 hover:border-brand-aqua/45 hover:shadow-[0_0_12px_rgba(34,211,238,0.15)] active:scale-95 shrink-0">
+                                    <FiUpload className="h-3.5 w-3.5" />
+                                    <span className="hidden sm:inline">Upload</span>
+                                    <input
+                                      type="file"
+                                      accept="image/*"
+                                      className="hidden"
+                                      onChange={async (event) => {
+                                        const file = event.target.files?.[0];
+                                        if (!file) return;
+                                        const formData = new FormData();
+                                        formData.append("file", file);
+                                        const loadingToast = toast.loading("Uploading image...");
+                                        try {
+                                          const response = await pagesApi.upload(formData);
+                                          changeField(field.id, response.url);
+                                          toast.success("Image uploaded successfully!", { id: loadingToast });
+                                        } catch (error) {
+                                          toast.error(apiError(error).message, { id: loadingToast });
+                                        }
+                                      }}
+                                    />
+                                  </label>
+                                </div>
+                                {draftValues[field.id] ? (
+                                  <img
+                                    src={draftValues[field.id]}
+                                    alt=""
+                                    className="h-20 w-full rounded-lg border border-white/10 object-cover"
+                                  />
+                                ) : (
+                                  <div className="grid h-16 place-items-center rounded-lg border border-dashed border-white/[0.15] text-white/40">
+                                    <FiImage className="h-4 w-4" />
+                                  </div>
+                                )}
+                              </>
+                            ) : (
+                              <Textarea
+                                label={field.name}
+                                rows={field.slug.includes("description") || field.slug.includes("subtitle") ? 3 : 2}
+                                value={draftValues[field.id] || ""}
+                                onChange={(event) => changeField(field.id, event.target.value)}
+                              />
+                            )}
                           </div>
-                        );
-                      })}
-                  </div>
-                )}
+                        ))}
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      {selectedSection.fields
+                        .filter((field) => field.slug.startsWith("style_"))
+                        .map((field) => {
+                          if (field.slug === "style_bg") {
+                            const bgChoices = [
+                              { value: "dark", label: "Slate Black", class: "bg-slate-900 border-slate-700" },
+                              { value: "light", label: "Cream Light", class: "bg-amber-50 border-amber-200" },
+                              { value: "gradient-teal", label: "Teal Aurora", class: "bg-gradient-to-r from-teal-400 to-emerald-500" },
+                              { value: "gradient-purple", label: "Cosmic Violet", class: "bg-gradient-to-r from-purple-500 to-indigo-600" },
+                              { value: "brand-dark", label: "Cyberpunk Black", class: "bg-black border-zinc-800" },
+                            ];
+                            const currentValue = draftValues[field.id] || "dark";
+                            return (
+                              <div className="space-y-2" key={field.id}>
+                                <label className="text-xs font-semibold text-white/70">{field.name}</label>
+                                <div className="flex flex-wrap gap-2.5">
+                                  {bgChoices.map((choice) => {
+                                    const isActive = currentValue === choice.value;
+                                    return (
+                                      <button
+                                        key={choice.value}
+                                        type="button"
+                                        onClick={() => changeField(field.id, choice.value)}
+                                        className={`h-10 w-10 rounded-full border-2 transition-all duration-200 ${choice.class} ${
+                                          isActive
+                                            ? "border-brand-aqua ring-2 ring-brand-aqua/50 scale-110 shadow-glow"
+                                            : "border-transparent hover:scale-105"
+                                        }`}
+                                        title={choice.label}
+                                      />
+                                    );
+                                  })}
+                                </div>
+                                <div className="text-[10px] text-white/40 font-medium">
+                                  Active: {bgChoices.find(c => c.value === currentValue)?.label || "Slate Black"}
+                                </div>
+                              </div>
+                            );
+                          }
 
-                <Button className="w-full" icon={FiSave} onClick={() => saveFields()} variant="primary">
-                  Save now
-                </Button>
-              </div>
+                          if (field.slug === "style_padding") {
+                            const currentValue = draftValues[field.id] || "cozy";
+                            const paddingChoices = [
+                              { value: "tight", label: "Tight", match: ["tight", "compact", "none"] },
+                              { value: "cozy", label: "Cozy", match: ["cozy"] },
+                              { value: "spacing", label: "Spacing", match: ["spacing", "comfortable"] },
+                              { value: "tall", label: "Tall", match: ["tall"] },
+                            ];
+                            
+                            return (
+                              <div className="space-y-2" key={field.id}>
+                                <label className="text-xs font-semibold text-white/70">{field.name}</label>
+                                <div className="grid grid-cols-4 gap-1 rounded-md bg-white/[0.04] p-1 border border-white/5">
+                                  {paddingChoices.map((choice) => {
+                                    const isActive = choice.match.includes(currentValue);
+                                    return (
+                                      <button
+                                        key={choice.value}
+                                        type="button"
+                                        onClick={() => changeField(field.id, choice.value)}
+                                        className={`flex-1 rounded py-1.5 text-xs font-medium transition ${
+                                          isActive
+                                            ? "bg-white/10 text-white shadow-sm font-semibold"
+                                            : "text-white/60 hover:text-white hover:bg-white/[0.02]"
+                                        }`}
+                                      >
+                                        {choice.label}
+                                      </button>
+                                    );
+                                  })}
+                                </div>
+                              </div>
+                            );
+                          }
+
+                          if (field.slug === "style_text_color") {
+                            const currentValue = draftValues[field.id] || "default";
+                            const textColorChoices = [
+                              { value: "default", label: "Default", class: "bg-zinc-300 border-zinc-500", match: ["default", "white", "brand-muted"] },
+                              { value: "brand-aqua", label: "Aqua", class: "bg-cyan-400 border-cyan-300", match: ["brand-aqua"] },
+                              { value: "brand-rose", label: "Rose", class: "bg-rose-500 border-rose-400", match: ["brand-rose", "rose"] },
+                              { value: "brand-lime", label: "Lime", class: "bg-emerald-400 border-emerald-300", match: ["brand-lime", "lime"] },
+                              { value: "brand-amber", label: "Amber", class: "bg-amber-50 border-amber-400", match: ["brand-amber", "brand-teal"] },
+                            ];
+
+                            return (
+                              <div className="space-y-2" key={field.id}>
+                                <label className="text-xs font-semibold text-white/70">{field.name}</label>
+                                <div className="flex flex-wrap items-center gap-2.5">
+                                  {textColorChoices.map((choice) => {
+                                    const isActive = choice.match.includes(currentValue);
+                                    return (
+                                      <button
+                                        key={choice.value}
+                                        type="button"
+                                        onClick={() => changeField(field.id, choice.value)}
+                                        className={`h-7 w-7 rounded-full border transition-all duration-200 ${choice.class} ${
+                                          isActive
+                                            ? "ring-2 ring-brand-aqua/70 scale-110 shadow-glow"
+                                            : "hover:scale-105 opacity-85 hover:opacity-100"
+                                        }`}
+                                        title={choice.label}
+                                      />
+                                    );
+                                  })}
+                                </div>
+                                <div className="text-[10px] text-white/40 font-medium">
+                                  Active: {textColorChoices.find(c => c.match.includes(currentValue))?.label || "Default"}
+                                </div>
+                              </div>
+                            );
+                          }
+
+                          return (
+                            <div className="space-y-2" key={field.id}>
+                              <Input
+                                label={field.name}
+                                value={draftValues[field.id] || ""}
+                                onChange={(event) => changeField(field.id, event.target.value)}
+                              />
+                            </div>
+                          );
+                        })}
+                    </div>
+                  )}
+                </div>
+
+                {/* Save button - fixed at bottom */}
+                <div className="p-3 pt-2 border-t border-white/10 shrink-0">
+                  <Button className="w-full" icon={FiSave} onClick={() => saveFields()} variant="primary">
+                    Save now
+                  </Button>
+                </div>
+              </>
             ) : (
-              <p className="text-sm leading-6 text-white/[0.55]">
-                Select or add a section to edit its content.
-              </p>
+              <div className="flex-1 flex items-center justify-center p-4">
+                <p className="text-sm leading-6 text-white/[0.55] text-center">
+                  Select or add a section to edit its content.
+                </p>
+              </div>
             )}
           </div>
         </aside>
 
-        <section className="glass-panel overflow-hidden rounded-lg">
-          <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
+        {/* ── Right: Preview canvas (scrolls independently) ── */}
+        <section className="glass-panel overflow-hidden rounded-lg flex flex-col min-h-0 max-h-[70vh] lg:max-h-full">
+          <div className="flex items-center justify-between border-b border-white/10 px-4 py-2.5 shrink-0">
             <div>
-              <p className="text-sm font-semibold text-white">Live preview canvas</p>
-              <p className="mt-1 text-xs text-white/[0.45]">Updates immediately while you edit.</p>
+              <p className="text-sm font-semibold text-white">Live preview</p>
+              <p className="mt-0.5 text-xs text-white/[0.45]">Updates while you edit</p>
             </div>
             <Badge tone="aqua">{orderedSections.length} sections</Badge>
           </div>
-          <div className="bg-[#0c0c0d] p-3 sm:p-6">
+          <div className="flex-1 min-h-0 overflow-y-auto bg-[#0c0c0d] p-2 sm:p-4">
             <div className="mx-auto overflow-hidden rounded-lg border border-white/10 bg-black shadow-glow">
               <WebsiteRenderer
                 sections={orderedSections}
                 emptyState={
-                  <div className="grid min-h-[520px] place-items-center bg-ink-900 p-8 text-center">
+                  <div className="grid min-h-[420px] place-items-center bg-ink-900 p-8 text-center">
                     <div>
                       <h2 className="text-2xl font-semibold text-white">Start with a section</h2>
                       <p className="mt-2 max-w-md text-sm leading-6 text-white/[0.55]">
@@ -1126,20 +1229,20 @@ export default function BuilderPage() {
             })}
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 max-h-[60vh] overflow-y-auto pr-1">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 max-h-[60vh] overflow-y-auto p-1 sm:p-2 pr-1">
             {filteredTemplates.map((tpl) => {
               let tag = null;
               let tagClasses = "";
               if (tpl.slug === "navbar" || tpl.slug === "footer") {
                 tag = "Global";
                 tagClasses = "bg-indigo-500/10 text-indigo-400 border border-indigo-500/20";
-              } else if (tpl.slug === "hero_variant" || tpl.slug === "bento_grid" || tpl.slug === "product_showcase") {
+              } else if (tpl.slug === "hero_variant" || tpl.slug === "hero_glow" || tpl.slug === "feature_split" || tpl.slug === "bento_grid" || tpl.slug === "product_showcase") {
                 tag = "Premium";
                 tagClasses = "bg-amber-500/10 text-amber-400 border border-amber-500/20";
-              } else if (tpl.slug === "pricing" || tpl.slug === "cta" || tpl.slug === "newsletter") {
+              } else if (tpl.slug === "pricing" || tpl.slug === "cta" || tpl.slug === "newsletter" || tpl.slug === "callout_box") {
                 tag = "Conversion";
                 tagClasses = "bg-rose-500/10 text-rose-400 border border-rose-500/20";
-              } else if (tpl.slug === "testimonials" || tpl.slug === "logo_cloud" || tpl.slug === "case_studies") {
+              } else if (tpl.slug === "testimonials" || tpl.slug === "logo_cloud" || tpl.slug === "logo_marquee" || tpl.slug === "case_studies") {
                 tag = "Trust";
                 tagClasses = "bg-cyan-500/10 text-brand-aqua border border-cyan-500/20";
               } else {
@@ -1169,7 +1272,7 @@ export default function BuilderPage() {
                       toast.error(apiError(error).message);
                     }
                   }}
-                  className="group relative flex flex-col rounded-xl border border-white/10 bg-white/[0.02] p-4 text-left transition-all duration-300 hover:-translate-y-1 hover:border-brand-aqua/50 hover:bg-white/[0.05] hover:shadow-[0_0_25px_rgba(34,211,238,0.15)] focus:outline-none focus:ring-2 focus:ring-brand-aqua/40 w-full"
+                  className="group relative flex flex-col rounded-xl border border-white/10 bg-white/[0.02] p-3 sm:p-4 text-left transition-all duration-300 hover:-translate-y-1 hover:border-brand-aqua/50 hover:bg-white/[0.05] hover:shadow-[0_0_25px_rgba(34,211,238,0.15)] focus:outline-none focus:ring-2 focus:ring-brand-aqua/40 w-full"
                 >
                   <div className="mb-3.5 overflow-hidden rounded-lg bg-slate-950/80 p-2.5 w-full border border-white/5 group-hover:border-white/10 transition-colors duration-200">
                     <TemplateMockup slug={tpl.slug} />
@@ -1199,3 +1302,4 @@ export default function BuilderPage() {
     </div>
   );
 }
+

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   FiArrowUpRight,
@@ -49,49 +49,438 @@ export function getStyleConfig(section) {
   const padding = getField(section, "style_padding", "cozy");
   const textColor = getField(section, "style_text_color", "brand-aqua");
 
-  let bgClass = "bg-ink-950 text-white";
-  let isLight = false;
-  if (bg === "light") {
-    bgClass = "bg-[#f6f3ed] text-ink-950 border-y border-black/5";
-    isLight = true;
-  } else if (bg === "gradient-teal") {
-    bgClass = "bg-gradient-to-br from-black via-slate-900 to-teal-950/70 text-white";
-  } else if (bg === "gradient-purple") {
-    bgClass = "bg-gradient-to-br from-black via-slate-900 to-purple-950/70 text-white";
-  } else if (bg === "brand-dark") {
-    bgClass = "bg-[#0c0c0d] border-y border-white/10 text-white";
-  }
-
-  let padClass = "py-16";
-  if (padding === "tight") {
-    padClass = "py-8";
-  } else if (padding === "cozy") {
-    padClass = "py-16";
-  } else if (padding === "spacing") {
-    padClass = "py-24";
-  } else if (padding === "tall") {
-    padClass = "py-36";
-  }
+  const isLight = bg === "light";
 
   const validColors = ["brand-aqua", "brand-rose", "brand-lime", "brand-amber"];
-  const color = validColors.includes(textColor) ? textColor : "brand-aqua";
-  const textHighlight = `text-${color}`;
-  const bgHighlight = `bg-${color}`;
-  const borderHighlight = `border-${color}/20`;
-  const bgHighlightHover = `hover:bg-${color}`;
-  const textHighlightHover = `group-hover:text-${color} hover:text-${color}`;
-  const borderHighlightHover = `hover:border-${color}/30`;
+  let color = validColors.includes(textColor) ? textColor : "brand-aqua";
+
+  // Light theme legibility contrast enhancements (Neon colors scale beautifully to deep professional tones)
+  let highlightColor = color;
+  if (isLight) {
+    if (color === "brand-aqua") highlightColor = "teal-700";
+    else if (color === "brand-rose") highlightColor = "rose-600";
+    else if (color === "brand-lime") highlightColor = "emerald-700";
+    else if (color === "brand-amber") highlightColor = "amber-700";
+  }
+
+  // Base highlights map using resolved highlightColor mapped to fully written-out literals for Tailwind safelisting
+  const stylesMap = {
+    "brand-aqua": {
+      textHighlight: "text-brand-aqua",
+      bgHighlight: "bg-brand-aqua",
+      borderHighlight: "border-brand-aqua/20",
+      borderHighlight30: "border-brand-aqua/30",
+      borderHighlight40: "border-brand-aqua/40",
+      bgHighlight5: "bg-brand-aqua/5",
+      bgHighlight10: "bg-brand-aqua/10",
+      bgHighlightHover: "hover:bg-brand-aqua",
+      textHighlightHover: "group-hover:text-brand-aqua hover:text-brand-aqua",
+      borderHighlightHover: "hover:border-brand-aqua/30",
+      fromBgHighlight: "from-brand-aqua",
+      fromBgHighlight10: "from-brand-aqua/10",
+      fromBgHighlight20: "from-brand-aqua/20",
+      fromBgHighlight60: "from-brand-aqua/60",
+      toBgHighlight: "to-brand-aqua",
+      focusBorderHighlight: "focus:border-brand-aqua",
+      borderHighlightPlain: "border-brand-aqua",
+      groupHoverTextHighlight: "group-hover:text-brand-aqua",
+      hoverTextHighlight: "hover:text-brand-aqua",
+      groupHoverBgHighlight: "group-hover:bg-brand-aqua",
+      groupHoverBorderHighlight: "group-hover:border-brand-aqua",
+      bgHighlightHover90: "hover:bg-brand-aqua/90",
+      bgHighlightHover80: "hover:bg-brand-aqua/80",
+      bgHighlight65: "bg-brand-aqua/65",
+      borderHighlight10: "border-brand-aqua/10",
+      borderHighlight25: "border-brand-aqua/25",
+      hoverBorderHighlight20: "hover:border-brand-aqua/20",
+      hoverBorderHighlight45: "hover:border-brand-aqua/45"
+    },
+    "brand-rose": {
+      textHighlight: "text-brand-rose",
+      bgHighlight: "bg-brand-rose",
+      borderHighlight: "border-brand-rose/20",
+      borderHighlight30: "border-brand-rose/30",
+      borderHighlight40: "border-brand-rose/40",
+      bgHighlight5: "bg-brand-rose/5",
+      bgHighlight10: "bg-brand-rose/10",
+      bgHighlightHover: "hover:bg-brand-rose",
+      textHighlightHover: "group-hover:text-brand-rose hover:text-brand-rose",
+      borderHighlightHover: "hover:border-brand-rose/30",
+      fromBgHighlight: "from-brand-rose",
+      fromBgHighlight10: "from-brand-rose/10",
+      fromBgHighlight20: "from-brand-rose/20",
+      fromBgHighlight60: "from-brand-rose/60",
+      toBgHighlight: "to-brand-rose",
+      focusBorderHighlight: "focus:border-brand-rose",
+      borderHighlightPlain: "border-brand-rose",
+      groupHoverTextHighlight: "group-hover:text-brand-rose",
+      hoverTextHighlight: "hover:text-brand-rose",
+      groupHoverBgHighlight: "group-hover:bg-brand-rose",
+      groupHoverBorderHighlight: "group-hover:border-brand-rose",
+      bgHighlightHover90: "hover:bg-brand-rose/90",
+      bgHighlightHover80: "hover:bg-brand-rose/80",
+      bgHighlight65: "bg-brand-rose/65",
+      borderHighlight10: "border-brand-rose/10",
+      borderHighlight25: "border-brand-rose/25",
+      hoverBorderHighlight20: "hover:border-brand-rose/20",
+      hoverBorderHighlight45: "hover:border-brand-rose/45"
+    },
+    "brand-lime": {
+      textHighlight: "text-brand-lime",
+      bgHighlight: "bg-brand-lime",
+      borderHighlight: "border-brand-lime/20",
+      borderHighlight30: "border-brand-lime/30",
+      borderHighlight40: "border-brand-lime/40",
+      bgHighlight5: "bg-brand-lime/5",
+      bgHighlight10: "bg-brand-lime/10",
+      bgHighlightHover: "hover:bg-brand-lime",
+      textHighlightHover: "group-hover:text-brand-lime hover:text-brand-lime",
+      borderHighlightHover: "hover:border-brand-lime/30",
+      fromBgHighlight: "from-brand-lime",
+      fromBgHighlight10: "from-brand-lime/10",
+      fromBgHighlight20: "from-brand-lime/20",
+      fromBgHighlight60: "from-brand-lime/60",
+      toBgHighlight: "to-brand-lime",
+      focusBorderHighlight: "focus:border-brand-lime",
+      borderHighlightPlain: "border-brand-lime",
+      groupHoverTextHighlight: "group-hover:text-brand-lime",
+      hoverTextHighlight: "hover:text-brand-lime",
+      groupHoverBgHighlight: "group-hover:bg-brand-lime",
+      groupHoverBorderHighlight: "group-hover:border-brand-lime",
+      bgHighlightHover90: "hover:bg-brand-lime/90",
+      bgHighlightHover80: "hover:bg-brand-lime/80",
+      bgHighlight65: "bg-brand-lime/65",
+      borderHighlight10: "border-brand-lime/10",
+      borderHighlight25: "border-brand-lime/25",
+      hoverBorderHighlight20: "hover:border-brand-lime/20",
+      hoverBorderHighlight45: "hover:border-brand-lime/45"
+    },
+    "brand-amber": {
+      textHighlight: "text-brand-amber",
+      bgHighlight: "bg-brand-amber",
+      borderHighlight: "border-brand-amber/20",
+      borderHighlight30: "border-brand-amber/30",
+      borderHighlight40: "border-brand-amber/40",
+      bgHighlight5: "bg-brand-amber/5",
+      bgHighlight10: "bg-brand-amber/10",
+      bgHighlightHover: "hover:bg-brand-amber",
+      textHighlightHover: "group-hover:text-brand-amber hover:text-brand-amber",
+      borderHighlightHover: "hover:border-brand-amber/30",
+      fromBgHighlight: "from-brand-amber",
+      fromBgHighlight10: "from-brand-amber/10",
+      fromBgHighlight20: "from-brand-amber/20",
+      fromBgHighlight60: "from-brand-amber/60",
+      toBgHighlight: "to-brand-amber",
+      focusBorderHighlight: "focus:border-brand-amber",
+      borderHighlightPlain: "border-brand-amber",
+      groupHoverTextHighlight: "group-hover:text-brand-amber",
+      hoverTextHighlight: "hover:text-brand-amber",
+      groupHoverBgHighlight: "group-hover:bg-brand-amber",
+      groupHoverBorderHighlight: "group-hover:border-brand-amber",
+      bgHighlightHover90: "hover:bg-brand-amber/90",
+      bgHighlightHover80: "hover:bg-brand-amber/80",
+      bgHighlight65: "bg-brand-amber/65",
+      borderHighlight10: "border-brand-amber/10",
+      borderHighlight25: "border-brand-amber/25",
+      hoverBorderHighlight20: "hover:border-brand-amber/20",
+      hoverBorderHighlight45: "hover:border-brand-amber/45"
+    },
+    "teal-700": {
+      textHighlight: "text-teal-700",
+      bgHighlight: "bg-teal-700",
+      borderHighlight: "border-teal-700/20",
+      borderHighlight30: "border-teal-700/30",
+      borderHighlight40: "border-teal-700/40",
+      bgHighlight5: "bg-teal-700/5",
+      bgHighlight10: "bg-teal-700/10",
+      bgHighlightHover: "hover:bg-teal-700",
+      textHighlightHover: "group-hover:text-teal-700 hover:text-teal-700",
+      borderHighlightHover: "hover:border-teal-700/30",
+      fromBgHighlight: "from-teal-700",
+      fromBgHighlight10: "from-teal-700/10",
+      fromBgHighlight20: "from-teal-700/20",
+      fromBgHighlight60: "from-teal-700/60",
+      toBgHighlight: "to-teal-700",
+      focusBorderHighlight: "focus:border-teal-700",
+      borderHighlightPlain: "border-teal-700",
+      groupHoverTextHighlight: "group-hover:text-teal-700",
+      hoverTextHighlight: "hover:text-teal-700",
+      groupHoverBgHighlight: "group-hover:bg-teal-700",
+      groupHoverBorderHighlight: "group-hover:border-teal-700",
+      bgHighlightHover90: "hover:bg-teal-700/90",
+      bgHighlightHover80: "hover:bg-teal-700/80",
+      bgHighlight65: "bg-teal-700/65",
+      borderHighlight10: "border-teal-700/10",
+      borderHighlight25: "border-teal-700/25",
+      hoverBorderHighlight20: "hover:border-teal-700/20",
+      hoverBorderHighlight45: "hover:border-teal-700/45"
+    },
+    "rose-600": {
+      textHighlight: "text-rose-600",
+      bgHighlight: "bg-rose-600",
+      borderHighlight: "border-rose-600/20",
+      borderHighlight30: "border-rose-600/30",
+      borderHighlight40: "border-rose-600/40",
+      bgHighlight5: "bg-rose-600/5",
+      bgHighlight10: "bg-rose-600/10",
+      bgHighlightHover: "hover:bg-rose-600",
+      textHighlightHover: "group-hover:text-rose-600 hover:text-rose-600",
+      borderHighlightHover: "hover:border-rose-600/30",
+      fromBgHighlight: "from-rose-600",
+      fromBgHighlight10: "from-rose-600/10",
+      fromBgHighlight20: "from-rose-600/20",
+      fromBgHighlight60: "from-rose-600/60",
+      toBgHighlight: "to-rose-600",
+      focusBorderHighlight: "focus:border-rose-600",
+      borderHighlightPlain: "border-rose-600",
+      groupHoverTextHighlight: "group-hover:text-rose-600",
+      hoverTextHighlight: "hover:text-rose-600",
+      groupHoverBgHighlight: "group-hover:bg-rose-600",
+      groupHoverBorderHighlight: "group-hover:border-rose-600",
+      bgHighlightHover90: "hover:bg-rose-600/90",
+      bgHighlightHover80: "hover:bg-rose-600/80",
+      bgHighlight65: "bg-rose-600/65",
+      borderHighlight10: "border-rose-600/10",
+      borderHighlight25: "border-rose-600/25",
+      hoverBorderHighlight20: "hover:border-rose-600/20",
+      hoverBorderHighlight45: "hover:border-rose-600/45"
+    },
+    "emerald-700": {
+      textHighlight: "text-emerald-700",
+      bgHighlight: "bg-emerald-700",
+      borderHighlight: "border-emerald-700/20",
+      borderHighlight30: "border-emerald-700/30",
+      borderHighlight40: "border-emerald-700/40",
+      bgHighlight5: "bg-emerald-700/5",
+      bgHighlight10: "bg-emerald-700/10",
+      bgHighlightHover: "hover:bg-emerald-700",
+      textHighlightHover: "group-hover:text-emerald-700 hover:text-emerald-700",
+      borderHighlightHover: "hover:border-emerald-700/30",
+      fromBgHighlight: "from-emerald-700",
+      fromBgHighlight10: "from-emerald-700/10",
+      fromBgHighlight20: "from-emerald-700/20",
+      fromBgHighlight60: "from-emerald-700/60",
+      toBgHighlight: "to-emerald-700",
+      focusBorderHighlight: "focus:border-emerald-700",
+      borderHighlightPlain: "border-emerald-700",
+      groupHoverTextHighlight: "group-hover:text-emerald-700",
+      hoverTextHighlight: "hover:text-emerald-700",
+      groupHoverBgHighlight: "group-hover:bg-emerald-700",
+      groupHoverBorderHighlight: "group-hover:border-emerald-700",
+      bgHighlightHover90: "hover:bg-emerald-700/90",
+      bgHighlightHover80: "hover:bg-emerald-700/80",
+      bgHighlight65: "bg-emerald-700/65",
+      borderHighlight10: "border-emerald-700/10",
+      borderHighlight25: "border-emerald-700/25",
+      hoverBorderHighlight20: "hover:border-emerald-700/20",
+      hoverBorderHighlight45: "hover:border-emerald-700/45"
+    },
+    "amber-700": {
+      textHighlight: "text-amber-700",
+      bgHighlight: "bg-amber-700",
+      borderHighlight: "border-amber-700/20",
+      borderHighlight30: "border-amber-700/30",
+      borderHighlight40: "border-amber-700/40",
+      bgHighlight5: "bg-amber-700/5",
+      bgHighlight10: "bg-amber-700/10",
+      bgHighlightHover: "hover:bg-amber-700",
+      textHighlightHover: "group-hover:text-amber-700 hover:text-amber-700",
+      borderHighlightHover: "hover:border-amber-700/30",
+      fromBgHighlight: "from-amber-700",
+      fromBgHighlight10: "from-amber-700/10",
+      fromBgHighlight20: "from-amber-700/20",
+      fromBgHighlight60: "from-amber-700/60",
+      toBgHighlight: "to-amber-700",
+      focusBorderHighlight: "focus:border-amber-700",
+      borderHighlightPlain: "border-amber-700",
+      groupHoverTextHighlight: "group-hover:text-amber-700",
+      hoverTextHighlight: "hover:text-amber-700",
+      groupHoverBgHighlight: "group-hover:bg-amber-700",
+      groupHoverBorderHighlight: "group-hover:border-amber-700",
+      bgHighlightHover90: "hover:bg-amber-700/90",
+      bgHighlightHover80: "hover:bg-amber-700/80",
+      bgHighlight65: "bg-amber-700/65",
+      borderHighlight10: "border-amber-700/10",
+      borderHighlight25: "border-amber-700/25",
+      hoverBorderHighlight20: "hover:border-amber-700/20",
+      hoverBorderHighlight45: "hover:border-amber-700/45"
+    }
+  };
+
+  const activeStyles = stylesMap[highlightColor] || stylesMap["brand-aqua"];
+
+  const {
+    textHighlight,
+    bgHighlight,
+    borderHighlight,
+    borderHighlight30,
+    borderHighlight40,
+    bgHighlight5,
+    bgHighlight10,
+    bgHighlightHover,
+    textHighlightHover,
+    borderHighlightHover,
+    fromBgHighlight,
+    fromBgHighlight10,
+    fromBgHighlight20,
+    fromBgHighlight60,
+    toBgHighlight,
+    focusBorderHighlight,
+    borderHighlightPlain,
+    groupHoverTextHighlight,
+    hoverTextHighlight,
+    groupHoverBgHighlight,
+    groupHoverBorderHighlight,
+    bgHighlightHover90,
+    bgHighlightHover80,
+    bgHighlight65,
+    borderHighlight10,
+    borderHighlight25,
+    hoverBorderHighlight20,
+    hoverBorderHighlight45
+  } = activeStyles;
+
+  let bgClass = "bg-ink-950 text-white";
+  let subtextClass = "text-white/60";
+  let subtextMutedClass = "text-white/50";
+  let subtextLightClass = "text-white/70";
+  let borderClass = "border-white/10";
+  let cardBgClass = "bg-white/[0.02] hover:bg-white/[0.04]";
+  let cardBorderClass = "border-white/10 hover:border-white/20";
+  let inputBgClass = `bg-ink-900 text-white ${focusBorderHighlight}`;
+  let bgSoftGlow = "bg-white/[0.01]";
+  let bgHoverClass = "hover:bg-white/[0.08]";
+  let shadowGlowClass = "shadow-glow";
   
-  const subtextClass = isLight ? "text-ink-700" : "text-white/60";
-  const subtextMutedClass = isLight ? "text-ink-600" : "text-white/50";
-  const subtextLightClass = isLight ? "text-ink-800" : "text-white/70";
-  const borderClass = isLight ? "border-black/10" : "border-white/10";
-  const cardBgClass = isLight ? "bg-black/[0.03] hover:bg-black/[0.05]" : "bg-white/[0.02] hover:bg-white/[0.04]";
-  const cardBorderClass = isLight ? "border-black/10 hover:border-black/20" : "border-white/10 hover:border-white/20";
-  const inputBgClass = isLight ? "bg-black/[0.04] text-ink-950 focus:border-brand-aqua" : "bg-ink-900 text-white focus:border-brand-aqua";
-  const bgSoftGlow = isLight ? "bg-black/5" : "bg-white/[0.01]";
-  const bgHoverClass = isLight ? "hover:bg-black/5" : "hover:bg-white/[0.08]";
-  const shadowGlowClass = isLight ? "shadow-md" : "shadow-glow";
+  // Custom design additions
+  let headingClass = "text-white font-semibold";
+  let badgeBgClass = `${bgHighlight5} ${borderHighlight} ${textHighlight}`;
+  let buttonPrimaryClass = `bg-white text-ink-950 hover:bg-white/90`;
+  let buttonSecondaryClass = "bg-white/[0.04] text-white border-white/10 hover:bg-white/[0.08]";
+  let starColorClass = "text-brand-amber";
+
+  // Navigation-specific custom classes
+  let navBgClass = "bg-ink-950/70 text-white";
+  let textMenuClass = "text-white/70 hover:text-white";
+  let ctaBtnClass = "bg-white text-ink-950";
+
+  if (isLight) {
+    bgClass = "bg-[#f6f3ed] text-ink-950 border-y border-black/5";
+    subtextClass = "text-ink-700";
+    subtextMutedClass = "text-ink-600";
+    subtextLightClass = "text-ink-800";
+    borderClass = "border-black/[0.08]";
+    cardBgClass = "bg-white/[0.45] hover:bg-white/[0.7] backdrop-blur-sm";
+    cardBorderClass = "border-black/[0.06] hover:border-black/[0.12]";
+    inputBgClass = `bg-black/[0.03] text-ink-950 ${focusBorderHighlight}`;
+    bgSoftGlow = "bg-black/[0.02]";
+    bgHoverClass = "hover:bg-black/[0.04]";
+    shadowGlowClass = "shadow-sm";
+    headingClass = "text-[#050505] font-bold";
+    badgeBgClass = `${bgHighlight5} ${borderHighlight25} ${textHighlight}`;
+    buttonPrimaryClass = "bg-[#050505] text-[#f6f3ed] hover:bg-ink-900";
+    buttonSecondaryClass = "bg-black/[0.04] text-ink-800 border-black/[0.06] hover:bg-black/[0.08]";
+    starColorClass = "text-amber-600";
+    
+    navBgClass = "bg-[#f6f3ed]/80 text-ink-950 border-black/5";
+    textMenuClass = "text-ink-700 hover:text-[#050505]";
+    ctaBtnClass = "bg-[#050505] text-[#f6f3ed] hover:bg-ink-900";
+  } else if (bg === "dark") { // Slate Black
+    bgClass = "bg-[#0b0f19] text-white border-y border-slate-900";
+    subtextClass = "text-slate-400";
+    subtextMutedClass = "text-slate-500";
+    subtextLightClass = "text-slate-300";
+    borderClass = "border-slate-800/60";
+    cardBgClass = "bg-slate-900/40 hover:bg-slate-900/60 backdrop-blur-md";
+    cardBorderClass = "border-slate-800/80 hover:border-slate-700/80";
+    inputBgClass = `bg-[#080b12] text-slate-100 ${focusBorderHighlight} border-slate-800`;
+    bgSoftGlow = "bg-slate-900/20";
+    bgHoverClass = "hover:bg-slate-800/40";
+    shadowGlowClass = "shadow-[0_0_20px_rgba(15,23,42,0.6)]";
+    headingClass = "text-slate-100 font-semibold";
+    badgeBgClass = `bg-slate-900/65 border-slate-800 text-slate-300`;
+    buttonPrimaryClass = "bg-slate-100 text-[#0b0f19] hover:bg-white";
+    buttonSecondaryClass = "bg-slate-900/50 text-slate-200 border-slate-800 hover:bg-slate-900/80";
+    starColorClass = "text-brand-amber";
+
+    navBgClass = "bg-[#0b0f19]/80 text-slate-200 border-slate-800/80";
+    textMenuClass = "text-slate-400 hover:text-slate-100";
+    ctaBtnClass = "bg-slate-100 text-[#0b0f19] hover:bg-white";
+  } else if (bg === "gradient-teal") {
+    bgClass = "bg-gradient-to-br from-slate-950 via-slate-900 to-teal-950/70 text-white border-y border-teal-950/50";
+    subtextClass = "text-teal-200/60";
+    subtextMutedClass = "text-teal-200/50";
+    subtextLightClass = "text-teal-200/70";
+    borderClass = "border-teal-950/40";
+    cardBgClass = "bg-teal-950/15 hover:bg-teal-950/25 backdrop-blur-md";
+    cardBorderClass = "border-teal-500/15 hover:border-teal-500/30";
+    inputBgClass = `bg-black/40 text-white ${focusBorderHighlight} border-teal-900/50`;
+    bgSoftGlow = "bg-teal-950/10";
+    bgHoverClass = "hover:bg-teal-950/30";
+    shadowGlowClass = "shadow-[0_0_25px_rgba(20,184,166,0.12)]";
+    headingClass = "text-white font-semibold";
+    badgeBgClass = `bg-teal-950/40 border-teal-800/40 text-teal-300`;
+    buttonPrimaryClass = "bg-teal-400 text-slate-950 hover:bg-teal-300";
+    buttonSecondaryClass = "bg-teal-950/30 text-teal-200 border-teal-900/40 hover:bg-teal-950/60";
+    starColorClass = "text-brand-amber";
+
+    navBgClass = "bg-slate-950/80 text-teal-100 border-teal-900/40";
+    textMenuClass = "text-teal-200/60 hover:text-white";
+    ctaBtnClass = "bg-teal-400 text-slate-950 hover:bg-teal-300";
+  } else if (bg === "gradient-purple") {
+    bgClass = "bg-gradient-to-br from-slate-950 via-slate-900 to-purple-950/70 text-white border-y border-purple-950/50";
+    subtextClass = "text-purple-200/60";
+    subtextMutedClass = "text-purple-200/50";
+    subtextLightClass = "text-purple-200/70";
+    borderClass = "border-purple-950/40";
+    cardBgClass = "bg-purple-950/15 hover:bg-purple-950/25 backdrop-blur-md";
+    cardBorderClass = "border-purple-500/15 hover:border-purple-500/30";
+    inputBgClass = `bg-black/40 text-white ${focusBorderHighlight} border-purple-900/50`;
+    bgSoftGlow = "bg-purple-950/10";
+    bgHoverClass = "hover:bg-purple-950/30";
+    shadowGlowClass = "shadow-[0_0_25px_rgba(168,85,247,0.12)]";
+    headingClass = "text-white font-semibold";
+    badgeBgClass = `bg-purple-950/40 border-purple-800/40 text-purple-300`;
+    buttonPrimaryClass = "bg-purple-500 text-white hover:bg-purple-400";
+    buttonSecondaryClass = "bg-purple-950/30 text-purple-200 border-purple-900/40 hover:bg-purple-950/60";
+    starColorClass = "text-brand-amber";
+
+    navBgClass = "bg-slate-950/80 text-purple-100 border-purple-900/40";
+    textMenuClass = "text-purple-200/60 hover:text-white";
+    ctaBtnClass = "bg-purple-500 text-white hover:bg-purple-400";
+  } else if (bg === "brand-dark") { // Cyberpunk Black
+    bgClass = "bg-[#050505] text-white border-y border-white/5";
+    subtextClass = "text-white/60";
+    subtextMutedClass = "text-white/45";
+    subtextLightClass = "text-white/75";
+    borderClass = "border-white/[0.06]";
+    cardBgClass = "bg-white/[0.01] hover:bg-white/[0.03] backdrop-blur-sm";
+    cardBorderClass = "border-white/[0.08] hover:border-brand-aqua/45";
+    inputBgClass = `bg-black text-white ${focusBorderHighlight} border-white/10`;
+    bgSoftGlow = "bg-white/[0.01]";
+    bgHoverClass = "hover:bg-white/[0.06]";
+    shadowGlowClass = "shadow-glow";
+    headingClass = "text-white font-bold";
+    badgeBgClass = `bg-white/[0.02] border-white/10 text-white`;
+    buttonPrimaryClass = "bg-brand-aqua text-black hover:bg-brand-aqua/90";
+    buttonSecondaryClass = "bg-white/[0.03] text-white border-white/10 hover:bg-white/[0.08]";
+    starColorClass = "text-brand-amber";
+
+    navBgClass = "bg-black/80 text-white border-white/10";
+    textMenuClass = "text-white/60 hover:text-brand-aqua";
+    ctaBtnClass = "bg-brand-aqua text-black hover:bg-brand-aqua/90";
+  }
+
+  let padClass = "py-8 md:py-16";
+  if (padding === "tight") {
+    padClass = "py-4 md:py-8";
+  } else if (padding === "cozy") {
+    padClass = "py-8 md:py-16";
+  } else if (padding === "spacing") {
+    padClass = "py-12 md:py-24";
+  } else if (padding === "tall") {
+    padClass = "py-16 md:py-36";
+  }
 
   return {
     bgClass,
@@ -100,9 +489,31 @@ export function getStyleConfig(section) {
     textHighlight,
     bgHighlight,
     borderHighlight,
+    borderHighlight30,
+    borderHighlight40,
+    bgHighlight5,
+    bgHighlight10,
     bgHighlightHover,
     textHighlightHover,
     borderHighlightHover,
+    fromBgHighlight,
+    fromBgHighlight10,
+    fromBgHighlight20,
+    fromBgHighlight60,
+    toBgHighlight,
+    focusBorderHighlight,
+    borderHighlightPlain,
+    groupHoverTextHighlight,
+    hoverTextHighlight,
+    groupHoverBgHighlight,
+    groupHoverBorderHighlight,
+    bgHighlightHover90,
+    bgHighlightHover80,
+    bgHighlight65,
+    borderHighlight10,
+    borderHighlight25,
+    hoverBorderHighlight20,
+    hoverBorderHighlight45,
     subtextClass,
     subtextMutedClass,
     subtextLightClass,
@@ -113,6 +524,14 @@ export function getStyleConfig(section) {
     bgSoftGlow,
     bgHoverClass,
     shadowGlowClass,
+    headingClass,
+    badgeBgClass,
+    buttonPrimaryClass,
+    buttonSecondaryClass,
+    starColorClass,
+    navBgClass,
+    textMenuClass,
+    ctaBtnClass,
     color,
   };
 }
@@ -129,11 +548,11 @@ function HeroSection({ section }) {
     "Compose polished pages from reusable sections and keep every update structured.",
   );
   const background = imageUrl(section, "background_image");
-  const { bgClass, padClass, textHighlight, color } = getStyleConfig(section);
+  const { bgClass, padClass, textHighlight, bgHighlightHover } = useMemo(() => getStyleConfig(section), [section]);
 
   return (
     <section className={`relative isolate min-h-[520px] overflow-hidden ${bgClass}`}>
-      <img src={background} alt="" className="absolute inset-0 h-full w-full object-cover" />
+      <img src={background} alt="" loading="eager" className="absolute inset-0 h-full w-full object-cover" />
       <div className="absolute inset-0 bg-gradient-to-br from-black/88 via-black/58 to-black/22" />
       <div className={`relative mx-auto flex min-h-[520px] max-w-6xl items-end px-6 ${padClass} sm:px-10`}>
         <div className="max-w-3xl">
@@ -147,7 +566,7 @@ function HeroSection({ section }) {
           <div className="mt-8 flex flex-wrap gap-3">
             <a
               href="#contact"
-              className={`inline-flex h-11 items-center gap-2 rounded-lg bg-white px-4 text-sm font-semibold text-ink-950 transition hover:bg-${color}`}
+              className={`inline-flex h-11 items-center gap-2 rounded-lg bg-white px-4 text-sm font-semibold text-ink-950 transition ${bgHighlightHover}`}
             >
               Start a conversation
               <FiArrowUpRight className="h-4 w-4" />
@@ -166,7 +585,7 @@ function HeroSection({ section }) {
 }
 
 function AboutSection({ section }) {
-  const { bgClass, padClass, textHighlight, borderClass, subtextLightClass } = getStyleConfig(section);
+  const { bgClass, padClass, textHighlight, borderClass, subtextLightClass } = useMemo(() => getStyleConfig(section), [section]);
   return (
     <section className={`border-y px-6 sm:px-10 ${bgClass} ${borderClass} ${padClass}`}>
       <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[0.95fr_1.05fr]">
@@ -189,6 +608,8 @@ function AboutSection({ section }) {
           <img
             src={imageUrl(section, "image")}
             alt=""
+            loading="lazy"
+            decoding="async"
             className="h-[360px] w-full object-cover transition-transform duration-500 hover:scale-105"
           />
         </div>
@@ -202,7 +623,7 @@ function ServicesSection({ section }) {
     name: getField(section, `service_${index}_name`, `Service ${index}`),
     icon: imageUrl(section, `service_${index}_icon`),
   }));
-  const { bgClass, padClass, textHighlight, color, borderClass, subtextMutedClass, cardBgClass } = getStyleConfig(section);
+  const { bgClass, padClass, textHighlight, borderClass, subtextMutedClass, cardBgClass, borderHighlightHover, groupHoverTextHighlight } = useMemo(() => getStyleConfig(section), [section]);
 
   return (
     <section id="services" className={`border-b px-6 sm:px-10 ${bgClass} ${borderClass} ${padClass}`}>
@@ -221,21 +642,23 @@ function ServicesSection({ section }) {
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {services.map((service, index) => (
             <article
-              className={`group rounded-xl border p-5 shadow-soft transition hover:border-${color}/30 ${borderClass} ${cardBgClass}`}
+              className={`group rounded-xl border p-5 shadow-soft transition ${borderHighlightHover} ${borderClass} ${cardBgClass}`}
               key={service.name + index}
             >
               <div className="overflow-hidden rounded-lg">
                 <img
                   src={service.icon}
                   alt=""
+                  loading="lazy"
+                  decoding="async"
                   className="h-44 w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
               <div className="mt-5 flex items-center justify-between gap-4">
-                <h3 className={`text-xl font-semibold group-hover:text-${color} transition`}>
+                <h3 className={`text-xl font-semibold ${groupHoverTextHighlight} transition`}>
                   {service.name}
                 </h3>
-                <span className={`grid h-9 w-9 place-items-center rounded-lg border text-xs font-bold group-hover:text-${color} transition ${borderClass} ${cardBgClass}`}>
+                <span className={`grid h-9 w-9 place-items-center rounded-lg border text-xs font-bold ${groupHoverTextHighlight} transition ${borderClass} ${cardBgClass}`}>
                   0{index + 1}
                 </span>
               </div>
@@ -274,6 +697,8 @@ function ContactSection({ section }) {
           <img
             src={imageUrl(section, "map_image")}
             alt=""
+            loading="lazy"
+            decoding="async"
             className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
           />
         </div>
@@ -290,7 +715,7 @@ function FooterSection({ section }) {
       <div className="mx-auto flex max-w-6xl flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-3">
           {logoUrl ? (
-            <img src={logoUrl} alt="" className="h-9 max-w-[140px] rounded object-contain" />
+            <img src={logoUrl} alt="" loading="lazy" decoding="async" className="h-9 max-w-[140px] rounded object-contain" />
           ) : (
             <div className="grid h-9 w-9 place-items-center rounded-lg text-sm font-black shadow-glow bg-white text-black">
               IW
@@ -341,7 +766,7 @@ function NavbarComponent({ section }) {
   const ctaText = getField(section, "cta_text") || "Get Started";
   const ctaUrl = getField(section, "cta_url") || "#contact";
 
-  const { color, isLight, borderClass } = getStyleConfig(section);
+  const { isLight, borderClass, bgHighlight, bgHighlightHover, hoverTextHighlight } = getStyleConfig(section);
 
   const navBg = isLight ? "bg-[#f6f3ed]/80 text-ink-950" : "bg-ink-950/70 text-white";
   const textMenu = isLight ? "text-ink-950/70 hover:text-ink-950" : "text-white/70 hover:text-white";
@@ -352,10 +777,10 @@ function NavbarComponent({ section }) {
       <nav className={`rounded-full border py-2.5 px-6 shadow-glow backdrop-blur-xl flex items-center justify-between ${borderClass} ${navBg}`}>
         <div className="flex items-center gap-3">
           {logoUrl ? (
-            <img src={logoUrl} alt="" className="h-8 max-w-[120px] object-contain" />
+            <img src={logoUrl} alt="" loading="eager" className="h-8 max-w-[120px] object-contain" />
           ) : (
             <div className="flex items-center gap-2">
-              <span className={`grid h-8 w-8 place-items-center rounded-lg text-xs font-black shadow-glow bg-${color} text-ink-950`}>
+              <span className={`grid h-8 w-8 place-items-center rounded-lg text-xs font-black shadow-glow text-ink-950 ${bgHighlight}`}>
                 IW
               </span>
               <span className="font-bold tracking-tight">{logoText}</span>
@@ -374,7 +799,7 @@ function NavbarComponent({ section }) {
         <div className="hidden md:block">
           <a
             href={ctaUrl}
-            className={`inline-flex h-9 items-center justify-center rounded-full px-5 text-xs font-bold shadow-glow hover:scale-102 transition ${ctaBtn} hover:bg-${color}`}
+            className={`inline-flex h-9 items-center justify-center rounded-full px-5 text-xs font-bold shadow-glow hover:scale-102 transition ${ctaBtn} ${bgHighlightHover}`}
           >
             {ctaText}
           </a>
@@ -399,14 +824,14 @@ function NavbarComponent({ section }) {
             exit={{ opacity: 0, y: -8 }}
             className={`md:hidden mt-2 p-5 rounded-2xl border shadow-glow backdrop-blur-xl flex flex-col gap-4 text-center text-sm font-medium ${borderClass} ${navBg}`}
           >
-            <a href={link1Url} onClick={() => setIsOpen(false)} className={`hover:text-${color} py-2`}>{link1Text}</a>
-            <a href={link2Url} onClick={() => setIsOpen(false)} className={`hover:text-${color} py-2`}>{link2Text}</a>
-            <a href={link3Url} onClick={() => setIsOpen(false)} className={`hover:text-${color} py-2`}>{link3Text}</a>
-            <a href={link4Url} onClick={() => setIsOpen(false)} className={`hover:text-${color} py-2`}>{link4Text}</a>
+            <a href={link1Url} onClick={() => setIsOpen(false)} className={`${hoverTextHighlight} py-2`}>{link1Text}</a>
+            <a href={link2Url} onClick={() => setIsOpen(false)} className={`${hoverTextHighlight} py-2`}>{link2Text}</a>
+            <a href={link3Url} onClick={() => setIsOpen(false)} className={`${hoverTextHighlight} py-2`}>{link3Text}</a>
+            <a href={link4Url} onClick={() => setIsOpen(false)} className={`${hoverTextHighlight} py-2`}>{link4Text}</a>
             <a
               href={ctaUrl}
               onClick={() => setIsOpen(false)}
-              className={`mt-2 inline-flex h-10 items-center justify-center rounded-full px-6 text-xs font-bold ${ctaBtn} hover:bg-${color}`}
+              className={`mt-2 inline-flex h-10 items-center justify-center rounded-full px-6 text-xs font-bold ${ctaBtn} ${bgHighlightHover}`}
             >
               {ctaText}
             </a>
@@ -435,17 +860,17 @@ function HeroVariantComponent({ section }) {
     "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
   );
 
-  const { bgClass, padClass, color, borderClass, subtextLightClass } = getStyleConfig(section);
+  const { bgClass, padClass, borderClass, subtextLightClass, bgHighlight, bgHighlight5, borderHighlight30, textHighlight, bgHighlightHover } = useMemo(() => getStyleConfig(section), [section]);
 
   return (
     <section className={`px-6 sm:px-10 overflow-hidden relative ${bgClass} ${padClass}`}>
       {/* Background soft ambient glows */}
-      <div className={`absolute -top-40 right-10 h-[400px] w-[400px] rounded-full opacity-10 blur-[100px] pointer-events-none bg-${color}`} />
+      <div className={`absolute -top-40 right-10 h-[400px] w-[400px] rounded-full opacity-10 blur-[100px] pointer-events-none ${bgHighlight}`} />
       <div className="absolute bottom-10 left-10 h-[300px] w-[300px] rounded-full bg-brand-rose/5 blur-[80px] pointer-events-none" />
 
       <div className="mx-auto max-w-6xl grid items-center gap-12 lg:grid-cols-2">
         <div className="space-y-6">
-          <div className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold tracking-wide bg-${color}/5 border-${color}/30 text-${color}`}>
+          <div className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold tracking-wide ${bgHighlight5} ${borderHighlight30} ${textHighlight}`}>
             <FiZap className="h-3.5 w-3.5 animate-pulse" />
             {badgeText}
           </div>
@@ -458,7 +883,7 @@ function HeroVariantComponent({ section }) {
           <div className="flex flex-wrap gap-4 pt-2">
             <a
               href={primaryCtaUrl}
-              className={`inline-flex h-11 items-center justify-center rounded-lg px-5 text-sm font-semibold shadow-glow transition duration-200 bg-white text-ink-950 hover:bg-${color}`}
+              className={`inline-flex h-11 items-center justify-center rounded-lg px-5 text-sm font-semibold shadow-glow transition duration-200 bg-white text-ink-950 ${bgHighlightHover}`}
             >
               {primaryCtaText}
             </a>
@@ -473,11 +898,12 @@ function HeroVariantComponent({ section }) {
         </div>
 
         <div className="relative group">
-          <div className={`absolute inset-0 rounded-2xl opacity-10 blur-xl group-hover:opacity-15 transition duration-500 bg-${color}`} />
+          <div className={`absolute inset-0 rounded-2xl opacity-10 blur-xl group-hover:opacity-15 transition duration-500 ${bgHighlight}`} />
           <div className={`relative overflow-hidden rounded-2xl border bg-ink-900 shadow-glow p-2 ${borderClass}`}>
             <img
               src={image}
               alt=""
+              loading="eager"
               className="h-[360px] sm:h-[420px] w-full rounded-xl object-cover transition-transform duration-700 group-hover:scale-103"
             />
           </div>
@@ -492,14 +918,14 @@ function FeatureGridComponent({ section }) {
   const title = getField(section, "title") || getField(section, "heading") || "Designed for modern creators";
   const subtitle = getField(section, "subtitle") || getField(section, "description") || "Everything you need to compile, edit, and publish high-performance interfaces.";
   
-  const { bgClass, padClass, color, borderClass, subtextClass, cardBgClass, cardBorderClass } = getStyleConfig(section);
+  const { bgClass, padClass, borderClass, subtextClass, cardBgClass, cardBorderClass, textHighlight, borderHighlight, bgHighlight5, groupHoverTextHighlight } = getStyleConfig(section);
 
   const features = [
     {
       title: getField(section, "feature_1_title") || "Extreme Performance",
       desc: getField(section, "feature_1_desc") || getField(section, "feature_1_description") || "Statically pre-rendered React pages achieve perfect 100 Lighthouse scores automatically.",
       icon: FiZap,
-      color: `text-${color} border-${color}/20 bg-${color}/5`,
+      color: `${textHighlight} ${borderHighlight} ${bgHighlight5}`,
     },
     {
       title: getField(section, "feature_2_title") || "Decoupled Data",
@@ -525,7 +951,7 @@ function FeatureGridComponent({ section }) {
     <section id="features" className={`px-6 sm:px-10 border-t ${bgClass} ${borderClass} ${padClass}`}>
       <div className="mx-auto max-w-6xl">
         <div className="text-center max-w-2xl mx-auto space-y-4 mb-16">
-          <p className={`text-xs font-bold uppercase tracking-[0.18em] text-${color}`}>Capabilities</p>
+          <p className={`text-xs font-bold uppercase tracking-[0.18em] ${textHighlight}`}>Capabilities</p>
           <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight">{title}</h2>
           <p className={`text-sm sm:text-base leading-7 ${subtextClass}`}>{subtitle}</p>
         </div>
@@ -540,7 +966,7 @@ function FeatureGridComponent({ section }) {
                 <div className={`grid h-10 w-10 place-items-center rounded-lg border ${feature.color}`}>
                   <feature.icon className="h-5 w-5" />
                 </div>
-                <h3 className={`text-lg font-semibold group-hover:text-${color} transition`}>
+                <h3 className={`text-lg font-semibold ${groupHoverTextHighlight} transition`}>
                   {feature.title}
                 </h3>
                 <p className={`text-sm leading-6 ${subtextClass}`}>{feature.desc}</p>
@@ -564,11 +990,11 @@ function StatsComponent({ section }) {
     { value: getField(section, "stat_4_value") || "2.1B+", label: getField(section, "stat_4_label") || "Monthly Requests" },
   ];
 
-  const { bgClass, padClass, color, borderClass, subtextClass, cardBgClass, cardBorderClass } = getStyleConfig(section);
+  const { bgClass, padClass, borderClass, subtextClass, cardBgClass, cardBorderClass, bgHighlight, textHighlight } = getStyleConfig(section);
 
   return (
     <section className={`px-6 sm:px-10 border-t relative ${bgClass} ${borderClass} ${padClass}`}>
-      <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[450px] w-[450px] rounded-full opacity-5 blur-[120px] pointer-events-none bg-${color}`} />
+      <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[450px] w-[450px] rounded-full opacity-5 blur-[120px] pointer-events-none ${bgHighlight}`} />
       <div className="mx-auto max-w-6xl relative z-10">
         <div className="text-center max-w-2xl mx-auto space-y-4 mb-16">
           <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight">{title}</h2>
@@ -581,8 +1007,8 @@ function StatsComponent({ section }) {
               key={index}
               className={`text-center p-6 rounded-xl border transition duration-300 shadow-glow ${cardBorderClass} ${cardBgClass}`}
             >
-              <div className={`text-4xl sm:text-5xl font-black tracking-tight text-${color}`}>{stat.value}</div>
-              <div className={`mt-3 text-xs font-bold uppercase tracking-widest ${subtextClass}`}>{stat.label}</div>
+              <div className={`text-4xl sm:text-5xl font-black tracking-tight ${textHighlight}`}>{stat.value}</div>
+              <div className={`mt-3 text-xs font-bold uppercase tracking-[0.2em] ${subtextClass}`}>{stat.label}</div>
             </div>
           ))}
         </div>
@@ -596,7 +1022,7 @@ function LogoCloudComponent({ section }) {
   const title = getField(section, "title") || getField(section, "heading") || "POWERING PAGES FOR INDUSTRY LEADERS";
   const brands = ["Vercel", "Linear", "Framer", "Stripe", "Raycast", "Supabase"];
 
-  const { bgClass, color, borderClass, subtextMutedClass } = getStyleConfig(section);
+  const { bgClass, borderClass, subtextMutedClass, hoverTextHighlight } = getStyleConfig(section);
 
   return (
     <section className={`py-16 px-6 border-y overflow-hidden ${bgClass} ${borderClass}`}>
@@ -606,7 +1032,7 @@ function LogoCloudComponent({ section }) {
           {brands.map((brand, i) => (
             <div
               key={i}
-              className={`font-display text-2xl font-black transition duration-300 cursor-pointer select-none filter drop-shadow-[0_0_12px_rgba(255,255,255,0.03)] opacity-40 hover:opacity-100 hover:text-${color}`}
+              className={`font-display text-2xl font-black transition duration-300 cursor-pointer select-none filter drop-shadow-[0_0_12px_rgba(255,255,255,0.03)] opacity-40 hover:opacity-100 ${hoverTextHighlight}`}
             >
               {brand}
             </div>
@@ -630,7 +1056,7 @@ function TestimonialsComponent({ section }) {
   const t2_role = getField(section, "testimonial_2_role") || "CTO, Horizon Systems";
   const t2_avatar = imageUrl(section, "testimonial_2_avatar", "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80");
 
-  const { bgClass, padClass, color, borderClass, subtextClass, cardBgClass, cardBorderClass, subtextMutedClass, subtextLightClass } = getStyleConfig(section);
+  const { bgClass, padClass, borderClass, subtextClass, cardBgClass, cardBorderClass, subtextMutedClass, subtextLightClass, textHighlight } = useMemo(() => getStyleConfig(section), [section]);
 
   const cards = [
     { quote: t1_quote, author: t1_author, role: t1_role, avatar: t1_avatar },
@@ -641,7 +1067,7 @@ function TestimonialsComponent({ section }) {
     <section className={`px-6 sm:px-10 border-t relative ${bgClass} ${borderClass} ${padClass}`}>
       <div className="mx-auto max-w-6xl">
         <div className="text-center max-w-2xl mx-auto space-y-4 mb-16">
-          <p className={`text-xs font-bold uppercase tracking-[0.18em] text-${color}`}>Social Proof</p>
+          <p className={`text-xs font-bold uppercase tracking-[0.18em] ${textHighlight}`}>Social Proof</p>
           <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight">{title}</h2>
           <p className={`text-sm leading-6 ${subtextClass}`}>{subtitle}</p>
         </div>
@@ -655,7 +1081,7 @@ function TestimonialsComponent({ section }) {
               <div className="space-y-6">
                 <div className="flex gap-1 text-brand-amber">
                   {[...Array(5)].map((_, i) => (
-                    <FiStar key={i} className="h-4.5 w-4.5 fill-current" />
+                     <FiStar key={i} className="h-4.5 w-4.5 fill-current" />
                   ))}
                 </div>
                 <blockquote className={`text-base sm:text-lg leading-8 italic font-medium ${subtextLightClass}`}>
@@ -663,7 +1089,7 @@ function TestimonialsComponent({ section }) {
                 </blockquote>
               </div>
               <div className={`mt-8 flex items-center gap-4 border-t pt-6 ${borderClass}`}>
-                <img src={card.avatar} alt="" className={`h-11 w-11 rounded-full object-cover border shadow-soft ${borderClass}`} />
+                <img src={card.avatar} alt="" loading="lazy" decoding="async" className={`h-11 w-11 rounded-full object-cover border shadow-soft ${borderClass}`} />
                 <div>
                   <div className="text-sm font-bold">{card.author}</div>
                   <div className={`text-xs mt-0.5 ${subtextMutedClass}`}>{card.role}</div>
@@ -695,7 +1121,7 @@ function PricingComponent({ section }) {
   const plan3Price = getField(section, "plan_3_price") || "$149";
   const plan3Features = getField(section, "plan_3_features") || "Custom block schemas, Dedicated engineer, SLA 99.99% uptime, Custom integrations";
 
-  const { bgClass, padClass, color, borderClass, subtextClass, cardBgClass, cardBorderClass } = getStyleConfig(section);
+  const { bgClass, padClass, borderClass, subtextClass, cardBgClass, cardBorderClass, textHighlight, borderHighlightPlain, bgHighlight } = useMemo(() => getStyleConfig(section), [section]);
 
   const plans = [
     { name: plan1Name, price: plan1Price, features: plan1Features.split(",").map(f => f.trim()), popular: false },
@@ -707,7 +1133,7 @@ function PricingComponent({ section }) {
     <section id="pricing" className={`px-6 sm:px-10 border-t relative ${bgClass} ${borderClass} ${padClass}`}>
       <div className="mx-auto max-w-6xl">
         <div className="text-center max-w-2xl mx-auto space-y-4 mb-16">
-          <p className={`text-xs font-bold uppercase tracking-[0.18em] text-${color}`}>Pricing</p>
+          <p className={`text-xs font-bold uppercase tracking-[0.18em] ${textHighlight}`}>Pricing</p>
           <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight">{title}</h2>
           <p className={`text-sm leading-6 ${subtextClass}`}>{subtitle}</p>
         </div>
@@ -718,12 +1144,12 @@ function PricingComponent({ section }) {
               key={idx}
               className={`relative rounded-2xl border p-8 flex flex-col justify-between transition-all duration-300 ${
                 plan.popular
-                  ? `border-${color} bg-white/[0.04] shadow-glow scale-102 z-10`
+                  ? `${borderHighlightPlain} bg-white/[0.04] shadow-glow scale-102 z-10`
                   : `${cardBorderClass} ${cardBgClass}`
               }`}
             >
               {plan.popular && (
-                <span className={`absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full px-4 py-1 text-xs font-bold tracking-wide shadow-glow bg-${color} text-ink-950`}>
+                <span className={`absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full px-4 py-1 text-xs font-bold tracking-wide shadow-glow ${bgHighlight} text-ink-950`}>
                   MOST POPULAR
                 </span>
               )}
@@ -739,7 +1165,7 @@ function PricingComponent({ section }) {
                 <ul className={`space-y-3.5 border-t pt-6 text-sm ${subtextClass} ${borderClass}`}>
                   {plan.features.map((feature, i) => (
                     <li key={i} className="flex items-start gap-2.5">
-                      <FiCheck className={`h-4.5 w-4.5 shrink-0 mt-0.5 text-${color}`} />
+                      <FiCheck className={`h-4.5 w-4.5 shrink-0 mt-0.5 ${textHighlight}`} />
                       <span>{feature}</span>
                     </li>
                   ))}
@@ -751,7 +1177,7 @@ function PricingComponent({ section }) {
                   href="#contact"
                   className={`flex h-11 w-full items-center justify-center rounded-lg text-sm font-semibold transition ${
                     plan.popular
-                      ? `bg-${color} text-ink-950 shadow-glow hover:bg-white`
+                      ? `${bgHighlight} text-ink-950 shadow-glow hover:bg-white`
                       : `border bg-white/[0.03] hover:bg-white/[0.08] ${borderClass}`
                   }`}
                 >
@@ -765,13 +1191,12 @@ function PricingComponent({ section }) {
     </section>
   );
 }
-
 // 8. faq
 function FAQComponent({ section }) {
   const [openIndex, setOpenIndex] = useState(null);
   const title = getField(section, "title") || getField(section, "heading") || "Frequently Asked Questions";
 
-  const { bgClass, padClass, color, borderClass, subtextClass, cardBgClass, cardBorderClass } = getStyleConfig(section);
+  const { bgClass, padClass, borderClass, subtextClass, cardBgClass, cardBorderClass, textHighlight, hoverTextHighlight } = useMemo(() => getStyleConfig(section), [section]);
 
   const faqs = [
     {
@@ -796,7 +1221,7 @@ function FAQComponent({ section }) {
     <section id="faq" className={`px-6 sm:px-10 border-t ${bgClass} ${borderClass} ${padClass}`}>
       <div className="mx-auto max-w-4xl">
         <div className="text-center space-y-4 mb-16">
-          <p className={`text-xs font-bold uppercase tracking-[0.18em] text-${color}`}>Support</p>
+          <p className={`text-xs font-bold uppercase tracking-[0.18em] ${textHighlight}`}>Support</p>
           <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight">{title}</h2>
         </div>
 
@@ -810,7 +1235,7 @@ function FAQComponent({ section }) {
               >
                 <button
                   onClick={() => setOpenIndex(isOpen ? null : idx)}
-                  className={`flex w-full items-center justify-between p-5 text-left font-semibold text-base sm:text-lg transition hover:text-${color}`}
+                  className={`flex w-full items-center justify-between p-5 text-left font-semibold text-base sm:text-lg transition ${hoverTextHighlight}`}
                 >
                   <span>{faq.q}</span>
                   {isOpen ? <FiChevronUp className="h-5 w-5 shrink-0" /> : <FiChevronDown className="h-5 w-5 shrink-0" />}
@@ -848,13 +1273,13 @@ function CTAComponent({ section }) {
   const secondaryCtaText = getField(section, "secondary_cta_text") || "Watch Features";
   const secondaryCtaUrl = getField(section, "secondary_cta_url") || "#";
 
-  const { bgClass, padClass, color, borderClass, subtextLightClass } = getStyleConfig(section);
+  const { bgClass, padClass, borderClass, subtextLightClass, fromBgHighlight20, bgHighlight, bgHighlightHover } = getStyleConfig(section);
 
   return (
     <section className={`relative overflow-hidden border-t ${bgClass} ${borderClass} ${padClass} px-6 sm:px-10`}>
-      {/* Mesh gradient background */}
-      <div className={`absolute inset-0 bg-gradient-to-tr from-${color}/20 via-brand-rose/5 to-black pointer-events-none opacity-80`} />
-      <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[500px] rounded-full opacity-10 blur-[140px] pointer-events-none bg-${color}`} />
+      {/* Mesh mesh gradient background */}
+      <div className={`absolute inset-0 bg-gradient-to-tr ${fromBgHighlight20} via-brand-rose/5 to-black pointer-events-none opacity-80`} />
+      <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[500px] rounded-full opacity-10 blur-[140px] pointer-events-none ${bgHighlight}`} />
 
       <div className="relative mx-auto max-w-4xl text-center space-y-8 z-10">
         <h2 className="text-4xl sm:text-6xl font-bold tracking-tight leading-[1.1]">
@@ -866,7 +1291,7 @@ function CTAComponent({ section }) {
         <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
           <a
             href={primaryCtaUrl}
-            className={`inline-flex h-12 items-center justify-center rounded-lg px-6 text-sm font-semibold shadow-glow transition bg-white text-ink-950 hover:bg-${color}`}
+            className={`inline-flex h-12 items-center justify-center rounded-lg px-6 text-sm font-semibold shadow-glow transition bg-white text-ink-950 ${bgHighlightHover}`}
           >
             {primaryCtaText}
           </a>
@@ -889,13 +1314,13 @@ function NewsletterComponent({ section }) {
   const placeholder = getField(section, "placeholder_text") || getField(section, "placeholder") || "Enter your email address";
   const buttonText = getField(section, "button_text") || "Subscribe Now";
 
-  const { bgClass, padClass, color, borderClass, subtextClass, cardBgClass, cardBorderClass, inputBgClass } = getStyleConfig(section);
+  const { bgClass, padClass, borderClass, subtextClass, cardBgClass, cardBorderClass, inputBgClass, bgHighlight, focusBorderHighlight, bgHighlightHover } = getStyleConfig(section);
 
   return (
     <section className={`px-6 sm:px-10 border-t relative ${bgClass} ${borderClass} ${padClass}`}>
       <div className="mx-auto max-w-4xl relative z-10">
         <div className={`rounded-2xl border p-8 sm:p-12 shadow-glow text-center space-y-6 relative overflow-hidden ${cardBorderClass} ${cardBgClass}`}>
-          <div className={`absolute -top-40 right-10 h-80 w-80 rounded-full opacity-5 blur-[80px] bg-${color}`} />
+          <div className={`absolute -top-40 right-10 h-80 w-80 rounded-full opacity-5 blur-[80px] ${bgHighlight}`} />
           <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight">{title}</h2>
           <p className={`text-sm sm:text-base leading-7 max-w-xl mx-auto ${subtextClass}`}>{subtitle}</p>
 
@@ -903,12 +1328,12 @@ function NewsletterComponent({ section }) {
             <input
               type="email"
               placeholder={placeholder}
-              className={`h-11 w-full rounded-lg border px-4 text-sm focus:outline-none transition shadow-inner ${borderClass} ${inputBgClass} focus:border-${color}`}
+              className={`h-11 w-full rounded-lg border px-4 text-sm focus:outline-none transition shadow-inner ${borderClass} ${inputBgClass} ${focusBorderHighlight}`}
               required
             />
             <button
               type="submit"
-              className={`inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-lg bg-white px-5 text-sm font-semibold text-ink-950 transition hover:bg-${color}`}
+              className={`inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-lg bg-white px-5 text-sm font-semibold text-ink-950 transition ${bgHighlightHover}`}
             >
               <FiSend className="h-4 w-4" />
               {buttonText}
@@ -944,14 +1369,14 @@ function PortfolioComponent({ section }) {
     },
   ];
 
-  const { bgClass, padClass, color, borderClass, subtextClass, cardBgClass, cardBorderClass } = getStyleConfig(section);
+  const { bgClass, padClass, borderClass, subtextClass, cardBgClass, cardBorderClass, textHighlight, groupHoverTextHighlight } = getStyleConfig(section);
 
   return (
     <section className={`px-6 sm:px-10 border-t ${bgClass} ${borderClass} ${padClass}`}>
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-col justify-between items-start gap-4 mb-16 sm:flex-row sm:items-end">
           <div className="space-y-2">
-            <p className={`text-xs font-bold uppercase tracking-[0.18em] text-${color}`}>Portfolio</p>
+            <p className={`text-xs font-bold uppercase tracking-[0.18em] ${textHighlight}`}>Portfolio</p>
             <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight">{title}</h2>
           </div>
           <span className={`text-sm ${subtextClass}`}>Curated design archives</span>
@@ -968,17 +1393,19 @@ function PortfolioComponent({ section }) {
                 <img
                   src={proj.image}
                   alt=""
+                  loading="lazy"
+                  decoding="async"
                   className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-5">
-                  <span className={`text-xs font-bold uppercase tracking-wider flex items-center gap-1 text-${color}`}>
+                  <span className={`text-xs font-bold uppercase tracking-wider flex items-center gap-1 ${textHighlight}`}>
                     View Project <FiArrowUpRight className="h-3.5 w-3.5" />
                   </span>
                 </div>
               </div>
               <div className="p-6 space-y-1">
-                <span className={`text-xs font-semibold text-${color}`}>{proj.category}</span>
-                <h3 className={`text-xl font-bold group-hover:text-${color} transition`}>
+                <span className={`text-xs font-semibold ${textHighlight}`}>{proj.category}</span>
+                <h3 className={`text-xl font-bold ${groupHoverTextHighlight} transition`}>
                   {proj.title}
                 </h3>
               </div>
@@ -1020,6 +1447,8 @@ function GalleryComponent({ section }) {
               <img
                 src={img}
                 alt=""
+                loading="lazy"
+                decoding="async"
                 className="h-60 w-full object-cover transition duration-500 filter brightness-90 group-hover:brightness-105 group-hover:scale-103"
               />
             </div>
@@ -1056,13 +1485,13 @@ function TeamComponent({ section }) {
     },
   ];
 
-  const { bgClass, padClass, color, borderClass, subtextMutedClass, cardBgClass, cardBorderClass } = getStyleConfig(section);
+  const { bgClass, padClass, borderClass, subtextMutedClass, cardBgClass, cardBorderClass, textHighlight, borderHighlightHover, groupHoverTextHighlight } = getStyleConfig(section);
 
   return (
     <section className={`px-6 sm:px-10 border-t ${bgClass} ${borderClass} ${padClass}`}>
       <div className="mx-auto max-w-6xl">
         <div className="text-center max-w-2xl mx-auto space-y-4 mb-16">
-          <p className={`text-xs font-bold uppercase tracking-[0.18em] text-${color}`}>Our Team</p>
+          <p className={`text-xs font-bold uppercase tracking-[0.18em] ${textHighlight}`}>Our Team</p>
           <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight">{title}</h2>
         </div>
 
@@ -1070,12 +1499,12 @@ function TeamComponent({ section }) {
           {members.map((member, idx) => (
             <div
               key={idx}
-              className={`group p-5 rounded-2xl border text-center transition-all duration-300 shadow-soft hover:border-${color}/30 ${cardBorderClass} ${cardBgClass}`}
+              className={`group p-5 rounded-2xl border text-center transition-all duration-300 shadow-soft ${borderHighlightHover} ${cardBorderClass} ${cardBgClass}`}
             >
               <div className={`mx-auto h-24 w-24 overflow-hidden rounded-full border shadow-soft relative ${borderClass}`}>
-                <img src={member.avatar} alt="" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+                <img src={member.avatar} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
               </div>
-              <h3 className={`mt-5 text-lg font-bold group-hover:text-${color} transition`}>{member.name}</h3>
+              <h3 className={`mt-5 text-lg font-bold ${groupHoverTextHighlight} transition`}>{member.name}</h3>
               <p className={`text-xs mt-1 ${subtextMutedClass}`}>{member.role}</p>
             </div>
           ))}
@@ -1106,7 +1535,7 @@ function TimelineComponent({ section }) {
     },
   ];
 
-  const { bgClass, padClass, color, borderClass, subtextClass } = getStyleConfig(section);
+  const { bgClass, padClass, borderClass, subtextClass, textHighlight, groupHoverBorderHighlight, groupHoverBgHighlight, groupHoverTextHighlight } = getStyleConfig(section);
 
   return (
     <section className={`px-6 sm:px-10 border-t ${bgClass} ${borderClass} ${padClass}`}>
@@ -1119,11 +1548,11 @@ function TimelineComponent({ section }) {
           {events.map((event, idx) => (
             <div key={idx} className="relative group">
               {/* Timeline marker */}
-              <div className={`absolute -left-[31px] sm:-left-[47px] top-1.5 grid h-4 w-4 place-items-center rounded-full border bg-ink-950 transition group-hover:border-${color} group-hover:bg-${color} shadow-glow ${borderClass}`} />
+              <div className={`absolute -left-[31px] sm:-left-[47px] top-1.5 grid h-4 w-4 place-items-center rounded-full border bg-ink-950 transition ${groupHoverBorderHighlight} ${groupHoverBgHighlight} shadow-glow ${borderClass}`} />
 
               <div className="space-y-2">
-                <span className={`inline-block text-xs font-bold uppercase tracking-widest text-${color}`}>{event.year}</span>
-                <h3 className={`text-xl font-bold group-hover:text-${color} transition`}>{event.title}</h3>
+                <span className={`inline-block text-xs font-bold uppercase tracking-widest ${textHighlight}`}>{event.year}</span>
+                <h3 className={`text-xl font-bold ${groupHoverTextHighlight} transition`}>{event.title}</h3>
                 <p className={`text-sm leading-7 max-w-2xl ${subtextClass}`}>{event.desc}</p>
               </div>
             </div>
@@ -1152,13 +1581,13 @@ function ProcessStepsComponent({ section }) {
     },
   ];
 
-  const { bgClass, padClass, color, borderClass, subtextClass, cardBgClass, cardBorderClass } = getStyleConfig(section);
+  const { bgClass, padClass, borderClass, subtextClass, cardBgClass, cardBorderClass, textHighlight } = getStyleConfig(section);
 
   return (
     <section className={`px-6 sm:px-10 border-t relative ${bgClass} ${borderClass} ${padClass}`}>
       <div className="mx-auto max-w-6xl">
         <div className="text-center max-w-2xl mx-auto space-y-4 mb-16">
-          <p className={`text-xs font-bold uppercase tracking-[0.18em] text-${color}`}>Workflow</p>
+          <p className={`text-xs font-bold uppercase tracking-[0.18em] ${textHighlight}`}>Workflow</p>
           <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight">{title}</h2>
         </div>
 
@@ -1212,14 +1641,14 @@ function BlogPreviewComponent({ section }) {
     },
   ];
 
-  const { bgClass, padClass, color, borderClass, subtextClass, cardBgClass, cardBorderClass, subtextMutedClass } = getStyleConfig(section);
+  const { bgClass, padClass, borderClass, subtextClass, cardBgClass, cardBorderClass, textHighlight } = getStyleConfig(section);
 
   return (
     <section className={`px-6 sm:px-10 border-t ${bgClass} ${borderClass} ${padClass}`}>
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-col justify-between items-start gap-4 mb-16 sm:flex-row sm:items-end">
           <div className="space-y-2">
-            <p className={`text-xs font-bold uppercase tracking-[0.18em] text-${color}`}>Journal</p>
+            <p className={`text-xs font-bold uppercase tracking-[0.18em] ${textHighlight}`}>Journal</p>
             <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight">{title}</h2>
           </div>
           <span className={`text-sm ${subtextClass}`}>Updated twice monthly</span>
@@ -1235,21 +1664,23 @@ function BlogPreviewComponent({ section }) {
                 <img
                   src={post.image}
                   alt=""
+                  loading="lazy"
+                  decoding="async"
                   className="h-full w-full object-cover transition duration-500 group-hover:scale-103"
                 />
               </div>
               <div className="p-6 space-y-4">
-                <div className={`flex items-center gap-2 text-xs ${subtextMutedClass}`}>
-                  <FiCalendar className={`h-3.5 w-3.5 text-${color}`} />
+                <div className={`flex items-center gap-2 text-xs opacity-60`}>
+                  <FiCalendar className={`h-3.5 w-3.5 ${textHighlight}`} />
                   <span>{post.date}</span>
                 </div>
-                <h3 className={`text-lg font-bold group-hover:text-${color} transition leading-tight`}>
+                <h3 className={`text-lg font-bold ${groupHoverTextHighlight} transition leading-tight`}>
                   {post.title}
                 </h3>
                 <p className={`text-sm leading-6 line-clamp-2 ${subtextClass}`}>
                   {post.excerpt}
                 </p>
-                <div className={`pt-2 flex items-center gap-1 text-xs font-bold text-${color}`}>
+                <div className={`pt-2 flex items-center gap-1 text-xs font-bold ${textHighlight}`}>
                   <span>Read Article</span>
                   <FiArrowRight className="h-3 w-3 group-hover:translate-x-1 transition duration-200" />
                 </div>
@@ -1286,7 +1717,7 @@ function ComparisonTableComponent({ section }) {
     },
   ];
 
-  const { bgClass, padClass, color, borderClass, subtextClass, cardBgClass, cardBorderClass } = getStyleConfig(section);
+  const { bgClass, padClass, borderClass, subtextClass, cardBgClass, cardBorderClass, textHighlight } = getStyleConfig(section);
 
   return (
     <section className={`px-6 sm:px-10 border-t ${bgClass} ${borderClass} ${padClass}`}>
@@ -1300,7 +1731,7 @@ function ComparisonTableComponent({ section }) {
             <thead>
               <tr className={`border-b bg-white/[0.03] ${borderClass}`}>
                 <th className="p-5 text-sm font-bold">Capability</th>
-                <th className={`p-5 text-sm font-bold text-${color}`}>{col1}</th>
+                <th className={`p-5 text-sm font-bold ${textHighlight}`}>{col1}</th>
                 <th className={`p-5 text-sm font-bold opacity-50`}>{col2}</th>
               </tr>
             </thead>
@@ -1308,7 +1739,7 @@ function ComparisonTableComponent({ section }) {
               {rows.map((row, idx) => (
                 <tr key={idx} className="hover:bg-white/[0.02] transition">
                   <td className="p-5 font-medium">{row.name}</td>
-                  <td className={`p-5 font-semibold text-${color}`}>{row.val1}</td>
+                  <td className={`p-5 font-semibold ${textHighlight}`}>{row.val1}</td>
                   <td className={`p-5 ${subtextClass}`}>{row.val2}</td>
                 </tr>
               ))}
@@ -1340,13 +1771,13 @@ function BentoGridComponent({ section }) {
   const card4Desc = getField(section, "card_4_desc") || "No lock-in. Export raw React bundles.";
   const card4Image = imageUrl(section, "card_4_image", "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=600&q=80");
 
-  const { bgClass, padClass, color, borderClass, subtextClass, cardBgClass, cardBorderClass } = getStyleConfig(section);
+  const { bgClass, padClass, borderClass, subtextClass, cardBgClass, cardBorderClass, textHighlight, groupHoverTextHighlight } = useMemo(() => getStyleConfig(section), [section]);
 
   return (
     <section className={`px-6 sm:px-10 border-t ${bgClass} ${borderClass} ${padClass}`}>
       <div className="mx-auto max-w-6xl space-y-12">
         <div className="text-center max-w-2xl mx-auto space-y-4">
-          <p className={`text-xs font-bold uppercase tracking-[0.18em] text-${color}`}>Bento Block</p>
+          <p className={`text-xs font-bold uppercase tracking-[0.18em] ${textHighlight}`}>Bento Block</p>
           <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight">{title}</h2>
         </div>
 
@@ -1354,44 +1785,44 @@ function BentoGridComponent({ section }) {
           {/* Asymmetric block 1: Span 2 */}
           <div className={`md:col-span-2 relative group rounded-2xl border transition-all duration-300 p-6 flex flex-col justify-between overflow-hidden shadow-soft ${cardBorderClass} ${cardBgClass}`}>
             <div className="space-y-2 max-w-lg z-10">
-              <h3 className={`text-xl font-bold group-hover:text-${color} transition`}>{card1Title}</h3>
+              <h3 className={`text-xl font-bold ${groupHoverTextHighlight} transition`}>{card1Title}</h3>
               <p className={`text-sm leading-6 ${subtextClass}`}>{card1Desc}</p>
             </div>
             <div className={`mt-8 overflow-hidden rounded-xl h-48 border relative z-10 shadow-soft ${borderClass}`}>
-              <img src={card1Image} alt="" className="h-full w-full object-cover" />
+              <img src={card1Image} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover" />
             </div>
           </div>
 
           {/* Block 2 */}
           <div className={`relative group rounded-2xl border transition-all duration-300 p-6 flex flex-col justify-between overflow-hidden shadow-soft ${cardBorderClass} ${cardBgClass}`}>
             <div className="space-y-2 z-10">
-              <h3 className={`text-xl font-bold group-hover:text-${color} transition`}>{card2Title}</h3>
+              <h3 className={`text-xl font-bold ${groupHoverTextHighlight} transition`}>{card2Title}</h3>
               <p className={`text-sm leading-6 ${subtextClass}`}>{card2Desc}</p>
             </div>
             <div className={`mt-8 overflow-hidden rounded-xl h-36 border relative z-10 shadow-soft ${borderClass}`}>
-              <img src={card2Image} alt="" className="h-full w-full object-cover" />
+              <img src={card2Image} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover" />
             </div>
           </div>
 
           {/* Block 3 */}
           <div className={`relative group rounded-2xl border transition-all duration-300 p-6 flex flex-col justify-between overflow-hidden shadow-soft ${cardBorderClass} ${cardBgClass}`}>
             <div className="space-y-2 z-10">
-              <h3 className={`text-xl font-bold group-hover:text-${color} transition`}>{card3Title}</h3>
+              <h3 className={`text-xl font-bold ${groupHoverTextHighlight} transition`}>{card3Title}</h3>
               <p className={`text-sm leading-6 ${subtextClass}`}>{card3Desc}</p>
             </div>
             <div className={`mt-8 overflow-hidden rounded-xl h-36 border relative z-10 shadow-soft ${borderClass}`}>
-              <img src={card3Image} alt="" className="h-full w-full object-cover" />
+              <img src={card3Image} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover" />
             </div>
           </div>
 
           {/* Asymmetric block 4: Span 2 */}
           <div className={`md:col-span-2 relative group rounded-2xl border transition-all duration-300 p-6 flex flex-col justify-between overflow-hidden shadow-soft ${cardBorderClass} ${cardBgClass}`}>
             <div className="space-y-2 max-w-lg z-10">
-              <h3 className={`text-xl font-bold group-hover:text-${color} transition`}>{card4Title}</h3>
+              <h3 className={`text-xl font-bold ${groupHoverTextHighlight} transition`}>{card4Title}</h3>
               <p className={`text-sm leading-6 ${subtextClass}`}>{card4Desc}</p>
             </div>
             <div className={`mt-8 overflow-hidden rounded-xl h-48 border relative z-10 shadow-soft ${borderClass}`}>
-              <img src={card4Image} alt="" className="h-full w-full object-cover" />
+              <img src={card4Image} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover" />
             </div>
           </div>
         </div>
@@ -1407,21 +1838,21 @@ function ProductShowcaseComponent({ section }) {
   const image = imageUrl(section, "image", "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80");
   const badge = getField(section, "badge") || getField(section, "badge_text") || "Visual Editor";
 
-  const { bgClass, padClass, color, borderClass, subtextLightClass } = getStyleConfig(section);
+  const { bgClass, padClass, borderClass, subtextLightClass, bgHighlight, bgHighlight5, borderHighlight, textHighlight, fromBgHighlight } = getStyleConfig(section);
 
   return (
     <section className={`px-6 sm:px-10 border-t relative ${bgClass} ${borderClass} ${padClass}`}>
-      <div className={`absolute top-10 left-10 h-80 w-80 rounded-full opacity-5 blur-[100px] pointer-events-none bg-${color}`} />
+      <div className={`absolute top-10 left-10 h-80 w-80 rounded-full opacity-5 blur-[100px] pointer-events-none ${bgHighlight}`} />
       <div className="mx-auto max-w-5xl space-y-10 text-center relative z-10">
         <div className="space-y-4 max-w-2xl mx-auto">
-          <span className={`inline-block text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full border bg-${color}/5 border-${color}/20 text-${color}`}>{badge}</span>
+          <span className={`inline-block text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full border ${bgHighlight5} ${borderHighlight} ${textHighlight}`}>{badge}</span>
           <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight">{title}</h2>
           <p className={`text-sm sm:text-base leading-7 ${subtextLightClass}`}>{desc}</p>
         </div>
 
         <div className={`relative group mx-auto max-w-4xl p-2 rounded-2xl border shadow-glow overflow-hidden ${borderClass} bg-ink-900`}>
-          <div className={`absolute inset-0 opacity-5 blur-xl group-hover:opacity-10 transition duration-500 bg-gradient-to-tr from-${color} to-brand-rose`} />
-          <img src={image} alt="" className="w-full h-auto rounded-xl object-contain relative z-10 shadow-soft" />
+          <div className={`absolute inset-0 opacity-5 blur-xl group-hover:opacity-10 transition duration-500 bg-gradient-to-tr ${fromBgHighlight} to-brand-rose`} />
+          <img src={image} alt="" loading="lazy" decoding="async" className="w-full h-auto rounded-xl object-contain relative z-10 shadow-soft" />
         </div>
       </div>
     </section>
@@ -1436,13 +1867,13 @@ function AppDownloadComponent({ section }) {
   const appStoreUrl = getField(section, "app_store_url") || getField(section, "ios_url") || "#";
   const playStoreUrl = getField(section, "play_store_url") || getField(section, "android_url") || "#";
 
-  const { bgClass, padClass, color, borderClass, subtextClass } = getStyleConfig(section);
+  const { bgClass, padClass, borderClass, subtextClass, textHighlight, toBgHighlight } = getStyleConfig(section);
 
   return (
     <section className={`px-6 sm:px-10 border-t overflow-hidden ${bgClass} ${borderClass} ${padClass}`}>
       <div className="mx-auto max-w-6xl grid items-center gap-12 lg:grid-cols-2">
         <div className="space-y-6">
-          <p className={`text-xs font-bold uppercase tracking-[0.18em] text-${color}`}>App Download</p>
+          <p className={`text-xs font-bold uppercase tracking-[0.18em] ${textHighlight}`}>App Download</p>
           <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight">{title}</h2>
           <p className={`text-sm sm:text-base leading-7 ${subtextClass}`}>{desc}</p>
 
@@ -1451,23 +1882,23 @@ function AppDownloadComponent({ section }) {
               href={appStoreUrl}
               className={`inline-flex h-11 items-center justify-center gap-2 rounded-lg border px-5 text-sm font-semibold hover:bg-white/[0.08] shadow-soft transition bg-white/[0.04] text-current ${borderClass}`}
             >
-              <FiSmartphone className={`h-4 w-4 text-${color}`} />
+              <FiSmartphone className={`h-4 w-4 ${textHighlight}`} />
               <span>App Store</span>
             </a>
             <a
               href={playStoreUrl}
               className={`inline-flex h-11 items-center justify-center gap-2 rounded-lg border px-5 text-sm font-semibold hover:bg-white/[0.08] shadow-soft transition bg-white/[0.04] text-current ${borderClass}`}
             >
-              <FiDownload className={`h-4 w-4 text-${color}`} />
+              <FiDownload className={`h-4 w-4 ${textHighlight}`} />
               <span>Google Play</span>
             </a>
           </div>
         </div>
 
         <div className="relative group">
-          <div className={`absolute inset-0 opacity-10 blur-xl group-hover:opacity-15 transition bg-gradient-to-r from-brand-rose to-${color}`} />
+          <div className={`absolute inset-0 opacity-10 blur-xl group-hover:opacity-15 transition bg-gradient-to-r from-brand-rose ${toBgHighlight}`} />
           <div className={`relative overflow-hidden rounded-2xl border bg-ink-900 shadow-glow p-2 max-w-md mx-auto ${borderClass}`}>
-            <img src={image} alt="" className="h-80 sm:h-[400px] w-full rounded-xl object-cover" />
+            <img src={image} alt="" loading="lazy" decoding="async" className="h-80 sm:h-[400px] w-full rounded-xl object-cover" />
           </div>
         </div>
       </div>
@@ -1489,7 +1920,7 @@ function CaseStudiesComponent({ section }) {
   const case2Quote = getField(section, "case_2_quote") || "No more waiting for software releases to edit text. Our copywriting team manages everything directly in structured fields.";
   const case2Author = getField(section, "case_2_author") || "Kenji Sato, Tokyo Hub";
 
-  const { bgClass, padClass, color, borderClass, subtextClass, cardBgClass, cardBorderClass, subtextMutedClass } = getStyleConfig(section);
+  const { bgClass, padClass, borderClass, subtextClass, cardBgClass, cardBorderClass, subtextMutedClass, textHighlight } = getStyleConfig(section);
 
   const cases = [
     { stat: case1Stat, label: case1Label, quote: case1Quote, author: case1Author },
@@ -1500,7 +1931,7 @@ function CaseStudiesComponent({ section }) {
     <section className={`px-6 sm:px-10 border-t ${bgClass} ${borderClass} ${padClass}`}>
       <div className="mx-auto max-w-6xl">
         <div className="text-center max-w-2xl mx-auto space-y-4 mb-16">
-          <p className={`text-xs font-bold uppercase tracking-[0.18em] text-${color}`}>Case Studies</p>
+          <p className={`text-xs font-bold uppercase tracking-[0.18em] ${textHighlight}`}>Case Studies</p>
           <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight">{title}</h2>
         </div>
 
@@ -1512,7 +1943,7 @@ function CaseStudiesComponent({ section }) {
             >
               <div className="space-y-6">
                 <div>
-                  <div className={`text-5xl sm:text-6xl font-black tracking-tight text-${color}`}>{cs.stat}</div>
+                  <div className={`text-5xl sm:text-6xl font-black tracking-tight ${textHighlight}`}>{cs.stat}</div>
                   <div className={`mt-2 text-xs font-bold uppercase tracking-widest ${subtextMutedClass}`}>{cs.label}</div>
                 </div>
                 <blockquote className={`text-sm sm:text-base leading-7 italic ${subtextClass}`}>
@@ -1546,13 +1977,13 @@ function ContactVariantComponent({ section }) {
   const formTitle = getField(section, "form_title") || "Submit a direct inquiry";
   const formButtonText = getField(section, "form_button_text") || getField(section, "form_btn_text") || "Send Message";
 
-  const { bgClass, padClass, color, borderClass, subtextClass, cardBgClass, cardBorderClass, inputBgClass } = getStyleConfig(section);
+  const { bgClass, padClass, borderClass, subtextClass, cardBgClass, cardBorderClass, inputBgClass, textHighlight, focusBorderHighlight, bgHighlightHover } = getStyleConfig(section);
 
   return (
     <section className={`px-6 sm:px-10 border-t relative ${bgClass} ${borderClass} ${padClass}`}>
       <div className="mx-auto max-w-6xl">
         <div className="text-center max-w-2xl mx-auto space-y-4 mb-16">
-          <p className={`text-xs font-bold uppercase tracking-[0.18em] text-${color}`}>Contact Channels</p>
+          <p className={`text-xs font-bold uppercase tracking-[0.18em] ${textHighlight}`}>Contact Channels</p>
           <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight">{title}</h2>
           <p className={`text-sm leading-6 ${subtextClass}`}>{subtitle}</p>
         </div>
@@ -1561,7 +1992,7 @@ function ContactVariantComponent({ section }) {
           {/* Office listings */}
           <div className="space-y-6">
             <div className={`p-6 rounded-xl border transition space-y-3 ${cardBorderClass} ${cardBgClass}`}>
-              <span className={`text-xs font-bold uppercase tracking-wider text-${color}`}>{office1Name} HQ</span>
+              <span className={`text-xs font-bold uppercase tracking-wider ${textHighlight}`}>{office1Name} HQ</span>
               <div className={`space-y-2 text-sm ${subtextClass}`}>
                 <div className="flex items-center gap-2"><FiMapPin className="h-4 w-4 opacity-40" /><span>{office1Address}</span></div>
                 <div className="flex items-center gap-2"><FiPhone className="h-4 w-4 opacity-40" /><span>{office1Phone}</span></div>
@@ -1569,7 +2000,7 @@ function ContactVariantComponent({ section }) {
             </div>
 
             <div className={`p-6 rounded-xl border transition space-y-3 ${cardBorderClass} ${cardBgClass}`}>
-              <span className={`text-xs font-bold uppercase tracking-wider text-${color}`}>{office2Name} Hub</span>
+              <span className={`text-xs font-bold uppercase tracking-wider ${textHighlight}`}>{office2Name} Hub</span>
               <div className={`space-y-2 text-sm ${subtextClass}`}>
                 <div className="flex items-center gap-2"><FiMapPin className="h-4 w-4 opacity-40" /><span>{office2Address}</span></div>
                 <div className="flex items-center gap-2"><FiPhone className="h-4 w-4 opacity-40" /><span>{office2Phone}</span></div>
@@ -1585,25 +2016,25 @@ function ContactVariantComponent({ section }) {
                 <input
                   type="text"
                   placeholder="First name"
-                  className={`h-10 w-full rounded-lg border px-3 text-xs focus:outline-none transition shadow-inner ${borderClass} ${inputBgClass} focus:border-${color}`}
+                  className={`h-10 w-full rounded-lg border px-3 text-xs focus:outline-none transition shadow-inner ${borderClass} ${inputBgClass} ${focusBorderHighlight}`}
                   required
                 />
                 <input
                   type="email"
                   placeholder="Email address"
-                  className={`h-10 w-full rounded-lg border px-3 text-xs focus:outline-none transition shadow-inner ${borderClass} ${inputBgClass} focus:border-${color}`}
+                  className={`h-10 w-full rounded-lg border px-3 text-xs focus:outline-none transition shadow-inner ${borderClass} ${inputBgClass} ${focusBorderHighlight}`}
                   required
                 />
               </div>
               <textarea
                 rows={4}
                 placeholder="How can we help?"
-                className={`w-full rounded-lg border p-3 text-xs focus:outline-none transition shadow-inner resize-none ${borderClass} ${inputBgClass} focus:border-${color}`}
+                className={`w-full rounded-lg border p-3 text-xs focus:outline-none transition shadow-inner resize-none ${borderClass} ${inputBgClass} ${focusBorderHighlight}`}
                 required
               />
               <button
                 type="submit"
-                className={`w-full inline-flex h-11 items-center justify-center rounded-lg bg-white text-xs font-bold text-ink-950 hover:bg-${color} transition shadow-soft`}
+                className={`w-full inline-flex h-11 items-center justify-center rounded-lg bg-white text-xs font-bold text-ink-950 ${bgHighlightHover} transition shadow-soft`}
               >
                 {formButtonText}
               </button>

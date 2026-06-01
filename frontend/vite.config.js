@@ -6,5 +6,27 @@ export default defineConfig({
   server: {
     port: 5173,
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes("node_modules")) {
+            const normalizedId = id.replace(/\\/g, "/");
+            const vendorPackages = [
+              "react-icons",
+              "axios"
+            ];
+            const isVendor = vendorPackages.some(pkg => 
+              normalizedId.includes(`/node_modules/${pkg}/`) ||
+              (normalizedId.includes("/node_modules/.pnpm/") && normalizedId.includes(`/${pkg}/`))
+            );
+            if (isVendor) {
+              return "vendor";
+            }
+          }
+        },
+      },
+    },
+  },
 });
 
