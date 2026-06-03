@@ -1,0 +1,518 @@
+LAPORAN PROYEK AKHIR SEMESTER
+ 
+PEMBUATAN APLIKASI WEBSITE BERBASIS PYTHON (InstaWeb)
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+Disusun Oleh          	:  Ammar Rabbani (5)
+                                	   Daffa Aditia Pratama (11)
+                                	   Hilma Hafidzatul Maulina (17)
+Kelas                       	: X (Sepuluh)
+Program Keahlian   	: Sistem Informatika Jaringan Dan Aplikasi 
+
+
+
+SMKN 26 JAKARTA
+TAHUN AJARAN 2025/2026
+BAB  01
+PENDAHULUAN
+ 
+1.1 Latar Belakang 
+Perkembangan teknologi informasi saat ini menuntut efisiensi, integrasi data, dan aksesibilitas yang tinggi dalam pengelolaan platform digital. Aplikasi berbasis website menjadi solusi utama karena sifatnya yang lintas platform, sehingga dapat diakses oleh pengguna kapan saja dan di mana saja tanpa terbatas oleh spesifikasi perangkat keras tertentu.
+Dalam program keahlian Sistem Informatika, Jaringan, dan Aplikasi (SIJA), penguasaan logika pemrograman sisi server (backend coding) serta integrasinya dengan desain antarmuka (front-end) merupakan kompetensi dasar yang sangat krusial. Bahasa pemrograman Python dipilih sebagai fondasi utama pengembangan aplikasi ini karena memiliki sintaksis yang bersih, modular, dan didukung oleh ekosistem framework web yang kuat, aman, serta responsif.
+Melalui Proyek Akhir Semester ini, tim menyusun dan membangun aplikasi bernama InstaWeb, sebuah aplikasi website fungsional yang mengintegrasikan logika Python dengan manajemen basis data relasional. Proyek ini menjadi wadah implementasi nyata atas teori dasar rekayasa perangkat lunak, manajemen data (CRUD), dan kolaborasi pengembangan tim dalam menyelesaikan sebuah perangkat lunak utuh.
+ 
+1.2 Rumusan Masalah 
+Berdasarkan deskripsi latar belakang di atas, rumusan masalah dalam proyek ini adalah:
+Bagaimana cara merancang dan membangun arsitektur aplikasi website "InstaWeb" yang mengintegrasikan tampilan front-end dengan logika backend Python?
+Bagaimana mengimplementasikan sistem manajemen basis data yang terstruktur untuk mengelola data pengguna secara dinamis?
+Bagaimana memastikan performa dan fungsionalitas seluruh fitur website berjalan lancar tanpa error melalui serangkaian pengujian sistem?
+ 
+
+
+
+
+
+
+1.3 Tujuan
+Tujuan dari pelaksanaan proyek akhir semester dalam pembangunan aplikasi InstaWeb ini adalah sebagai berikut:
+Tujuan Kompetensi Akademik:
+Memenuhi salah satu komponen penilaian utama dan syarat ketuntasan kompetensi pada Proyek Akhir Semester kelas X SIJA di SMKN 26 Jakarta.
+Menerapkan alur kerja pengembangan perangkat lunak yang sistematis serta melatih kolaborasi pembagian tugas penulisan kode program secara tim.
+Tujuan Teknis dan Sistem:
+Merancang dan membangun aplikasi website pembuat website (website builder) berbasis Python dan framework Flask yang fungsional, responsif, dan memiliki performa yang baik.
+Menyediakan platform yang mampu menghadirkan antarmuka perakitan elemen web secara visual bagi pengguna.
+Mengimplementasikan fitur manajemen komponen template modular yang dibutuhkan oleh pengguna dalam menyusun struktur halaman web secara dinamis menggunakan penyimpanan basis data.
+1.4 Manfaat
+Bagi Pengguna (User): Memperoleh kemudahan dalam memanfaatkan fitur aplikasi secara digital dengan performa akses halaman yang cepat dan responsif. Pengguna dapat mengakses informasi serta mengelola layanan pembuatan komponen web secara mandiri tanpa harus menguasai kode pemrograman yang rumit, sehingga mampu meningkatkan efisiensi waktu dan biaya.
+Bagi Penulis / Siswa (Pengembang): Mengembangkan keterampilan teknis (hard skills) dan pengalaman nyata dalam pemrograman Python, penggunaan framework Flask, serta pembuatan basis data terstruktur. Selain itu, proyek ini bermanfaat untuk mengasah kerja sama tim (teamwork), kemampuan pemecahan masalah (problem-solving), serta meningkatkan kompetensi dalam membangun aplikasi web modular berskala dinamis.
+Bagi Proses Pengelolaan (Sistem): Meningkatkan efisiensi, kerapian, dan efektivitas pengelolaan komponen antarmuka (user interface) website melalui sistem penyimpanan data yang terintegrasi dan pangkalan data (database) yang terstruktur.
+Bagi Sekolah (SMKN 26 Jakarta): Menjadi bukti nyata atas keberhasilan penerapan metode pembelajaran berbasis proyek (Project-Based Learning) di lingkungan sekolah, serta menambah khazanah dokumentasi karya akademis sekaligus inovasi digital hasil karya siswa kelas X SIJA.
+ 
+ 
+ 
+ 
+BAB 02
+ANALISIS SISTEM
+ 
+2.1 Analisis Kebutuhan 
+Analisis kebutuhan dilakukan untuk memetakan spesifikasi minimum perangkat serta fitur apa saja yang wajib disediakan oleh sistem agar aplikasi dapat berjalan optimal.
+2.1.1 Kebutuhan Fungsional 
+Kebutuhan fungsional mendefinisikan fitur-fitur utama dan proses manipulasi data yang dapat dilakukan di dalam sistem InstaWeb:
+Sistem Autentikasi: Sistem wajib memiliki fitur Login, Register, dan Logout untuk membedakan dan mengamankan hak akses antar pengguna.
+Manajemen Data (CRUD): Sistem harus mampu melakukan proses pembuatan (Create), pembacaan (Read), pengubahan (Update), dan penghapusan (Delete) data konten atau data pengguna di dalam website secara langsung.
+Perutean Halaman (Routing): Sistem backend harus mampu mengalihkan pengguna ke halaman dashboard utama setelah proses autentikasi berhasil.
+ 
+2.1.2 Kebutuhan Non-Fungsional
+Kebutuhan non-fungsional berfokus pada kualitas perilaku dan kinerja dari sistem yang dibangun:
+Aplikasi Mudah Digunakan (Usability): Antarmuka didesain bersih dan minimalis agar pengguna awam dapat memilih dan merakit template tanpa kebingungan.
+Performa Kecepatan: Waktu tunggu pemuatan halaman (page load time) website diusahakan tidak lebih dari 5 detik pada kondisi jaringan internet stabil.
+Keamanan Data: Informasi sensitif seperti kata sandi (password) pengguna tidak boleh disimpan dalam bentuk teks biasa, melainkan wajib melalui proses enkripsi atau penyamaran (hashing) pada database backend.
+Tampilan Menarik dan Konsisten: Penerapan tema CSS yang serasi di seluruh halaman aplikasi, memastikan kenyamanan visual yang berkelanjutan.
+
+
+ 
+
+
+
+
+
+
+
+
+2.2 Pengguna Sistem
+Aplikasi website InstaWeb melibatkan dua level pengguna dengan hak akses yang berbeda, yaitu:
+Administrator (Admin): Memiliki otoritas tertinggi untuk mengelola keseluruhan website, memantau data pengguna terdaftar, serta melakukan konfigurasi database server.
+Pengguna Umum (User): Memiliki hak akses terbatas untuk melakukan pendaftaran akun, login ke sistem, serta mengelola data atau konten pribadi mereka masing-masing tanpa bisa mengintervensi data pengguna lain. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+BAB 03
+PERANCANGAN SISTEM
+ 
+3.1 Use Case Diagram (Gambaran Umum)
+Use Case Diagram menggambarkan interaksi antara aktor (pengguna) dengan sistem InstaWeb. Terdapat tiga aktor utama dalam sistem ini:
+1. Pengguna Umum (User Owner): Aktor yang memiliki hak penuh atas halaman yang dibuatnya, termasuk berlangganan paket premium dan mengundang kolaborator.
+2. Kolaborator (Collaborator): Aktor yang diundang oleh owner untuk membantu menyunting komponen halaman di dalam builder, dengan hak akses terbatas (tidak bisa menghapus halaman atau mengelola langganan).
+3. Administrator (Admin): Aktor yang mengelola keseluruhan sistem, melihat ringkasan pendapatan, statistik global, dan dapat mengesampingkan status langganan pengguna.
+
+Berikut adalah hubungan aktor dengan use case di dalam sistem:
+
+A. Aktor: Pengguna Umum (User Owner)
+   - Melakukan Registrasi Akun
+   - Melakukan Login / Logout
+   - Mengelola Halaman (Create, Read, Update, Delete Page)
+   - Mengakses Builder (Menambah, Menghapus, dan Mengatur Posisi Section)
+   - Memodifikasi Data Section (Menyunting Teks, Mengunggah Gambar)
+   - Mengatur Konfigurasi SEO (Meta Title, Meta Description, Open Graph Image)
+   - Membeli Paket Langganan Premium (Plus / Pro+) via Midtrans Snap Payment
+   - Melihat Analitik & Statistik (Melihat grafik harian, persentase rujukan, dan log pengunjung)
+   - Mengundang Kolaborator via Email (Khusus Paket Pro+)
+   - Mengunduh / Ekspor Halaman ke File HTML Standalone (Khusus Paket Pro+)
+   - Mengelola Kotak Masuk (Inbox) Undangan Kolaborasi dari Pengguna Lain
+
+B. Aktor: Kolaborator
+   - Melakukan Login / Logout
+   - Mengakses Kotak Masuk (Inbox) untuk Menerima / Menolak Undangan Kolaborasi
+   - Mengakses Builder Halaman yang Dibagikan (Edit, Urutkan, Tambah Section)
+   - Melihat Statistik Analitik Halaman yang Dibagikan
+
+C. Aktor: Administrator
+   - Melakukan Login / Logout
+   - Memantau Statistik Penggunaan Global (Jumlah Pengguna, Halaman, Views)
+   - Melihat Ringkasan Pendapatan & Berlangganan Aktif
+   - Memperbarui Paket Langganan Pengguna Secara Manual
+
+-----------------------------------------------------------------------------
+
+3.2 ERD (Entity Relationship Diagram)
+ERD InstaWeb mendefinisikan hubungan antar tabel data relasional di dalam basis data SQLite. Sistem ini memiliki 10 entitas utama:
+
+1. User (users): Menyimpan profil dasar pengguna.
+   - Relasi: One-to-Many ke Page (Satu user dapat memiliki banyak halaman).
+   - Relasi: One-to-One ke Subscription (Satu user memiliki maksimal satu status langganan).
+   - Relasi: One-to-Many ke PageCollaborator & Invitation (Sebagai kolaborator atau penerima).
+
+2. Page (pages): Menyimpan meta data halaman website.
+   - Relasi: Many-to-One ke User (Setiap halaman dimiliki oleh satu user).
+   - Relasi: One-to-Many ke PageSection (Satu halaman memiliki banyak bagian/sections).
+   - Relasi: One-to-Many ke PageView (Satu halaman merekam banyak kunjungan).
+   - Relasi: One-to-Many ke PageCollaborator & Invitation (Satu halaman memiliki banyak kolaborator).
+
+3. Template (templates): Menyimpan jenis-jenis section modular yang tersedia (misal: Hero, Features, Testimonials).
+   - Relasi: One-to-Many ke TemplateField (Satu template mendefinisikan banyak field input).
+   - Relasi: One-to-Many ke PageSection (Satu jenis template dapat dipasang di banyak halaman).
+
+4. TemplateField (template_fields): Menyimpan field input spesifik untuk setiap template (misal: title, image, button_text).
+   - Relasi: Many-to-One ke Template.
+   - Relasi: One-to-Many ke SectionFieldValue (Satu field mendefinisikan banyak nilai tersimpan).
+
+5. PageSection (page_sections): Menyimpan instansi template yang terpasang di suatu halaman beserta nomor urutnya (position).
+   - Relasi: Many-to-One ke Page & Many-to-One ke Template.
+   - Relasi: One-to-Many ke SectionFieldValue (Satu instansi bagian menyimpan banyak nilai data).
+
+6. SectionFieldValue (section_field_values): Menyimpan nilai masukan riil dari pengguna untuk setiap field section.
+   - Relasi: Many-to-One ke PageSection & Many-to-One ke TemplateField.
+
+7. PageView (page_views): Merekam statistik kunjungan publik secara anonim.
+   - Relasi: Many-to-One ke Page.
+
+8. Subscription (subscriptions): Menyimpan status transaksi dan tipe paket SaaS (Free, Plus, Pro+).
+   - Relasi: One-to-One ke User.
+
+9. PageCollaborator (page_collaborators): Menyimpan daftar pengguna yang sah untuk membantu mengedit halaman milik orang lain.
+   - Relasi: Many-to-One ke Page & Many-to-One ke User.
+
+10. Invitation (invitations): Menyimpan riwayat dan draf undangan kolaborasi antar pengguna.
+    - Relasi: Many-to-One ke Page, User (Sender), dan User (Recipient).
+
+-----------------------------------------------------------------------------
+
+3.3 Flowchart
+Flowchart ini menerangkan dua alur utama sistem InstaWeb:
+
+A. ALUR PEMBUATAN DAN PUBLIKASI HALAMAN (USER INTERFACE BUILDER)
+[Mulai] -> [User Login] -> [Klik 'New Page'] -> [Input Judul & Slug] -> [Sistem Validasi Slug Unik]
+                                                                        |
+    +-------------------------------------------------------------------+
+    |
+    v
+[Buka Workspace Builder] <--------+
+    |                             |
+    v                             |
+[Pilih & Tambah Section Baru]     | (Ulangi Proses Editing)
+    |                             |
+    v                             |
+[Sunting Konten & Warna Tema] ----+
+    |
+    v
+[Klik 'Save Changes'] -> [Sistem Menyimpan Perubahan Konten ke SQLite]
+    |
+    v
+[Klik 'Publish Website'] -> [Ubah Status is_published = True]
+    |
+    v
+[Website Aktif & Dapat Diakses Publik di /site/<slug>] -> [Selesai]
+
+
+B. ALUR TRANSAKSI & VERIFIKASI PEMBAYARAN MIDTRANS SANDBOX
+[Mulai] -> [User Pilih Paket Plus/Pro+] -> [Sistem Kirim POST /subscription/create]
+                                                          |
+    +-----------------------------------------------------+
+    |
+    v
+[Backend Flask Request Token ke Midtrans Snap API]
+    |
+    v
+[Snap Token Diterima & Dikirim ke Frontend]
+    |
+    v
+[Tampilkan Popup Pembayaran Snap.js di Browser] -> [User Menyelesaikan Transaksi]
+                                                                  |
+    +-------------------------------------------------------------+
+    |
+    v
+[Popup Ditutup] -> [Frontend Kirim POST /subscription/verify ke Backend]
+                                      |
+    +---------------------------------+
+    |
+    v
+[Backend flask Query Langsung ke Midtrans status API]
+    |
+    v
+{Apakah Status Pembayaran 'Settlement' / 'Capture'?}
+    |
+    +---> (Ya) -> [Ubah Status Berlangganan menjadi 'active'] -> [Buka Fitur Premium] -> [Selesai]
+    |
+    +---> (Tidak) -> [Pertahankan status 'pending' / 'failed'] -> [Tampilkan Notifikasi Gagal] -> [Selesai]
+
+-----------------------------------------------------------------------------
+
+3.4 Activity Diagram
+Activity Diagram memetakan interaksi proses yang terjadi antara Aktor dengan Sistem secara berurutan.
+
+A. ACTIVITY DIAGRAM PROSES LOGIN PENGGUNA
+   Pengguna (User)                         Sistem InstaWeb
+   ----------------                        ---------------
+   1. Membuka Halaman Login   --------->   2. Menampilkan Form Login
+   3. Mengisi Email & Password -------->   4. Memvalidasi Input Form
+                                           5. Memeriksa Kredensial di Database
+                                              - Jika Salah: Kembalikan Pesan Kesalahan
+                                              - Jika Benar: Buat Token Akses JWT
+   7. Masuk ke Dashboard      <---------   6. Mengarahkan ke Dashboard Utama
+
+B. ACTIVITY DIAGRAM PROSES UNDANGAN KOLABORASI (COLLABORATION WORKFLOW)
+   User Owner (Pro+)        Sistem InstaWeb            User Penerima (Invite)
+   -----------------        ---------------            ----------------------
+   1. Buka Modal Invite
+   2. Input Email Penerima
+   3. Klik 'Send Invite' ----> 4. Validasi Email Ada?
+                                - Jika Tidak: Error
+                               5. Buat Record 'Invitation'
+                                  dengan status 'pending'
+                               6. Kirim Notifikasi Inbox ---> 7. Muncul Notifikasi di Sidebar
+                                                              8. Buka Menu Inbox Kolaborasi
+                                                              9. Klik Tombol 'Accept'
+                                                                 (Terima Undangan)
+                                                                    |
+                               <------------------------------------+
+                               |
+                              10. Ubah status jadi 'accepted'
+                              11. Tambah ke tabel 'page_collaborators'
+                              12. Berikan akses edit halaman
+   13. Kolaborator Terdaftar   <--------- Selesai
+
+-----------------------------------------------------------------------------
+
+3.5 Perancangan Database
+Berikut adalah struktur tabel basis data relasional SQLite yang diimplementasikan pada InstaWeb:
+
+A. Tabel: `users` (Menyimpan data akun pengguna)
++---------------+--------------+------+-----+---------+----------------+
+| Field Name    | Type         | Null | Key | Default | Description    |
++---------------+--------------+------+-----+---------+----------------+
+| id            | INTEGER      | NO   | PRI | NULL    | Primary Key    |
+| name          | VARCHAR(120) | NO   |     | NULL    | Nama Pengguna  |
+| email         | VARCHAR(255) | NO   | UNI | NULL    | Email (Unique) |
+| password_hash | VARCHAR(255) | NO   |     | NULL    | Sandi Terenkrip|
+| role          | VARCHAR(30)  | NO   |     | 'user'  | Hak Akses Akun |
+| created_at    | DATETIME     | NO   |     | utcnow  | Waktu Pembuatan|
+| updated_at    | DATETIME     | NO   |     | utcnow  | Waktu Update   |
++---------------+--------------+------+-----+---------+----------------+
+
+B. Tabel: `pages` (Menyimpan data situs web draf/publik)
++------------------+--------------+------+-----+---------+-------------------+
+| Field Name       | Type         | Null | Key | Default | Description       |
++------------------+--------------+------+-----+---------+-------------------+
+| id               | INTEGER      | NO   | PRI | NULL    | Primary Key       |
+| user_id          | INTEGER      | NO   | FOR | NULL    | Relasi ke users.id|
+| title            | VARCHAR(160) | NO   |     | NULL    | Judul Website     |
+| slug             | VARCHAR(180) | NO   | UNI | NULL    | URL Slug (Unique) |
+| summary          | TEXT         | YES  |     | NULL    | Ringkasan Draf    |
+| is_published     | BOOLEAN      | NO   |     | False   | Status Publikasi  |
+| published_at     | DATETIME     | YES  |     | NULL    | Waktu Publikasi   |
+| meta_title       | VARCHAR(200) | YES  |     | NULL    | SEO Meta Title    |
+| meta_description  | TEXT         | YES  |     | NULL    | SEO Description   |
+| og_image         | VARCHAR(500) | YES  |     | NULL    | SEO OG Image Link |
+| created_at       | DATETIME     | NO   |     | utcnow  | Waktu Pembuatan   |
+| updated_at       | DATETIME     | NO   |     | utcnow  | Waktu Update      |
++------------------+--------------+------+-----+---------+-------------------+
+
+C. Tabel: `templates` (Menyimpan nama komponen template dinamis)
++-------------+--------------+------+-----+---------+-----------------+
+| Field Name  | Type         | Null | Key | Default | Description     |
++-------------+--------------+------+-----+---------+-----------------+
+| id          | INTEGER      | NO   | PRI | NULL    | Primary Key     |
+| name        | VARCHAR(120) | NO   |     | NULL    | Nama Komponen   |
+| slug        | VARCHAR(120) | NO   | UNI | NULL    | Kode Template   |
+| description | VARCHAR(255) | YES  |     | NULL    | Deskripsi Singat|
+| created_at  | DATETIME     | NO   |     | utcnow  | Waktu Pembuatan |
+| updated_at  | DATETIME     | NO   |     | utcnow  | Waktu Update    |
++-------------+--------------+------+-----+---------+-----------------+
+
+D. Tabel: `template_fields` (Mendefinisikan input field per komponen)
++-------------+--------------+------+-----+---------+--------------------+
+| Field Name  | Type         | Null | Key | Default | Description        |
++-------------+--------------+------+-----+---------+--------------------+
+| id          | INTEGER      | NO   | PRI | NULL    | Primary Key        |
+| template_id | INTEGER      | NO   | FOR | NULL    | Relasi templates.id|
+| name        | VARCHAR(120) | NO   |     | NULL    | Label Field Input  |
+| slug        | VARCHAR(120) | NO   |     | NULL    | Key Data Input     |
+| type        | VARCHAR(40)  | NO   |     | 'text'  | Jenis Input (image)|
+| created_at  | DATETIME     | NO   |     | utcnow  | Waktu Pembuatan    |
+| updated_at  | DATETIME     | NO   |     | utcnow  | Waktu Update       |
++-------------+--------------+------+-----+---------+--------------------+
+
+E. Tabel: `page_sections` (Menyimpan komponen terpasang di halaman)
++-------------+---------+------+-----+---------+--------------------+
+| Field Name  | Type    | Null | Key | Default | Description        |
++-------------+---------+------+-----+---------+--------------------+
+| id          | INTEGER | NO   | PRI | NULL    | Primary Key        |
+| page_id     | INTEGER | NO   | FOR | NULL    | Relasi ke pages.id |
+| template_id | INTEGER | NO   | FOR | NULL    | Relasi templates.id|
+| position    | INTEGER | NO   |     | NULL    | Urutan Posisi (1..) |
+| created_at  | DATETIME| NO   |     | utcnow  | Waktu Pembuatan    |
+| updated_at  | DATETIME| NO   |     | utcnow  | Waktu Update       |
++-------------+---------+------+-----+---------+--------------------+
+
+F. Tabel: `section_field_values` (Menyimpan data teks/gambar yang diinput user)
++-------------------+---------+------+-----+---------+------------------------+
+| Field Name        | Type    | Null | Key | Default | Description            |
++-------------------+---------+------+-----+---------+------------------------+
+| id                | INTEGER | NO   | PRI | NULL    | Primary Key            |
+| page_section_id   | INTEGER | NO   | FOR | NULL    | Relasi page_sections.id|
+| template_field_id | INTEGER | NO   | FOR | NULL    | Relasi template_field. |
+| value             | TEXT    | YES  |     | NULL    | Konten Data Input      |
+| created_at        | DATETIME| NO   |     | utcnow  | Waktu Pembuatan        |
+| updated_at        | DATETIME| NO   |     | utcnow  | Waktu Update           |
++-------------------+---------+------+-----+---------+------------------------+
+
+G. Tabel: `subscriptions` (Menyimpan status langganan SaaS pengguna)
++-------------------------+--------------+------+-----+----------+--------------------+
+| Field Name              | Type         | Null | Key | Default  | Description        |
++-------------------------+--------------+------+-----+----------+--------------------+
+| id                      | INTEGER      | NO   | PRI | NULL     | Primary Key        |
+| user_id                 | INTEGER      | NO   | FOR | NULL     | Relasi ke users.id |
+| plan                    | VARCHAR(20)  | NO   |     | 'free'   | Jenis Paket (plus) |
+| billing_cycle           | VARCHAR(20)  | YES  |     | NULL     | Siklus (monthly)   |
+| status                  | VARCHAR(20)  | NO   |     | 'active' | Status Pembayaran  |
+| midtrans_order_id       | VARCHAR(100) | YES  | UNI | NULL     | Kode Invoice Order |
+| midtrans_transaction_id | VARCHAR(100) | YES  |     | NULL     | ID Transaksi Bayar |
+| amount                  | INTEGER      | NO   |     | 0        | Nominal Bayar (Rp) |
+| started_at              | DATETIME     | YES  |     | NULL     | Mulai Aktif Paket  |
+| expires_at              | DATETIME     | YES  |     | NULL     | Batas Kadaluarsa   |
+| created_at              | DATETIME     | NO   |     | utcnow   | Waktu Pembuatan    |
+| updated_at              | DATETIME     | NO   |     | utcnow   | Waktu Update       |
++-------------------------+--------------+------+-----+----------+--------------------+
+
+H. Tabel: `page_collaborators` (Daftar kolaborator yang memiliki izin edit)
++-------------+-------------+------+-----+----------+--------------------+
+| Field Name  | Type        | Null | Key | Default  | Description        |
++-------------+-------------+------+-----+----------+--------------------+
+| id          | INTEGER     | NO   | PRI | NULL     | Primary Key        |
+| page_id     | INTEGER     | NO   | FOR | NULL     | Relasi ke pages.id |
+| user_id     | INTEGER     | NO   | FOR | NULL     | Relasi ke users.id |
+| permission  | VARCHAR(20) | NO   |     | 'editor' | Level Akses (edit) |
+| invited_at  | DATETIME    | NO   |     | utcnow   | Tanggal Terdaftar  |
++-------------+-------------+------+-----+----------+--------------------+
+
+I. Tabel: `invitations` (Menyimpan data surat undangan kolaborasi)
++--------------+--------------+------+-----+-----------+---------------------+
+| Field Name   | Type         | Null | Key | Default   | Description         |
++--------------+--------------+------+-----+-----------+---------------------+
+| id           | INTEGER      | NO   | PRI | NULL      | Primary Key         |
+| page_id      | INTEGER      | NO   | FOR | NULL      | Relasi ke pages.id  |
+| sender_id    | INTEGER      | NO   | FOR | NULL      | Relasi Pengirim     |
+| recipient_id | INTEGER      | NO   | FOR | NULL      | Relasi Penerima     |
+| status       | VARCHAR(20)  | NO   |     | 'pending' | Status Undangan     |
+| message      | VARCHAR(500) | YES  |     | NULL      | Pesan Tambahan      |
+| created_at   | DATETIME     | NO   |     | utcnow    | Waktu Pembuatan     |
+| updated_at   | DATETIME     | NO   |     | utcnow    | Waktu Update        |
++--------------+--------------+------+-----+-----------+---------------------+
+
+J. Tabel: `page_views` (Menyimpan data log pengunjung halaman aktif)
++------------+--------------+------+-----+---------+---------------------+
+| Field Name | Type         | Null | Key | Default | Description         |
++------------+--------------+------+-----+---------+---------------------+
+| id         | INTEGER      | NO   | PRI | NULL    | Primary Key         |
+| page_id    | INTEGER      | NO   | FOR | NULL    | Relasi ke pages.id  |
+| ip_hash    | VARCHAR(64)  | YES  |     | NULL    | Enkripsi IP SHA256  |
+| user_agent | VARCHAR(500) | YES  |     | NULL    | Info Browser/OS UA  |
+| referrer   | VARCHAR(500) | YES  |     | NULL    | Sumber Rujukan Link |
+| country    | VARCHAR(10)  | YES  |     | NULL    | Negara Pengakses    |
+| created_at | DATETIME     | NO   |     | utcnow  | Waktu Kunjungan     |
++------------+--------------+------+-----+---------+---------------------+
+
+
+
+
+BAB 04
+IMPLEMENTASI
+ 
+4.1 Lingkungan Pengembangan 
+Dalam proses membangun dan mengeksekusi kode program InstaWeb, lingkungan perangkat keras dan perangkat lunak yang digunakan tim meliputi:
+Sistem Operasi: Windows 10/11 Home/Pro 64-bit.
+Text Editor / IDE: Visual Studio Code (VS Code) dengan ekstensi Python terinstal.
+Penyimpanan Proyek: Direktori lokal pada komputer pengembang.
+Web Browser Utama: Google Chrome dan Mozilla Firefox (digunakan untuk memantau konsol eror javascript dan responsivitas desain).
+ 
+4.2 FRAMEWORK 
+Aplikasi InstaWeb dikembangkan dengan memanfaatkan kemampuan framework web mikro berbasis Python, yaitu Flask. Framework ini bertanggung jawab penuh dalam menangani routing (perutean URL), menerima atau merespons HTTP Request (GET & POST), serta merender data ke berkas tampilan HTML.
+
+
+4.3 Bahasa Pemrograman
+Teknologi yang dikombinasikan dalam pembuatan aplikasi web ini mencakup:
+Python: Bahasa inti di sisi server (backend) untuk memproses logika bisnis aplikasi, melakukan enkripsi data, dan menjembatani komunikasi ke database.
+HTML5: Digunakan untuk menyusun struktur elemen statis, tabel, serta form masukan data pada halaman web.
+CSS3 & Bootstrap: Digunakan untuk mengatur tata letak komponen, visualisasi tombol, warna tema, serta memastikan aspek responsive layout bekerja dengan baik.
+JavaScript: Digunakan untuk memberikan interaksi asinkronus ringan di sisi pengguna.
+ 
+
+4.4 Struktur Projek
+
+
+
+
+
+BAB 05
+PENGUJIAN SISTEM
+ 
+5.1 Metode Pengujian
+Pengujian sistem pada aplikasi InstaWeb dilakukan dengan menggunakan metode Black Box Testing (Pengujian Kotak Black Box). Metode ini berfokus sepenuhnya pada pengujian fungsionalitas luar aplikasi dengan cara menguji masukan (input) dan memvalidasi apakah keluaran (output) yang dihasilkan sudah sesuai dengan skenario rancangan, tanpa perlu menguji baris kode internalnya secara mendalam.  	
+
+5.2 Skenario Pengujian 
+Rencana pengujian dirancang lewat beberapa skenario pengujian fungsional penting berikut:
+Pengujian Fitur Registrasi: Mengisi form pendaftaran dengan email baru dan menguji validasi jika password terlalu pendek.
+Pengujian Fitur Login: Memasukkan kombinasi username dan kata sandi, baik dengan parameter data yang benar maupun data acak (salah).
+Pengujian Fitur CRUD Konten: Melakukan penambahan data baru, memperbarui teks data, serta menghapus data melalui tombol yang tersedia pada dashboard.
+ 
+
+5.3 Hasul Pengujian 
+Berdasarkan serangkaian uji coba Black Box yang telah dieksekusi oleh tim, berikut adalah rangkuman hasil pengujian sistem InstaWeb: 
+
+
+
+
+5.4 Evaluasi
+Secara keseluruhan, fungsionalitas utama backend berbasis Python pada aplikasi InstaWeb telah berjalan dengan sangat baik dan stabil. Semua tautan rute (routing) berhasil diarahkan tanpa memicu terjadinya eror 404 Not Found.
+Catatan evaluasi kecil untuk pengembangan ke depan adalah perlunya penambahan fitur konfirmasi pop-up (seperti alert "Apakah Anda yakin?") sesaat sebelum pengguna mengeksekusi fungsi hapus data (Delete), guna mencegah hilangnya data secara tidak sengaja akibat salah klik oleh pengguna.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+BAB 06
+PENUTUP
+6.1 Kesimpulan
+Melalui perancangan, implementasi, dan pengujian yang telah dilaksanakan, Proyek Akhir Semester pembuatan aplikasi website InstaWeb berbasis Python ini berhasil diselesaikan dengan baik sesuai target waktu yang ditentukan. Berdasarkan seluruh proses tersebut, dapat ditarik beberapa kesimpulan sebagai berikut:
+Integrasi sistem antara logika backend Python dengan kerangka front-end (HTML/CSS) berhasil berjalan selaras melalui manajemen routing framework yang terstruktur.
+Pembagian kerja tim (Ammar, Daffa, dan Hilma) yang terarah terbukti sangat membantu penyusunan kode program secara bertahap hingga menjadi aplikasi yang utuh.
+Metode Black Box Testing menunjukkan bahwa seluruh fitur utama sistem, mulai dari manajemen autentikasi hingga operasi pengolahan data (CRUD), telah berfungsi 100% normal dan siap digunakan.
+
+ 6.2 Saran
+Meskipun aplikasi ini sudah berfungsi sesuai kebutuhan dasar tugas akhir kelas X SIJA, tim menyadari masih terdapat ruang peningkatan kualitas yang bisa diterapkan pada pengembangan selanjutnya:
+Pengembangan Fitur Keamanan: Menambahkan fitur verifikasi CAPTCHA pada form login guna menghindari ancaman serangan siber berupa pembongkaran paksa kata sandi (brute-force attacks).
+Optimalisasi UI/UX: Memperbanyak penggunaan animasi transisi elemen yang halus serta menyediakan opsi mode gelap (Dark Mode) untuk meningkatkan kenyamanan visual pengguna.
+Migrasi Database: Mengupgrade sistem pangkalan data lokal dari yang awalnya bertipe file lokal mikro (seperti SQLite) ke server database relasional skala besar (seperti MySQL atau PostgreSQL) apabila volume data pengguna di masa mendatang terus bertambah.
+ 
+
