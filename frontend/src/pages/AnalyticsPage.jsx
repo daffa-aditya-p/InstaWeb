@@ -59,10 +59,10 @@ function UpgradeOverlay({ tier, label }) {
       </div>
       <div className="text-center">
         <p className="text-sm font-semibold text-white">
-          {tier} Feature
+          Fitur {tier}
         </p>
         <p className="mt-1 max-w-xs text-xs text-white/50">
-          Upgrade to {tier} to unlock {label}.
+          Tingkatkan ke {tier} untuk membuka {label}.
         </p>
       </div>
       <Button
@@ -72,7 +72,7 @@ function UpgradeOverlay({ tier, label }) {
         size="sm"
         icon={FiStar}
       >
-        Upgrade Now
+        Tingkatkan Sekarang
       </Button>
     </div>
   );
@@ -165,7 +165,7 @@ function ReferrerBar({ name, count, max, index }) {
       <div className="mb-1 flex items-center justify-between text-sm">
         <span className="flex items-center gap-2 text-white/80">
           <FiGlobe className="h-3.5 w-3.5 text-white/30" />
-          {name || "Direct"}
+          {name || "Langsung"}
         </span>
         <span className="font-mono text-xs text-white/50">
           {count.toLocaleString("id-ID")}
@@ -195,7 +195,7 @@ function PageSelector({ pages, selected, onChange }) {
         className="field-shell flex items-center justify-between gap-3 pr-3"
       >
         <span className="truncate text-left">
-          {current?.title || "Select a page"}
+          {current?.title || "Pilih halaman"}
         </span>
         <FiChevronDown
           className={`h-4 w-4 shrink-0 text-white/40 transition-transform ${open ? "rotate-180" : ""}`}
@@ -253,7 +253,7 @@ const sectionVariant = {
 };
 
 export default function AnalyticsPage() {
-  useDocumentTitle("Analytics");
+  useDocumentTitle("Analitik");
 
   // ── State ──
   const [pages, setPages] = useState([]);
@@ -360,28 +360,28 @@ export default function AnalyticsPage() {
   const overviewCards = useMemo(
     () => [
       {
-        label: "Total Views",
+        label: "Total Kunjungan",
         value: summary?.total_views ?? 0,
         icon: FiEye,
         gradient: "from-brand-aqua/20 via-brand-aqua/5 to-transparent",
         iconColor: "text-brand-aqua",
       },
       {
-        label: "Views Today",
+        label: "Kunjungan Hari Ini",
         value: summary?.views_today ?? 0,
         icon: FiTrendingUp,
         gradient: "from-brand-lime/20 via-brand-lime/5 to-transparent",
         iconColor: "text-brand-lime",
       },
       {
-        label: "This Week",
+        label: "Minggu Ini",
         value: summary?.views_7d ?? 0,
         icon: FiBarChart2,
         gradient: "from-brand-amber/20 via-brand-amber/5 to-transparent",
         iconColor: "text-brand-amber",
       },
       {
-        label: "This Month",
+        label: "Bulan Ini",
         value: summary?.views_30d ?? 0,
         icon: FiGlobe,
         gradient: "from-brand-rose/20 via-brand-rose/5 to-transparent",
@@ -411,9 +411,9 @@ export default function AnalyticsPage() {
     return (
       <EmptyState
         icon={FiBarChart2}
-        title="No pages yet"
-        description="Create your first page to start tracking analytics and visitor insights."
-        action="Create page"
+        title="Belum ada halaman"
+        description="Buat halaman pertama Anda untuk mulai melacak analitik pengunjung."
+        action="Buat halaman"
         onAction={() => (window.location.href = "/pages")}
       />
     );
@@ -433,12 +433,12 @@ export default function AnalyticsPage() {
         className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"
       >
         <div>
-          <Badge tone="aqua">Analytics</Badge>
+          <Badge tone="aqua">Analitik</Badge>
           <h1 className="mt-3 text-2xl font-semibold text-white sm:text-3xl">
-            Page Analytics
+            Analitik Halaman
           </h1>
           <p className="mt-1 text-sm text-white/50">
-            Track visitors, referrers, and engagement for your pages.
+            Lacak kunjungan, referal, dan interaksi halaman Anda.
           </p>
         </div>
         <div className="w-full sm:w-64">
@@ -496,8 +496,8 @@ export default function AnalyticsPage() {
       >
         <div className="mb-5 flex items-center gap-3">
           <FiGlobe className="h-5 w-5 text-brand-aqua" />
-          <h2 className="text-lg font-semibold text-white">Top Referrers</h2>
-          <Badge tone="neutral">Free</Badge>
+          <h2 className="text-lg font-semibold text-white">Top Referal</h2>
+          <Badge tone="neutral">Gratis</Badge>
         </div>
 
         {loadingSummary ? (
@@ -520,14 +520,14 @@ export default function AnalyticsPage() {
           </div>
         ) : (
           <p className="text-sm text-white/40">
-            No referrer data yet. Share your page to start seeing traffic sources.
+            Belum ada data referal. Bagikan halaman untuk mulai melihat sumber trafik.
           </p>
         )}
 
         {/* Simple view count */}
         <div className="mt-6 flex items-center gap-3 rounded-lg border border-white/[0.06] bg-white/[0.03] px-4 py-3">
           <FiEye className="h-4 w-4 text-brand-aqua" />
-          <span className="text-sm text-white/60">Total page views:</span>
+          <span className="text-sm text-white/60">Total dilihat:</span>
           <span className="font-semibold text-white">
             {(summary?.total_views ?? 0).toLocaleString("id-ID")}
           </span>
@@ -542,7 +542,7 @@ export default function AnalyticsPage() {
         className="glass-panel relative overflow-hidden rounded-lg p-6"
       >
         {!isPlusOrAbove && (
-          <UpgradeOverlay tier="Plus" label="daily views chart, all referrers & unique visitors" />
+          <UpgradeOverlay tier="Plus" label="grafik kunjungan harian, semua referal & pengunjung unik" />
         )}
         <div
           className={!isPlusOrAbove ? "pointer-events-none select-none blur-sm" : ""}
@@ -550,7 +550,7 @@ export default function AnalyticsPage() {
           <div className="mb-5 flex items-center gap-3">
             <FiBarChart2 className="h-5 w-5 text-brand-lime" />
             <h2 className="text-lg font-semibold text-white">
-              Daily Views — Last 30 Days
+              Kunjungan Harian — 30 Hari Terakhir
             </h2>
             <Badge tone="green">Plus</Badge>
           </div>
@@ -565,7 +565,7 @@ export default function AnalyticsPage() {
           <div className="mt-8">
             <h3 className="mb-4 flex items-center gap-2 text-sm font-semibold text-white/80">
               <FiGlobe className="h-4 w-4 text-white/40" />
-              All Referrers
+              Semua Referal
             </h3>
             {loadingDetails ? (
               <div className="space-y-3">
@@ -586,7 +586,7 @@ export default function AnalyticsPage() {
                 ))}
               </div>
             ) : (
-              <p className="text-sm text-white/40">No referrer data available.</p>
+              <p className="text-sm text-white/40">Data referal tidak tersedia.</p>
             )}
           </div>
 
@@ -597,7 +597,7 @@ export default function AnalyticsPage() {
             </div>
             <div>
               <p className="text-xs font-medium uppercase tracking-wider text-white/40">
-                Unique Visitors
+                Pengunjung Unik
               </p>
               <p className="mt-1 text-2xl font-bold text-white">
                 {loadingDetails ? (
@@ -622,12 +622,12 @@ export default function AnalyticsPage() {
         className="glass-panel relative overflow-hidden rounded-lg p-6"
       >
         {!isPro && (
-          <UpgradeOverlay tier="Pro+" label="the full visitor log with real-time data" />
+          <UpgradeOverlay tier="Pro+" label="log pengunjung lengkap dengan data real-time" />
         )}
         <div className={!isPro ? "pointer-events-none select-none blur-sm" : ""}>
           <div className="mb-5 flex items-center gap-3">
             <FiUsers className="h-5 w-5 text-brand-rose" />
-            <h2 className="text-lg font-semibold text-white">Visitor Log</h2>
+            <h2 className="text-lg font-semibold text-white">Log Pengunjung</h2>
             <Badge tone="rose">Pro+</Badge>
             <span className="ml-auto flex items-center gap-1.5">
               <span className="relative flex h-2.5 w-2.5">
@@ -650,13 +650,13 @@ export default function AnalyticsPage() {
                 <thead>
                   <tr className="border-b border-white/[0.06] bg-white/[0.03]">
                     <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-white/40">
-                      Timestamp
+                      Waktu
                     </th>
                     <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-white/40">
                       User Agent
                     </th>
                     <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-white/40">
-                      Referrer
+                      Referal
                     </th>
                   </tr>
                 </thead>
@@ -691,7 +691,7 @@ export default function AnalyticsPage() {
                             {v.referrer}
                           </span>
                         ) : (
-                          <span className="text-white/25">Direct</span>
+                          <span className="text-white/25">Langsung</span>
                         )}
                       </td>
                     </motion.tr>
@@ -701,7 +701,7 @@ export default function AnalyticsPage() {
             </div>
           ) : (
             <p className="text-sm text-white/40">
-              No visitor data yet. Visitors will appear here in real time.
+              Belum ada data pengunjung. Data pengunjung akan tampil di sini secara real-time.
             </p>
           )}
         </div>

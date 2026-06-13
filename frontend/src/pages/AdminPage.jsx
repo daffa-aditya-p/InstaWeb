@@ -69,7 +69,7 @@ export default function AdminPage() {
     setErrors({});
     try {
       await adminApi.createTemplate(templateForm);
-      toast.success("Template created");
+      toast.success("Template dibuat");
       setTemplateOpen(false);
       setTemplateForm(starterTemplate);
       load();
@@ -83,7 +83,7 @@ export default function AdminPage() {
   const deleteTemplate = async (template) => {
     try {
       await adminApi.deleteTemplate(template.slug);
-      toast.success("Template deleted");
+      toast.success("Template dihapus");
       load();
     } catch (error) {
       toast.error(apiError(error).message);
@@ -93,7 +93,7 @@ export default function AdminPage() {
   const deletePage = async (page) => {
     try {
       await adminApi.deletePage(page.slug);
-      toast.success("Page deleted");
+      toast.success("Halaman dihapus");
       load();
     } catch (error) {
       toast.error(apiError(error).message);
@@ -103,7 +103,7 @@ export default function AdminPage() {
   const updateUserRole = async (target, role) => {
     try {
       await adminApi.updateUser(target.id, { role });
-      toast.success("User role updated");
+      toast.success("Peran pengguna diperbarui");
       load();
     } catch (error) {
       toast.error(apiError(error).message);
@@ -113,7 +113,7 @@ export default function AdminPage() {
   const deleteUser = async (target) => {
     try {
       await adminApi.deleteUser(target.id);
-      toast.success("User deleted");
+      toast.success("Pengguna dihapus");
       load();
     } catch (error) {
       toast.error(apiError(error).message);
@@ -131,10 +131,10 @@ export default function AdminPage() {
 
   const metricCards = analytics
     ? [
-        { label: "Users", value: analytics.users, icon: FiUsers },
-        { label: "Pages", value: analytics.pages, icon: FiFileText },
-        { label: "Published", value: analytics.published_pages, icon: FiShield },
-        { label: "Templates", value: analytics.templates, icon: FiPlus },
+        { label: "Pengguna", value: analytics.users, icon: FiUsers },
+        { label: "Halaman", value: analytics.pages, icon: FiFileText },
+        { label: "Dipublikasi", value: analytics.published_pages, icon: FiShield },
+        { label: "Template", value: analytics.templates, icon: FiPlus },
       ]
     : [];
 
@@ -142,9 +142,9 @@ export default function AdminPage() {
     <div className="space-y-6">
       <div>
         <p className="eyebrow">Admin</p>
-        <h1 className="mt-3 text-3xl font-semibold text-white">Platform control room</h1>
+        <h1 className="mt-3 text-3xl font-semibold text-white">Ruang kontrol platform</h1>
         <p className="mt-2 max-w-2xl text-sm leading-6 text-white/[0.55]">
-          Manage templates, pages, analytics, and users according to your role.
+          Kelola template, halaman, analitik, dan pengguna sesuai peran Anda.
         </p>
       </div>
 
@@ -168,9 +168,9 @@ export default function AdminPage() {
       <section className="grid gap-4 xl:grid-cols-[1fr_0.9fr]">
         <div className="muted-panel rounded-lg p-5">
           <div className="mb-4 flex items-center justify-between gap-4">
-            <h2 className="text-lg font-semibold text-white">Templates</h2>
+            <h2 className="text-lg font-semibold text-white">Template</h2>
             <Button icon={FiPlus} size="sm" variant="primary" onClick={() => setTemplateOpen(true)}>
-              New Template
+              Template Baru
             </Button>
           </div>
           <div className="grid gap-3">
@@ -184,7 +184,7 @@ export default function AdminPage() {
                     <h3 className="font-semibold text-white">{template.name}</h3>
                     <p className="mt-1 text-xs text-white/[0.45]">/{template.slug}</p>
                   </div>
-                  <Button size="icon" variant="ghost" onClick={() => deleteTemplate(template)} aria-label="Delete template">
+                  <Button size="icon" variant="ghost" onClick={() => deleteTemplate(template)} aria-label="Hapus template">
                     <FiTrash2 className="h-4 w-4" />
                   </Button>
                 </div>
@@ -201,7 +201,7 @@ export default function AdminPage() {
         </div>
 
         <div className="muted-panel rounded-lg p-5">
-          <h2 className="text-lg font-semibold text-white">Platform pages</h2>
+          <h2 className="text-lg font-semibold text-white">Halaman platform</h2>
           <div className="mt-4 max-h-[34rem] space-y-3 overflow-y-auto">
             {pages.map((page) => (
               <div className="rounded-lg border border-white/10 bg-white/[0.05] p-4" key={page.id}>
@@ -212,13 +212,13 @@ export default function AdminPage() {
                       /{page.slug} by {page.owner?.name}
                     </p>
                   </div>
-                  <Button size="icon" variant="ghost" onClick={() => deletePage(page)} aria-label="Delete page">
+                  <Button size="icon" variant="ghost" onClick={() => deletePage(page)} aria-label="Hapus halaman">
                     <FiTrash2 className="h-4 w-4" />
                   </Button>
                 </div>
                 <div className="mt-3">
                   <Badge tone={page.is_published ? "green" : "neutral"}>
-                    {page.is_published ? "Published" : "Draft"}
+                    {page.is_published ? "Dipublikasi" : "Draf"}
                   </Badge>
                 </div>
               </div>
@@ -229,7 +229,7 @@ export default function AdminPage() {
 
       {isSuper ? (
         <section className="muted-panel rounded-lg p-5">
-          <h2 className="text-lg font-semibold text-white">Users</h2>
+          <h2 className="text-lg font-semibold text-white">Pengguna</h2>
           <div className="mt-4 grid gap-3 md:grid-cols-2">
             {users.map((target) => (
               <div className="rounded-lg border border-white/10 bg-white/[0.05] p-4" key={target.id}>
@@ -238,13 +238,13 @@ export default function AdminPage() {
                     <h3 className="font-semibold text-white">{target.name}</h3>
                     <p className="mt-1 text-xs text-white/[0.45]">{target.email}</p>
                   </div>
-                  <Button size="icon" variant="ghost" onClick={() => deleteUser(target)} aria-label="Delete user">
+                  <Button size="icon" variant="ghost" onClick={() => deleteUser(target)} aria-label="Hapus pengguna">
                     <FiTrash2 className="h-4 w-4" />
                   </Button>
                 </div>
                 <Select
                   className="mt-4"
-                  label="Role"
+                  label="Peran"
                   value={target.role}
                   onChange={(event) => updateUserRole(target, event.target.value)}
                 >
@@ -258,11 +258,11 @@ export default function AdminPage() {
         </section>
       ) : null}
 
-      <Modal open={templateOpen} title="New template" onClose={() => setTemplateOpen(false)} width="max-w-2xl">
+      <Modal open={templateOpen} title="Template baru" onClose={() => setTemplateOpen(false)} width="max-w-2xl">
         <form className="space-y-4" onSubmit={createTemplate}>
           <div className="grid gap-4 sm:grid-cols-2">
             <Input
-              label="Name"
+              label="Nama"
               value={templateForm.name}
               error={errors.name?.[0]}
               onChange={(event) =>
@@ -274,7 +274,7 @@ export default function AdminPage() {
               }
             />
             <Input
-              label="Slug"
+              label="Tautan (Slug)"
               value={templateForm.slug}
               error={errors.slug?.[0]}
               onChange={(event) =>
@@ -283,7 +283,7 @@ export default function AdminPage() {
             />
           </div>
           <Textarea
-            label="Description"
+            label="Deskripsi"
             value={templateForm.description}
             onChange={(event) =>
               setTemplateForm((current) => ({ ...current, description: event.target.value }))
@@ -292,7 +292,7 @@ export default function AdminPage() {
 
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-semibold text-white">Fields</h3>
+              <h3 className="text-sm font-semibold text-white">Kolom</h3>
               <Button
                 size="sm"
                 icon={FiPlus}
@@ -303,13 +303,13 @@ export default function AdminPage() {
                   }))
                 }
               >
-                Field
+                Kolom
               </Button>
             </div>
             {templateForm.fields.map((field, index) => (
               <div className="grid gap-3 rounded-lg border border-white/10 p-3 sm:grid-cols-[1fr_1fr_120px_40px]" key={index}>
                 <Input
-                  label="Name"
+                  label="Nama"
                   value={field.name}
                   error={errors[`fields.${index}.name`]?.[0]}
                   onChange={(event) =>
@@ -320,13 +320,13 @@ export default function AdminPage() {
                   }
                 />
                 <Input
-                  label="Slug"
+                  label="Tautan (Slug)"
                   value={field.slug}
                   error={errors[`fields.${index}.slug`]?.[0]}
                   onChange={(event) => updateTemplateField(index, { slug: slugify(event.target.value) })}
                 />
                 <Select
-                  label="Type"
+                  label="Tipe"
                   value={field.type}
                   error={errors[`fields.${index}.type`]?.[0]}
                   onChange={(event) => updateTemplateField(index, { type: event.target.value })}
@@ -344,7 +344,7 @@ export default function AdminPage() {
                         fields: current.fields.filter((_, fieldIndex) => fieldIndex !== index),
                       }))
                     }
-                    aria-label="Remove field"
+                    aria-label="Hapus kolom"
                   >
                     <FiTrash2 className="h-4 w-4" />
                   </Button>
@@ -355,9 +355,9 @@ export default function AdminPage() {
           </div>
 
           <div className="flex justify-end gap-2">
-            <Button onClick={() => setTemplateOpen(false)}>Cancel</Button>
+            <Button onClick={() => setTemplateOpen(false)}>Batal</Button>
             <Button type="submit" variant="primary">
-              Create Template
+              Buat Template
             </Button>
           </div>
         </form>

@@ -10,7 +10,7 @@ import { pagesApi } from "../services/api";
 import { useAuthStore } from "../store/authStore";
 
 export default function DashboardPage() {
-  useDocumentTitle("Dashboard");
+  useDocumentTitle("Dasbor");
   const user = useAuthStore((state) => state.user);
   const [pages, setPages] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -24,13 +24,13 @@ export default function DashboardPage() {
 
   const metrics = useMemo(
     () => [
-      { label: "Pages", value: pages.length, icon: FiLayers },
+      { label: "Halaman", value: pages.length, icon: FiLayers },
       {
-        label: "Published",
+        label: "Dipublikasi",
         value: pages.filter((page) => page.is_published).length,
         icon: FiExternalLink,
       },
-      { label: "Drafts", value: pages.filter((page) => !page.is_published).length, icon: FiActivity },
+      { label: "Draf", value: pages.filter((page) => !page.is_published).length, icon: FiActivity },
     ],
     [pages],
   );
@@ -40,20 +40,20 @@ export default function DashboardPage() {
       <section className="glass-panel overflow-hidden rounded-lg">
         <div className="grid gap-8 p-6 lg:grid-cols-[1.2fr_0.8fr] lg:p-8">
           <div>
-            <Badge tone="aqua">Workspace</Badge>
+            <Badge tone="aqua">Ruang Kerja</Badge>
             <h1 className="mt-5 max-w-3xl text-3xl font-semibold leading-tight text-white sm:text-5xl">
-              Build and publish structured websites without leaving your flow.
+              Bangun dan publikasikan website terstruktur tanpa hambatan.
             </h1>
             <p className="mt-4 max-w-2xl text-sm leading-7 text-white/60">
-              Welcome back, {user?.name}. Your pages are powered by templates,
-              sections, and field values stored in SQLite.
+              Selamat datang kembali, {user?.name}. Halaman Anda dibangun menggunakan template,
+              modul, dan sistem penyimpanan data yang canggih.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               <Button as={Link} to="/pages" icon={FiPlus} variant="primary">
-                New page
+                Halaman baru
               </Button>
               <Button as={Link} to="/pages" icon={FiLayers}>
-                Manage pages
+                Kelola halaman
               </Button>
             </div>
           </div>
@@ -61,8 +61,8 @@ export default function DashboardPage() {
             <div className="rounded-lg border border-white/10 bg-black/30 p-4">
               <FiZap className="h-5 w-5 text-brand-amber" />
               <p className="mt-4 text-sm leading-6 text-white/60">
-                Shortcuts: Alt + N opens the page form, Alt + S opens section
-                selection inside the builder, Esc closes open panels.
+                Jalan Pintas: Alt + N buat halaman baru, Alt + S buka daftar
+                modul di editor, Esc tutup panel yang terbuka.
               </p>
             </div>
           </div>
@@ -88,9 +88,9 @@ export default function DashboardPage() {
 
       <section className="muted-panel rounded-lg p-5">
         <div className="mb-4 flex items-center justify-between gap-4">
-          <h2 className="text-lg font-semibold text-white">Recent pages</h2>
+          <h2 className="text-lg font-semibold text-white">Halaman terbaru</h2>
           <Link className="text-sm font-medium text-brand-aqua hover:text-white" to="/pages">
-            View all
+            Lihat semua
           </Link>
         </div>
         <div className="grid gap-3">
@@ -109,13 +109,13 @@ export default function DashboardPage() {
                     <p className="mt-1 text-xs text-white/[0.45]">/{page.slug}</p>
                   </div>
                   <Badge tone={page.is_published ? "green" : "neutral"}>
-                    {page.is_published ? "Published" : "Draft"}
+                    {page.is_published ? "Dipublikasi" : "Draf"}
                   </Badge>
                 </div>
               </Link>
             ))
           ) : (
-            <p className="text-sm text-white/[0.55]">No pages yet.</p>
+            <p className="text-sm text-white/[0.55]">Belum ada halaman.</p>
           )}
         </div>
       </section>

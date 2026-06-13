@@ -37,13 +37,13 @@ import { useAuthStore } from "../store/authStore";
 import { fieldSummary } from "../utils/fields";
 
 const CATEGORIES = [
-  { id: "all", name: "All Templates" },
-  { id: "nav", name: "Navigation" },
-  { id: "hero", name: "Hero & Openers" },
-  { id: "features", name: "Features & Grids" },
-  { id: "clients", name: "Client Love" },
-  { id: "forms", name: "Forms & Contact" },
-  { id: "advanced", name: "Advanced" },
+  { id: "all", name: "Semua Template" },
+  { id: "nav", name: "Navigasi" },
+  { id: "hero", name: "Hero & Pembuka" },
+  { id: "features", name: "Fitur & Grid" },
+  { id: "clients", name: "Klien" },
+  { id: "forms", name: "Formulir & Kontak" },
+  { id: "advanced", name: "Lanjutan" },
 ];
 
 const getTemplateCategory = (slug) => {
@@ -581,7 +581,7 @@ export default function BuilderPage() {
   const [templateId, setTemplateId] = useState("");
   const [selectedSectionId, setSelectedSectionId] = useState(null);
   const [draftValues, setDraftValues] = useState({});
-  const [autosaveState, setAutosaveState] = useState("Saved");
+  const [autosaveState, setAutosaveState] = useState("Tersimpan");
   const [removeTarget, setRemoveTarget] = useState(null);
   const [activeTab, setActiveTab] = useState("content");
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -610,7 +610,7 @@ export default function BuilderPage() {
     return counts;
   }, [templates]);
 
-  useDocumentTitle("Page Builder");
+  useDocumentTitle("Editor Halaman");
 
   const selectedSection = useMemo(
     () => page?.sections?.find((section) => section.id === selectedSectionId),
@@ -692,7 +692,7 @@ export default function BuilderPage() {
       }));
       setSelectedSectionId(section.id);
       setAddOpen(false);
-      toast.success("Section added");
+      toast.success("Modul ditambahkan");
     } catch (error) {
       toast.error(apiError(error).message);
     }
@@ -701,17 +701,17 @@ export default function BuilderPage() {
   const saveFields = useCallback(
     async (sectionId = selectedSectionId, values = draftValues, silent = false) => {
       if (!sectionId) return;
-      setAutosaveState("Saving...");
+      setAutosaveState("Menyimpan...");
       try {
         const fields = Object.entries(values).map(([fieldId, value]) => ({
           field_id: Number(fieldId),
           value,
         }));
         await pagesApi.updateSectionFields(slug, sectionId, fields);
-        setAutosaveState("Saved");
-        if (!silent) toast.success("Section saved");
+        setAutosaveState("Tersimpan");
+        if (!silent) toast.success("Modul disimpan");
       } catch (error) {
-        setAutosaveState("Unsaved");
+        setAutosaveState("Belum Tersimpan");
         toast.error(apiError(error).message);
       }
     },
@@ -721,7 +721,7 @@ export default function BuilderPage() {
   const changeField = (fieldId, value) => {
     const nextValues = { ...draftValues, [fieldId]: value };
     setDraftValues(nextValues);
-    setAutosaveState("Unsaved");
+    setAutosaveState("Belum Tersimpan");
     setPage((current) => ({
       ...current,
       sections: current.sections.map((section) =>
@@ -755,7 +755,7 @@ export default function BuilderPage() {
     setPage((current) => ({ ...current, sections: reordered }));
     try {
       await pagesApi.reorderSections(slug, reordered.map((section) => section.id));
-      toast.success("Section order saved");
+      toast.success("Urutan modul disimpan");
     } catch (error) {
       toast.error(apiError(error).message);
       load();
@@ -770,7 +770,7 @@ export default function BuilderPage() {
       setPage((current) => ({ ...current, sections: remaining }));
       setSelectedSectionId(remaining[0]?.id || null);
       setRemoveTarget(null);
-      toast.success("Section removed");
+      toast.success("Modul dihapus");
     } catch (error) {
       toast.error(apiError(error).message);
     }
@@ -780,7 +780,7 @@ export default function BuilderPage() {
     try {
       const response = await pagesApi.publish(slug, !page.is_published);
       setPage((current) => ({ ...current, ...response.data }));
-      toast.success(page.is_published ? "Page unpublished" : "Page published");
+      toast.success(page.is_published ? "Halaman ditarik dari publikasi" : "Halaman dipublikasi");
     } catch (error) {
       toast.error(apiError(error).message);
     }
@@ -827,7 +827,7 @@ export default function BuilderPage() {
     try {
       await pagesApi.updateSeo(slug, seoForm);
       setPage((current) => ({ ...current, ...seoForm }));
-      toast.success("SEO settings saved");
+      toast.success("Pengaturan SEO disimpan");
       setShowSeoModal(false);
     } catch (error) {
       toast.error(apiError(error).message);
@@ -883,7 +883,7 @@ ${sectionHtml}
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
-    toast.success("HTML file downloaded");
+    toast.success("File HTML diunduh");
   };
 
   if (loading) {
@@ -898,8 +898,8 @@ ${sectionHtml}
   if (!page) {
     return (
       <EmptyState
-        title="Page not found"
-        description="The requested page is unavailable or you do not have access."
+        title="Halaman tidak ditemukan"
+        description="Halaman yang diminta tidak tersedia atau Anda tidak memiliki akses."
       />
     );
   }
@@ -911,21 +911,21 @@ ${sectionHtml}
       {/* ── Top bar ── */}
       <div className="glass-panel flex flex-col justify-between gap-3 p-3 sm:p-4 lg:flex-row lg:items-center shrink-0 rounded-lg mx-0">
         <div className="flex items-center gap-3">
-          <Button as={Link} to="/pages" icon={FiArrowLeft} size="icon" aria-label="Back to pages" />
+          <Button as={Link} to="/pages" icon={FiArrowLeft} size="icon" aria-label="Kembali ke halaman" />
           <div>
             <div className="flex flex-wrap items-center gap-2">
               <h1 className="text-lg sm:text-xl font-semibold text-white">{page.title}</h1>
               <Badge tone={page.is_published ? "green" : "neutral"}>
-                {page.is_published ? "Published" : "Draft"}
+                {page.is_published ? "Dipublikasi" : "Draf"}
               </Badge>
-              <Badge tone={autosaveState === "Saved" ? "aqua" : "amber"}>{autosaveState}</Badge>
+              <Badge tone={autosaveState === "Tersimpan" ? "aqua" : "amber"}>{autosaveState}</Badge>
             </div>
             <p className="mt-0.5 text-xs text-white/[0.45]">/{page.slug}</p>
           </div>
         </div>
         <div className="flex flex-wrap gap-2">
           <Button icon={FiEye} onClick={() => navigate(`/pages/${page.slug}/preview`)}>
-            Preview
+            Pratinjau
           </Button>
           <Button
               variant="secondary"
@@ -939,13 +939,13 @@ ${sectionHtml}
                 }
               }}
             >
-              <span className="hidden sm:inline">Invite</span>
+              <span className="hidden sm:inline">Undang</span>
             </Button>
           <Button icon={FiSearch} onClick={openSeoModal}>
             SEO
           </Button>
           <Button icon={FiDownload} onClick={exportToHtml}>
-            Export
+            Ekspor
           </Button>
           {page.is_published ? (
             <>
@@ -957,14 +957,14 @@ ${sectionHtml}
                 icon={FiExternalLink}
                 variant="primary"
               >
-                Open Live Site
+                Buka Web
               </Button>
               <Button
                 icon={FiGlobe}
                 variant="secondary"
                 onClick={togglePublish}
               >
-                Unpublish
+                Tarik Publikasi
               </Button>
             </>
           ) : (
@@ -973,7 +973,7 @@ ${sectionHtml}
               variant="primary"
               onClick={togglePublish}
             >
-              Publish
+              Publikasi
             </Button>
           )}
         </div>
@@ -986,7 +986,7 @@ ${sectionHtml}
           {/* Add Section button */}
           <div className="border-b border-white/10 p-3 shrink-0">
             <Button className="w-full" icon={FiPlus} variant="primary" onClick={() => setAddOpen(true)}>
-              Add Section
+              Tambah Modul
             </Button>
           </div>
 
@@ -1018,7 +1018,7 @@ ${sectionHtml}
                       size="icon"
                       variant="ghost"
                       onClick={() => reorder(section.id, -1)}
-                      aria-label="Move section up"
+                      aria-label="Geser ke atas"
                     >
                       <FiArrowUp className="h-3.5 w-3.5" />
                     </Button>
@@ -1026,7 +1026,7 @@ ${sectionHtml}
                       size="icon"
                       variant="ghost"
                       onClick={() => reorder(section.id, 1)}
-                      aria-label="Move section down"
+                      aria-label="Geser ke bawah"
                     >
                       <FiArrowDown className="h-3.5 w-3.5" />
                     </Button>
@@ -1037,12 +1037,12 @@ ${sectionHtml}
                         try {
                           await pagesApi.duplicateSection(slug, section.id);
                           await load();
-                          toast.success("Section duplicated");
+                          toast.success("Modul diduplikasi");
                         } catch (error) {
                           toast.error(apiError(error).message);
                         }
                       }}
-                      aria-label="Duplicate section"
+                      aria-label="Duplikasi modul"
                     >
                       <FiCopy className="h-3.5 w-3.5" />
                     </Button>
@@ -1050,7 +1050,7 @@ ${sectionHtml}
                       size="icon"
                       variant="ghost"
                       onClick={() => setRemoveTarget(section)}
-                      aria-label="Remove section"
+                      aria-label="Hapus modul"
                     >
                       <FiTrash2 className="h-3.5 w-3.5" />
                     </Button>
@@ -1066,7 +1066,7 @@ ${sectionHtml}
               <>
                 {/* Editor header - fixed */}
                 <div className="p-3 pb-2 shrink-0">
-                  <h2 className="text-sm font-semibold text-white">Field editor</h2>
+                  <h2 className="text-sm font-semibold text-white">Editor Modul</h2>
                   <p className="mt-0.5 text-xs text-white/[0.5]">{selectedSection.template.name}</p>
                 </div>
 
@@ -1122,7 +1122,7 @@ ${sectionHtml}
                                   </div>
                                   <label className="flex h-[38px] cursor-pointer items-center justify-center gap-1.5 rounded-lg border border-brand-aqua/20 bg-brand-aqua/10 px-3 text-xs font-semibold text-brand-aqua transition duration-200 hover:bg-brand-aqua/25 hover:border-brand-aqua/45 hover:shadow-[0_0_12px_rgba(34,211,238,0.15)] active:scale-95 shrink-0">
                                     <FiUpload className="h-3.5 w-3.5" />
-                                    <span className="hidden sm:inline">Upload</span>
+                                    <span className="hidden sm:inline">Unggah</span>
                                     <input
                                       type="file"
                                       accept="image/*"
@@ -1132,11 +1132,11 @@ ${sectionHtml}
                                         if (!file) return;
                                         const formData = new FormData();
                                         formData.append("file", file);
-                                        const loadingToast = toast.loading("Uploading image...");
+                                        const loadingToast = toast.loading("Mengunggah gambar...");
                                         try {
                                           const response = await pagesApi.upload(formData);
                                           changeField(field.id, response.url);
-                                          toast.success("Image uploaded successfully!", { id: loadingToast });
+                                          toast.success("Gambar berhasil diunggah!", { id: loadingToast });
                                         } catch (error) {
                                           toast.error(apiError(error).message, { id: loadingToast });
                                         }
@@ -1299,14 +1299,14 @@ ${sectionHtml}
                 {/* Save button - fixed at bottom */}
                 <div className="p-3 pt-2 border-t border-white/10 shrink-0">
                   <Button className="w-full" icon={FiSave} onClick={() => saveFields()} variant="primary">
-                    Save now
+                    Simpan
                   </Button>
                 </div>
               </>
             ) : (
               <div className="flex-1 flex items-center justify-center p-4">
                 <p className="text-sm leading-6 text-white/[0.55] text-center">
-                  Select or add a section to edit its content.
+                  Pilih atau tambahkan modul untuk mengedit konten.
                 </p>
               </div>
             )}
@@ -1317,10 +1317,10 @@ ${sectionHtml}
         <section className="glass-panel overflow-hidden rounded-lg flex flex-col min-h-0 max-h-[70vh] lg:max-h-full">
           <div className="flex items-center justify-between border-b border-white/10 px-4 py-2.5 shrink-0">
             <div>
-              <p className="text-sm font-semibold text-white">Live preview</p>
-              <p className="mt-0.5 text-xs text-white/[0.45]">Updates while you edit</p>
+              <p className="text-sm font-semibold text-white">Pratinjau langsung</p>
+              <p className="mt-0.5 text-xs text-white/[0.45]">Otomatis diperbarui</p>
             </div>
-            <Badge tone="aqua">{orderedSections.length} sections</Badge>
+            <Badge tone="aqua">{orderedSections.length} modul</Badge>
           </div>
           <div className="flex-1 min-h-0 overflow-y-auto bg-[#0c0c0d] p-2 sm:p-4">
             <div className="mx-auto overflow-hidden rounded-lg border border-white/10 bg-black shadow-glow">
@@ -1329,9 +1329,9 @@ ${sectionHtml}
                 emptyState={
                   <div className="grid min-h-[420px] place-items-center bg-ink-900 p-8 text-center">
                     <div>
-                      <h2 className="text-2xl font-semibold text-white">Start with a section</h2>
+                      <h2 className="text-2xl font-semibold text-white">Mulai dengan modul</h2>
                       <p className="mt-2 max-w-md text-sm leading-6 text-white/[0.55]">
-                        Add a template from the left panel and the website will render here.
+                        Tambahkan template dari panel kiri dan halaman akan tampil di sini.
                       </p>
                     </div>
                   </div>
@@ -1342,22 +1342,22 @@ ${sectionHtml}
         </section>
       </div>
 
-      <Modal open={Boolean(removeTarget)} title="Remove section" onClose={closePanels}>
+      <Modal open={Boolean(removeTarget)} title="Hapus modul" onClose={closePanels}>
         <p className="text-sm leading-6 text-white/[0.65]">
-          Remove the {removeTarget?.template?.name} section and its saved field values?
+          Hapus modul {removeTarget?.template?.name} dan data yang tersimpan di dalamnya?
         </p>
         <div className="mt-5 flex justify-end gap-2">
-          <Button onClick={closePanels}>Cancel</Button>
+          <Button onClick={closePanels}>Batal</Button>
           <Button icon={FiTrash2} variant="danger" onClick={removeSection}>
-            Remove
+            Hapus
           </Button>
         </div>
       </Modal>
 
-      <Modal open={addOpen} title="Choose a Section Template" onClose={closePanels} width="max-w-5xl">
+      <Modal open={addOpen} title="Pilih Template Modul" onClose={closePanels} width="max-w-5xl">
         <div className="space-y-6">
           <p className="text-sm text-white/60">
-            Select a designer-crafted section to instantly add it to your page canvas. Custom fields will be generated automatically.
+            Pilih modul untuk menambahkannya ke halaman Anda. Kolom input akan dibuat secara otomatis.
           </p>
           
           <div className="flex flex-wrap gap-2 border-b border-white/10 pb-4">
@@ -1421,11 +1421,11 @@ ${sectionHtml}
                   type="button"
                   onClick={async () => {
                     if (tpl.slug === "custom_html" && userPlan === "free") {
-                      toast.error("Custom HTML requires Plus or Pro+ plan. Upgrade now!");
+                      toast.error("HTML Kustom memerlukan paket Plus atau Pro+. Tingkatkan sekarang!");
                       return;
                     }
                     if (tpl.slug === "iframe_embed" && userPlan !== "pro_plus") {
-                      toast.error("Iframe embed requires Pro+ plan. Upgrade now!");
+                      toast.error("Iframe embed memerlukan paket Pro+. Tingkatkan sekarang!");
                       return;
                     }
                     try {
@@ -1440,7 +1440,7 @@ ${sectionHtml}
                       }));
                       setSelectedSectionId(section.id);
                       setAddOpen(false);
-                      toast.success(`${tpl.name} section added`);
+                      toast.success(`Modul ${tpl.name} ditambahkan`);
                     } catch (error) {
                       toast.error(apiError(error).message);
                     }
@@ -1551,7 +1551,7 @@ ${sectionHtml}
         </div>
       )}
 
-      <Modal open={showSeoModal} title="SEO Settings" onClose={() => setShowSeoModal(false)}>
+      <Modal open={showSeoModal} title="Pengaturan SEO" onClose={() => setShowSeoModal(false)}>
         <div className="space-y-4">
           <Input
             label="Meta Title"
@@ -1570,9 +1570,9 @@ ${sectionHtml}
             onChange={(e) => setSeoForm({ ...seoForm, og_image: e.target.value })}
           />
           <div className="flex justify-end gap-2 pt-2">
-            <Button onClick={() => setShowSeoModal(false)}>Cancel</Button>
+            <Button onClick={() => setShowSeoModal(false)}>Batal</Button>
             <Button type="button" variant="primary" disabled={savingSeo} onClick={saveSeo}>
-              {savingSeo ? "Saving..." : "Save"}
+              {savingSeo ? "Menyimpan..." : "Simpan"}
             </Button>
           </div>
         </div>

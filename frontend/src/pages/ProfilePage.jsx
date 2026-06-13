@@ -9,7 +9,7 @@ import { useDocumentTitle } from "../hooks/useDocumentTitle";
 import { useAuthStore } from "../store/authStore";
 
 export default function ProfilePage() {
-  useDocumentTitle("Profile");
+  useDocumentTitle("Profil");
   const user = useAuthStore((state) => state.user);
   const updateProfile = useAuthStore((state) => state.updateProfile);
   const [form, setForm] = useState({
@@ -29,7 +29,7 @@ export default function ProfilePage() {
       if (form.password) payload.password = form.password;
       await updateProfile(payload);
       setForm((current) => ({ ...current, password: "" }));
-      toast.success("Profile updated");
+      toast.success("Profil diperbarui");
     } catch (error) {
       setErrors(error.errors || {});
       toast.error(error.message);
@@ -41,8 +41,8 @@ export default function ProfilePage() {
   return (
     <div className="mx-auto max-w-3xl space-y-6">
       <div>
-        <p className="eyebrow">Profile</p>
-        <h1 className="mt-3 text-3xl font-semibold text-white">Account settings</h1>
+        <p className="eyebrow">Profil</p>
+        <h1 className="mt-3 text-3xl font-semibold text-white">Pengaturan akun</h1>
       </div>
 
       <form className="glass-panel rounded-lg p-5" onSubmit={submit}>
@@ -61,7 +61,7 @@ export default function ProfilePage() {
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
           <Input
-            label="Name"
+            label="Nama"
             value={form.name}
             error={errors.name?.[0]}
             onChange={(event) => setForm({ ...form, name: event.target.value })}
@@ -75,7 +75,7 @@ export default function ProfilePage() {
           />
           <div className="sm:col-span-2">
             <Input
-              label="New password"
+              label="Kata sandi baru"
               type="password"
               value={form.password}
               error={errors.password?.[0]}
@@ -85,7 +85,7 @@ export default function ProfilePage() {
         </div>
         <div className="mt-6 flex justify-end">
           <Button icon={FiSave} type="submit" variant="primary" disabled={saving}>
-            {saving ? "Saving..." : "Save changes"}
+            {saving ? "Menyimpan..." : "Simpan perubahan"}
           </Button>
         </div>
       </form>

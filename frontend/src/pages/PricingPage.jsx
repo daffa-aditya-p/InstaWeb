@@ -35,13 +35,13 @@ const PLANS = [
     glow: false,
     note: null,
     features: [
-      { text: "Basic web analytics", included: true },
-      { text: "Up to 5 pages", included: true },
-      { text: "All section templates", included: true },
-      { text: "Custom styling", included: true },
-      { text: "Premium statistics", included: false },
-      { text: "Modern animations", included: false },
-      { text: "Custom HTML sections", included: false },
+      { text: "Analitik web dasar", included: true },
+      { text: "Hingga 5 halaman", included: true },
+      { text: "Semua template modul", included: true },
+      { text: "Kustomisasi gaya UI", included: true },
+      { text: "Statistik premium", included: false },
+      { text: "Animasi modern", included: false },
+      { text: "Modul HTML kustom", included: false },
     ],
   },
   {
@@ -57,14 +57,14 @@ const PLANS = [
     glow: false,
     note: null,
     features: [
-      { text: "Everything in Free", included: true },
-      { text: "Unlimited pages creation", included: true },
+      { text: "Semua fitur Gratis", included: true },
+      { text: "Pembuatan halaman tanpa batas", included: true },
       { text: "Support statistik premium", included: true },
       { text: "Support animasi modern", included: true },
       { text: "Support section baru menggunakan kode HTML (Sandboxed)", included: true },
       { text: "Hapus watermark InstaWeb", included: true },
-      { text: "Priority Email Support", included: true },
-      { text: "Multi user collaboration", included: false },
+      { text: "Dukungan Email Prioritas", included: true },
+      { text: "Kolaborasi multi-pengguna", included: false },
     ],
   },
   {
@@ -85,9 +85,9 @@ const PLANS = [
       { text: "Support iframe & Advanced Embeds", included: true },
       { text: "Multi user (hingga 5 user sekaligus)", included: true },
       { text: "Role-based Access Control (Editor/Viewer)", included: true },
-      { text: "Custom Domain Support", included: "soon" },
-      { text: "Advanced Webhook Integrations", included: "soon" },
-      { text: "Dedicated Account Manager", included: "soon" },
+      { text: "Domain Kustom", included: "soon" },
+      { text: "Integrasi Webhook", included: "soon" },
+      { text: "Manajer Akun Khusus", included: "soon" },
     ],
   },
 ];
@@ -119,7 +119,7 @@ const fadeUp = {
 /* ──────────────────────── component ──────────────────────── */
 
 export default function PricingPage() {
-  useDocumentTitle("Pricing");
+  useDocumentTitle("Harga");
 
   const [isYearly, setIsYearly] = useState(false);
   const [subscription, setSubscription] = useState(null);
@@ -205,10 +205,10 @@ export default function PricingPage() {
                 <FiShield className="h-5 w-5 text-brand-aqua" />
               </div>
               <div>
-                <p className="text-sm font-semibold text-white">
+                <p className="text-sm font-semibold text-slate-900 dark:text-white">
                   Paket {subscription.plan === "pro_plus" ? "Pro+" : subscription.plan.charAt(0).toUpperCase() + subscription.plan.slice(1)} Aktif
                 </p>
-                <p className="mt-0.5 flex items-center gap-2 text-xs text-white/50">
+                <p className="mt-0.5 flex items-center gap-2 text-xs text-slate-600 dark:text-white/50">
                   <FiCalendar className="h-3 w-3" />
                   Berlaku hingga{" "}
                   {new Date(subscription.expires_at).toLocaleDateString("id-ID", {
@@ -232,12 +232,12 @@ export default function PricingPage() {
         className="text-center"
       >
         <Badge tone="aqua" className="mx-auto">
-          Pricing
+          Harga
         </Badge>
-        <h1 className="mt-5 text-3xl font-bold leading-tight text-white sm:text-5xl">
+        <h1 className="mt-5 text-3xl font-bold leading-tight text-slate-900 dark:text-white sm:text-5xl">
           Pilih Paket yang Tepat
         </h1>
-        <p className="mx-auto mt-4 max-w-xl text-sm leading-7 text-white/50">
+        <p className="mx-auto mt-4 max-w-xl text-sm leading-7 text-slate-600 dark:text-white/50">
           Mulai gratis, upgrade kapan saja. Temukan paket yang paling sesuai dengan
           kebutuhan website kamu.
         </p>
@@ -245,7 +245,7 @@ export default function PricingPage() {
         {/* ── billing toggle ── */}
         <div className="mt-8 flex items-center justify-center gap-3">
           <span
-            className={`text-sm font-medium transition-colors ${!isYearly ? "text-white" : "text-white/40"}`}
+            className={`text-sm font-medium transition-colors ${!isYearly ? "text-slate-900 dark:text-white" : "text-slate-400 dark:text-white/40"}`}
           >
             Bulanan
           </span>
@@ -256,7 +256,7 @@ export default function PricingPage() {
             className={`relative inline-flex h-8 w-14 shrink-0 cursor-pointer items-center rounded-full border-2 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-aqua/30 ${
               isYearly
                 ? "border-brand-aqua/40 bg-brand-aqua/20"
-                : "border-white/10 bg-white/[0.08]"
+                : "border-slate-300 dark:border-white/10 bg-slate-200 dark:bg-white/[0.08]"
             }`}
             aria-label="Toggle billing cycle"
           >
@@ -272,7 +272,7 @@ export default function PricingPage() {
           </button>
 
           <span
-            className={`text-sm font-medium transition-colors ${isYearly ? "text-white" : "text-white/40"}`}
+            className={`text-sm font-medium transition-colors ${isYearly ? "text-slate-900 dark:text-white" : "text-slate-400 dark:text-white/40"}`}
           >
             Tahunan
           </span>
@@ -332,10 +332,10 @@ export default function PricingPage() {
                 <div
                   className={`relative flex h-full flex-col rounded-2xl border p-6 backdrop-blur-lg ${
                     plan.glow
-                      ? "border-white/[0.12] bg-ink-950/95"
+                      ? "border-brand-rose/20 dark:border-white/[0.12] bg-white dark:bg-ink-950/95 shadow-xl"
                       : plan.highlight
-                        ? "border-brand-aqua/20 bg-ink-950/90"
-                        : "border-white/[0.08] bg-white/[0.03]"
+                        ? "border-brand-aqua/50 dark:border-brand-aqua/20 bg-white dark:bg-ink-950/90 shadow-lg"
+                        : "border-slate-200 dark:border-white/[0.08] bg-white/60 dark:bg-white/[0.03]"
                   }`}
                 >
                   {/* badge */}
@@ -347,7 +347,7 @@ export default function PricingPage() {
                             ? "bg-gradient-to-br from-brand-aqua/20 to-brand-rose/20"
                             : plan.highlight
                               ? "bg-brand-aqua/15"
-                              : "bg-white/[0.06]"
+                              : "bg-slate-100 dark:bg-white/[0.06]"
                         }`}
                       >
                         <plan.icon
@@ -356,11 +356,11 @@ export default function PricingPage() {
                               ? "text-brand-rose"
                               : plan.highlight
                                 ? "text-brand-aqua"
-                                : "text-white/60"
+                                : "text-slate-500 dark:text-white/60"
                           }`}
                         />
                       </div>
-                      <h3 className="text-lg font-semibold text-white">
+                      <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
                         {plan.name}
                       </h3>
                     </div>
@@ -375,28 +375,28 @@ export default function PricingPage() {
                   {/* price */}
                   <div className="mb-6">
                     {showDiscount && (
-                      <p className="mb-1 text-sm text-white/40 line-through">
+                      <p className="mb-1 text-sm text-slate-400 dark:text-white/40 line-through">
                         Rp {fmt(originalPrice)}
                         {period}
                       </p>
                     )}
                     <div className="flex items-baseline gap-1">
-                      <span className="text-4xl font-bold tracking-tight text-white">
+                      <span className="text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
                         Rp {fmt(price)}
                       </span>
                       {!isFree && (
-                        <span className="text-sm text-white/40">{period}</span>
+                        <span className="text-sm text-slate-500 dark:text-white/40">{period}</span>
                       )}
                     </div>
                     {isFree && (
-                      <p className="mt-1.5 text-xs text-white/40">
+                      <p className="mt-1.5 text-xs text-slate-500 dark:text-white/40">
                         Gratis selamanya
                       </p>
                     )}
                   </div>
 
                   {/* divider */}
-                  <div className="mb-5 h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+                  <div className="mb-5 h-px w-full bg-gradient-to-r from-transparent via-slate-200 dark:via-white/10 to-transparent" />
 
                   {/* features */}
                   <ul className="mb-8 flex-1 space-y-3">
@@ -407,13 +407,13 @@ export default function PricingPage() {
                         ) : feature.included === "soon" ? (
                           <span className="mt-0.5 shrink-0 text-sm">🔜</span>
                         ) : (
-                          <FiX className="mt-0.5 h-4 w-4 shrink-0 text-white/25" />
+                          <FiX className="mt-0.5 h-4 w-4 shrink-0 text-slate-300 dark:text-white/25" />
                         )}
                         <span
                           className={`text-sm leading-snug ${
                             feature.included
-                              ? "text-white/70"
-                              : "text-white/30"
+                              ? "text-slate-700 dark:text-white/70"
+                              : "text-slate-400 dark:text-white/30"
                           }`}
                         >
                           {feature.text}
@@ -438,7 +438,7 @@ export default function PricingPage() {
                       <Button
                         className={`w-full ${
                           plan.glow
-                            ? "!bg-gradient-to-r !from-brand-aqua !to-brand-rose !text-ink-950 hover:!shadow-lg hover:!shadow-brand-rose/20"
+                            ? "!bg-gradient-to-r !from-brand-aqua !to-brand-rose !text-ink-950 hover:!shadow-lg hover:!shadow-brand-rose/20 border-none"
                             : ""
                         }`}
                         variant={plan.highlight ? "primary" : "secondary"}

@@ -190,7 +190,7 @@ function InvitationCard({ invitation, onAccept, onDecline, processingId }) {
 /* ── main page ───────────────────────────────────────────────────── */
 
 export default function InboxPage() {
-  useDocumentTitle("Inbox");
+  useDocumentTitle("Kotak Masuk");
 
   const [invitations, setInvitations] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0);
@@ -250,7 +250,7 @@ export default function InboxPage() {
       {/* ── header ─────────────────────────────────────────────── */}
       <div>
         <div className="flex items-center gap-3">
-          <Badge tone="aqua">Inbox</Badge>
+          <Badge tone="aqua">Kotak Masuk</Badge>
           {unreadCount > 0 && (
             <Badge tone="rose" className="tabular-nums">
               {unreadCount} baru

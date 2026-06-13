@@ -8,6 +8,7 @@ import { useAuthStore } from "./store/authStore";
 const AdminPage = React.lazy(() => import("./pages/AdminPage"));
 const BuilderPage = React.lazy(() => import("./pages/BuilderPage"));
 const DashboardPage = React.lazy(() => import("./pages/DashboardPage"));
+const LandingPage = React.lazy(() => import("./pages/LandingPage"));
 const LoginPage = React.lazy(() => import("./pages/LoginPage"));
 const PagesPage = React.lazy(() => import("./pages/PagesPage"));
 const PreviewPage = React.lazy(() => import("./pages/PreviewPage"));
@@ -54,7 +55,7 @@ export default function App() {
   return (
     <Suspense fallback={<RouteLoadingSpinner />}>
       <Routes>
-        <Route path="/" element={<Navigate to={token ? "/dashboard" : "/login"} replace />} />
+        <Route path="/" element={token ? <Navigate to="/dashboard" replace /> : <LandingPage />} />
         <Route path="/site/:slug" element={<PublicSitePage />} />
 
         <Route element={<PublicOnlyRoute />}>
@@ -78,7 +79,7 @@ export default function App() {
           </Route>
         </Route>
 
-        <Route path="*" element={<Navigate to={token ? "/dashboard" : "/login"} replace />} />
+        <Route path="*" element={<Navigate to={token ? "/dashboard" : "/"} replace />} />
       </Routes>
     </Suspense>
   );

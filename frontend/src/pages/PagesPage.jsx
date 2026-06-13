@@ -27,7 +27,7 @@ import { slugify } from "../utils/slugify";
 const emptyForm = { title: "", slug: "", summary: "" };
 
 export default function PagesPage() {
-  useDocumentTitle("Pages");
+  useDocumentTitle("Halaman");
   const navigate = useNavigate();
   const user = useAuthStore((s) => s.user);
   const [pages, setPages] = useState([]);
@@ -111,10 +111,10 @@ export default function PagesPage() {
     try {
       if (editing) {
         await pagesApi.update(editing.slug, form);
-        toast.success("Page updated");
+        toast.success("Halaman diperbarui");
       } else {
         await pagesApi.create(form);
-        toast.success("Page created");
+        toast.success("Halaman dibuat");
       }
       setModalOpen(false);
       await loadPages();
@@ -130,7 +130,7 @@ export default function PagesPage() {
   const togglePublish = async (page) => {
     try {
       await pagesApi.publish(page.slug, !page.is_published);
-      toast.success(page.is_published ? "Page unpublished" : "Page published");
+      toast.success(page.is_published ? "Halaman batal dipublikasi" : "Halaman dipublikasi");
       await loadPages();
     } catch (error) {
       toast.error(apiError(error).message);
@@ -141,7 +141,7 @@ export default function PagesPage() {
     if (!deleteTarget) return;
     try {
       await pagesApi.remove(deleteTarget.slug);
-      toast.success("Page deleted");
+      toast.success("Halaman dihapus");
       setDeleteTarget(null);
       await loadPages();
     } catch (error) {
@@ -153,14 +153,14 @@ export default function PagesPage() {
     <div className="space-y-6">
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
         <div>
-          <p className="eyebrow">Pages</p>
-          <h1 className="mt-3 text-3xl font-semibold text-white">Your websites</h1>
+          <p className="eyebrow">Halaman</p>
+          <h1 className="mt-3 text-3xl font-semibold text-white">Website Anda</h1>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-white/[0.55]">
-            Create pages, open the builder, preview live content, and publish when ready.
+            Buat halaman, buka editor, pratinjau konten live, dan publikasikan saat siap.
           </p>
         </div>
         <Button icon={FiPlus} variant="primary" onClick={openNew} className="w-full sm:w-auto">
-          New Page
+          Halaman Baru
         </Button>
       </div>
 
@@ -181,10 +181,10 @@ export default function PagesPage() {
                 <div className="mb-4 flex items-start justify-between gap-3">
                   <div className="flex flex-wrap gap-2">
                     <Badge tone={page.is_published ? "green" : "neutral"}>
-                      {page.is_published ? "Published" : "Draft"}
+                      {page.is_published ? "Dipublikasi" : "Draf"}
                     </Badge>
                     {page.user_id !== user?.id && (
-                      <Badge tone="purple">Collaborator</Badge>
+                      <Badge tone="purple">Kolaborator</Badge>
                     )}
                   </div>
                   {page.user_id === user?.id && (
@@ -204,15 +204,15 @@ export default function PagesPage() {
                 </Link>
                 <p className="mt-2 text-xs font-medium text-white/[0.45]">/{page.slug}</p>
                 <p className="mt-4 line-clamp-3 text-sm leading-6 text-white/[0.58]">
-                  {page.summary || "No summary provided."}
+                  {page.summary || "Tidak ada ringkasan."}
                 </p>
               </div>
               <div className="mt-6 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
                 <Button size="sm" icon={FiLayers} onClick={() => navigate(`/pages/${page.slug}/builder`)} className="w-full sm:w-auto">
-                  Build
+                  Desain
                 </Button>
                 <Button size="sm" icon={FiEye} onClick={() => navigate(`/pages/${page.slug}/preview`)} className="w-full sm:w-auto">
-                  Preview
+                  Pratinjau
                 </Button>
                 <Button size="sm" icon={FiEdit3} onClick={() => openEdit(page)} className="w-full sm:w-auto">
                   Edit
@@ -222,17 +222,17 @@ export default function PagesPage() {
                   icon={FiCopy}
                   className="w-full sm:w-auto"
                   onClick={async () => {
-                    const loadingToast = toast.loading("Duplicating page...");
+                    const loadingToast = toast.loading("Menduplikasi halaman...");
                     try {
                       const response = await pagesApi.duplicate(page.slug);
                       setPages((current) => [...current, response.data]);
-                      toast.success("Page duplicated", { id: loadingToast });
+                      toast.success("Halaman diduplikasi", { id: loadingToast });
                     } catch (error) {
                       toast.error(apiError(error).message, { id: loadingToast });
                     }
                   }}
                 >
-                  Duplicate
+                  Duplikat
                 </Button>
                 {page.is_published ? (
                   <>
@@ -246,7 +246,7 @@ export default function PagesPage() {
                       variant="primary"
                       className="w-full sm:w-auto"
                     >
-                      Open Live Site
+                      Buka Web Live
                     </Button>
                     <Button
                       size="sm"
@@ -255,7 +255,7 @@ export default function PagesPage() {
                       onClick={() => togglePublish(page)}
                       className="col-span-2 sm:col-span-none w-full sm:w-auto"
                     >
-                      Unpublish
+                      Batal Publikasi
                     </Button>
                   </>
                 ) : (
@@ -266,7 +266,7 @@ export default function PagesPage() {
                     onClick={() => togglePublish(page)}
                     className="w-full sm:w-auto"
                   >
-                    Publish
+                    Publikasi
                   </Button>
                 )}
               </div>
@@ -275,23 +275,23 @@ export default function PagesPage() {
         </div>
       ) : (
         <EmptyState
-          title="No pages yet"
-          description="Create your first website page and start composing it with dynamic sections."
-          action="New Page"
+          title="Belum ada halaman"
+          description="Buat halaman website pertama Anda dan mulai susun dengan modul dinamis."
+          action="Halaman Baru"
           onAction={openNew}
         />
       )}
 
-      <Modal open={modalOpen} title={editing ? "Edit page" : "New page"} onClose={closeModal}>
+      <Modal open={modalOpen} title={editing ? "Edit halaman" : "Halaman baru"} onClose={closeModal}>
         <form className="space-y-4" onSubmit={submit}>
           <Input
-            label="Title"
+            label="Judul"
             value={form.title}
             error={errors.title?.[0]}
             onChange={(event) => setTitle(event.target.value)}
           />
           <Input
-            label="Slug"
+            label="Tautan (Slug)"
             value={form.slug}
             error={errors.slug?.[0]}
             onChange={(event) => {
@@ -300,28 +300,28 @@ export default function PagesPage() {
             }}
           />
           <Textarea
-            label="Summary"
+            label="Ringkasan"
             value={form.summary}
             error={errors.summary?.[0]}
             onChange={(event) => setForm({ ...form, summary: event.target.value })}
           />
           <div className="flex justify-end gap-2 pt-2">
-            <Button onClick={closeModal}>Cancel</Button>
+            <Button onClick={closeModal}>Batal</Button>
             <Button type="submit" variant="primary" disabled={saving}>
-              {saving ? "Saving..." : "Save"}
+              {saving ? "Menyimpan..." : "Simpan"}
             </Button>
           </div>
         </form>
       </Modal>
 
-      <Modal open={Boolean(deleteTarget)} title="Delete page" onClose={closeModal}>
+      <Modal open={Boolean(deleteTarget)} title="Hapus halaman" onClose={closeModal}>
         <p className="text-sm leading-6 text-white/[0.65]">
-          Delete "{deleteTarget?.title}" and all of its sections?
+          Hapus "{deleteTarget?.title}" dan seluruh kontennya?
         </p>
         <div className="mt-5 flex justify-end gap-2">
-          <Button onClick={closeModal}>Cancel</Button>
+          <Button onClick={closeModal}>Batal</Button>
           <Button icon={FiTrash2} variant="danger" onClick={removePage}>
-            Delete
+            Hapus
           </Button>
         </div>
       </Modal>

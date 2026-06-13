@@ -11,7 +11,7 @@ import { useAuthStore } from "../store/authStore";
 import { AuthScreen, BrandHeader } from "./LoginPage";
 
 export default function RegisterPage() {
-  useDocumentTitle("Register");
+  useDocumentTitle("Daftar");
   const navigate = useNavigate();
   const register = useAuthStore((state) => state.register);
   const loading = useAuthStore((state) => state.loading);
@@ -23,7 +23,7 @@ export default function RegisterPage() {
     setErrors({});
     try {
       await register(form);
-      toast.success("Your workspace is ready");
+      toast.success("Ruang kerja Anda sudah siap");
       navigate("/pages", { replace: true });
     } catch (error) {
       setErrors(error.errors || {});
@@ -39,10 +39,10 @@ export default function RegisterPage() {
         animate={{ opacity: 1, y: 0 }}
         onSubmit={submit}
       >
-        <BrandHeader title="Create your workspace" />
+        <BrandHeader title="Buat ruang kerja baru" />
         <div className="mt-8 space-y-4">
           <Input
-            label="Name"
+            label="Nama"
             value={form.name}
             error={errors.name?.[0]}
             onChange={(event) => setForm({ ...form, name: event.target.value })}
@@ -55,7 +55,7 @@ export default function RegisterPage() {
             onChange={(event) => setForm({ ...form, email: event.target.value })}
           />
           <Input
-            label="Password"
+            label="Kata Sandi"
             type="password"
             value={form.password}
             error={errors.password?.[0]}
@@ -63,12 +63,12 @@ export default function RegisterPage() {
           />
         </div>
         <Button className="mt-6 w-full" size="lg" icon={FiUserPlus} type="submit" variant="primary" disabled={loading}>
-          {loading ? "Creating..." : "Register"}
+          {loading ? "Membuat..." : "Daftar"}
         </Button>
         <p className="mt-5 text-center text-sm text-white/[0.55]">
-          Already have an account?{" "}
+          Sudah punya akun?{" "}
           <Link className="font-semibold text-brand-aqua hover:text-white" to="/login">
-            Login
+            Masuk
           </Link>
         </p>
       </motion.form>

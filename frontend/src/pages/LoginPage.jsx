@@ -10,7 +10,7 @@ import { useDocumentTitle } from "../hooks/useDocumentTitle";
 import { useAuthStore } from "../store/authStore";
 
 export default function LoginPage() {
-  useDocumentTitle("Login");
+  useDocumentTitle("Masuk");
   const navigate = useNavigate();
   const login = useAuthStore((state) => state.login);
   const loading = useAuthStore((state) => state.loading);
@@ -22,7 +22,7 @@ export default function LoginPage() {
     setErrors({});
     try {
       await login(form);
-      toast.success("Welcome back to InstaWeb");
+      toast.success("Selamat datang kembali di InstaWeb");
       navigate("/pages", { replace: true });
     } catch (error) {
       setErrors(error.errors || {});
@@ -38,7 +38,7 @@ export default function LoginPage() {
         animate={{ opacity: 1, y: 0 }}
         onSubmit={submit}
       >
-        <BrandHeader title="Welcome back" />
+        <BrandHeader title="Selamat datang kembali" />
         <div className="mt-8 space-y-4">
           <Input
             label="Email"
@@ -48,7 +48,7 @@ export default function LoginPage() {
             onChange={(event) => setForm({ ...form, email: event.target.value })}
           />
           <Input
-            label="Password"
+            label="Kata Sandi"
             type="password"
             value={form.password}
             error={errors.password?.[0]}
@@ -56,12 +56,12 @@ export default function LoginPage() {
           />
         </div>
         <Button className="mt-6 w-full" size="lg" icon={FiLogIn} type="submit" variant="primary" disabled={loading}>
-          {loading ? "Signing in..." : "Login"}
+          {loading ? "Sedang masuk..." : "Masuk"}
         </Button>
         <p className="mt-5 text-center text-sm text-white/[0.55]">
-          New here?{" "}
+          Baru di sini?{" "}
           <Link className="font-semibold text-brand-aqua hover:text-white" to="/register">
-            Create an account
+            Buat akun baru
           </Link>
         </p>
       </motion.form>
@@ -87,12 +87,12 @@ export function BrandHeader({ title }) {
         </div>
         <div>
           <div className="text-sm font-bold text-white">InstaWeb</div>
-          <div className="text-xs text-white/[0.45]">Modern website builder</div>
+          <div className="text-xs text-white/[0.45]">Platform website modern</div>
         </div>
       </div>
       <h1 className="mt-6 sm:mt-8 text-2xl sm:text-3xl font-semibold text-white">{title}</h1>
       <p className="mt-2 text-sm leading-6 text-white/[0.55]">
-        Manage pages, sections, templates, and live previews from one polished workspace.
+        Kelola halaman, modul, template, dan pratinjau live dari satu ruang kerja yang mulus.
       </p>
     </div>
   );

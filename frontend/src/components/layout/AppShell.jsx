@@ -17,11 +17,11 @@ import { Button } from "../ui/Button";
 import { Badge } from "../ui/Badge";
 
 const navItems = [
-  { label: "Dashboard", href: "/dashboard", icon: FiBarChart2 },
-  { label: "Pages", href: "/pages", icon: FiLayers },
-  { label: "Analytics", href: "/analytics", icon: FiTrendingUp },
-  { label: "Pricing", href: "/pricing", icon: FiStar },
-  { label: "Inbox", href: "/inbox", icon: FiInbox },
+  { label: "Dasbor", href: "/dashboard", icon: FiBarChart2 },
+  { label: "Halaman", href: "/pages", icon: FiLayers },
+  { label: "Analitik", href: "/analytics", icon: FiTrendingUp },
+  { label: "Harga", href: "/pricing", icon: FiStar },
+  { label: "Kotak Masuk", href: "/inbox", icon: FiInbox },
 ];
 
 export function AppShell() {
@@ -56,7 +56,7 @@ export function AppShell() {
             </div>
             <div className="text-left">
               <div className="text-sm font-bold text-white">InstaWeb</div>
-              <div className="text-xs text-white/[0.45]">Section-based websites</div>
+              <div className="text-xs text-white/[0.45]">Website berbasis modul</div>
             </div>
           </button>
 
@@ -75,7 +75,7 @@ export function AppShell() {
                 >
                   <Icon className="h-4 w-4" />
                   {item.label}
-                  {item.label === "Inbox" && inboxCount > 0 && (
+                  {item.label === "Kotak Masuk" && inboxCount > 0 && (
                     <span className="ml-1 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-brand-rose px-1.5 text-[10px] font-bold text-white">
                       {inboxCount > 99 ? "99+" : inboxCount}
                     </span>

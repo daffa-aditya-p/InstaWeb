@@ -15,7 +15,7 @@ export default function PreviewPage() {
   const { slug } = useParams();
   const [page, setPage] = useState(null);
   const [loading, setLoading] = useState(true);
-  useDocumentTitle("Preview");
+  useDocumentTitle("Pratinjau");
 
   useEffect(() => {
     pagesApi
@@ -32,8 +32,8 @@ export default function PreviewPage() {
   if (!page) {
     return (
       <EmptyState
-        title="Preview unavailable"
-        description="The page could not be loaded for preview."
+        title="Pratinjau tidak tersedia"
+        description="Halaman tidak dapat dimuat untuk pratinjau."
       />
     );
   }
@@ -42,12 +42,12 @@ export default function PreviewPage() {
     <div className="space-y-4">
       <div className="glass-panel flex flex-col justify-between gap-4 rounded-lg p-4 sm:flex-row sm:items-center">
         <div className="flex items-center gap-3">
-          <Button as={Link} to={`/pages/${page.slug}/builder`} icon={FiArrowLeft} size="icon" aria-label="Back to builder" />
+          <Button as={Link} to={`/pages/${page.slug}/builder`} icon={FiArrowLeft} size="icon" aria-label="Kembali ke editor" />
           <div>
             <div className="flex flex-wrap items-center gap-2">
               <h1 className="text-xl font-semibold text-white">{page.title}</h1>
               <Badge tone={page.is_published ? "green" : "neutral"}>
-                {page.is_published ? "Published" : "Draft"}
+                {page.is_published ? "Dipublikasi" : "Draf"}
               </Badge>
             </div>
             <p className="mt-1 text-xs text-white/[0.45]">/{page.slug}</p>
@@ -55,7 +55,7 @@ export default function PreviewPage() {
         </div>
         {page.is_published ? (
           <Button as={Link} to={`/site/${page.slug}`} icon={FiExternalLink}>
-            Public page
+            Halaman Publik
           </Button>
         ) : null}
       </div>
@@ -66,9 +66,9 @@ export default function PreviewPage() {
           emptyState={
             <div className="grid min-h-[520px] place-items-center bg-ink-900 p-8 text-center">
               <div>
-                <h2 className="text-2xl font-semibold text-white">No sections yet</h2>
+                <h2 className="text-2xl font-semibold text-white">Belum ada modul</h2>
                 <p className="mt-2 text-sm text-white/[0.55]">
-                  Add sections in the builder to render a complete page.
+                  Tambahkan modul di editor untuk merender halaman yang utuh.
                 </p>
               </div>
             </div>
