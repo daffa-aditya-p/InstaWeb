@@ -31,6 +31,7 @@ export function AppShell() {
   const [inboxCount, setInboxCount] = useState(0);
 
   useEffect(() => {
+    document.documentElement.setAttribute("data-theme", "dark");
     invitationApi
       .count()
       .then((res) => setInboxCount(res.data.count))

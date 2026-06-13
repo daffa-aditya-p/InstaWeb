@@ -38,6 +38,10 @@ venv.bak/
 # Flask
 instance/
 backend/app/static/uploads/
+backend_golang/.cache/
+backend_golang/uploads/
+backend_golang/api
+backend_golang/api.exe
 *.sqlite
 *.sqlite3
 *.db

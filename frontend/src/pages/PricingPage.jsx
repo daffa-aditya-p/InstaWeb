@@ -253,10 +253,10 @@ export default function PricingPage() {
           <button
             type="button"
             onClick={() => setIsYearly((v) => !v)}
-            className={`relative inline-flex h-8 w-14 shrink-0 cursor-pointer items-center rounded-full border-2 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-aqua/30 ${
+            className={`relative inline-flex h-8 w-14 shrink-0 cursor-pointer items-center rounded-full border-2 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-aqua/30 px-1 ${
               isYearly
-                ? "border-brand-aqua/40 bg-brand-aqua/20"
-                : "border-slate-300 dark:border-white/10 bg-slate-200 dark:bg-white/[0.08]"
+                ? "border-brand-aqua/40 bg-brand-aqua/20 justify-end"
+                : "border-slate-300 dark:border-white/10 bg-slate-200 dark:bg-white/[0.08] justify-start"
             }`}
             aria-label="Toggle billing cycle"
           >
@@ -265,8 +265,8 @@ export default function PricingPage() {
               transition={{ type: "spring", stiffness: 500, damping: 35 }}
               className={`pointer-events-none inline-block h-5 w-5 rounded-full shadow-lg ${
                 isYearly
-                  ? "translate-x-7 bg-brand-aqua"
-                  : "translate-x-1.5 bg-white"
+                  ? "bg-brand-aqua"
+                  : "bg-white"
               }`}
             />
           </button>

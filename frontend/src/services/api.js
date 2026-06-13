@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const API_BASE_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+  import.meta.env.VITE_API_URL || "https://instaweb-api-471380403744.asia-southeast2.run.app/api";
 
 export const api = axios.create({
   baseURL: API_BASE_URL,

@@ -1,0 +1,23 @@
+# Ignore local binary executables
+*.exe
+api
+instaweb-api
+
+# Ignore local environment files and secrets
+.env
+.env.*
+
+# Ignore git metadata
+.git
+.gitignore
+
+# Ignore build artifacts and caches
+.go-build/
+tmp/
+bin/
+
+# Ignore documentation and deployment manifests not needed in compilation
+README.md
+cloudrun.service.yaml
+Dockerfile
+.dockerignore
