@@ -82,8 +82,8 @@ export function BrandHeader({ title }) {
   return (
     <div>
       <div className="flex items-center gap-3">
-        <div className="grid h-11 w-11 place-items-center rounded-lg bg-white text-ink-950">
-          <FiGrid className="h-5 w-5" />
+        <div className="grid h-11 w-11 overflow-hidden place-items-center rounded-lg bg-white text-ink-950">
+          <img src="/logo.png" alt="InstaWeb Logo" className="h-full w-full object-cover" />
         </div>
         <div>
           <div className="text-sm font-bold text-white">InstaWeb</div>

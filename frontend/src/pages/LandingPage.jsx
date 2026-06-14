@@ -145,8 +145,8 @@ function Navbar({ theme, toggleTheme }) {
           <Link to="/login" className="text-sm font-semibold transition hover:opacity-70" style={{ color: "var(--lp-text)" }}>
             Masuk
           </Link>
-          <Link to="/register" className="btn-press rounded-full px-6 py-2.5 text-sm font-bold text-ink-950"
-            style={{ background: `var(--lp-text)` }}>
+          <Link to="/register" className="btn-press rounded-full px-6 py-2.5 text-sm font-bold"
+            style={{ background: "var(--lp-text)", color: "var(--lp-bg)" }}>
             Mulai Gratis
           </Link>
         </div>
@@ -285,8 +285,8 @@ function Hero() {
               className="mt-10 flex flex-wrap items-center gap-4"
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.3 }}
             >
-              <Link to="/register" className="btn-press flex items-center gap-2 rounded-full px-8 py-4 text-base font-bold text-ink-950 transition-transform"
-                style={{ background: "var(--lp-text)", boxShadow: "0 10px 30px var(--lp-shadow-glow)" }}>
+              <Link to="/register" className="btn-press flex items-center gap-2 rounded-full px-8 py-4 text-base font-bold transition-transform"
+                style={{ background: "var(--lp-text)", color: "var(--lp-bg)", boxShadow: "0 10px 30px var(--lp-shadow-glow)" }}>
                 Mulai Membangun <FiArrowRight />
               </Link>
               <a href="#fitur" className="btn-press flex items-center gap-2 rounded-full px-8 py-4 text-base font-bold transition-all hover:bg-white/5"
@@ -615,7 +615,9 @@ function Footer() {
         {/* Brand & Team Info */}
         <div>
           <div className="flex items-center gap-3 mb-6">
-            <FiGrid className="w-8 h-8" style={{ color: "var(--lp-text)" }} />
+            <div className="relative h-8 w-8 overflow-hidden rounded-lg bg-white/10">
+              <img src="/logo.png" alt="InstaWeb Logo" className="absolute inset-0 h-full w-full object-cover" />
+            </div>
             <span className="font-display text-2xl font-bold">Insta<span className="gradient-text">Web</span></span>
           </div>
           <p className="text-sm leading-relaxed mb-8" style={{ color: "var(--lp-text-secondary)" }}>

@@ -52,8 +52,8 @@ export function AppShell() {
             onClick={() => navigate("/dashboard")}
             aria-label="Go to dashboard"
           >
-            <div className="grid h-10 w-10 place-items-center rounded-lg border border-white/10 bg-white text-ink-950 shadow-soft">
-              <FiGrid className="h-5 w-5" />
+            <div className="grid h-10 w-10 overflow-hidden place-items-center rounded-lg border border-white/10 bg-white text-ink-950 shadow-soft">
+              <img src="/logo.png" alt="InstaWeb Logo" className="h-full w-full object-cover" />
             </div>
             <div className="text-left">
               <div className="text-sm font-bold text-white">InstaWeb</div>
