@@ -153,6 +153,8 @@ Ikuti langkah-langkah di bawah ini untuk menjalankan ekosistem InstaWeb di kompu
    ```bash
    python run.py
    ```
+
+   masukan password **daffa123** untuk menginisialisasikan midtrans api
    *Secara bawaan, server backend akan berjalan di URL `http://127.0.0.1:5000`.*
 
 ---
