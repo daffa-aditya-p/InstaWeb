@@ -182,6 +182,32 @@ Ikuti langkah-langkah di bawah ini untuk menjalankan ekosistem InstaWeb di kompu
 
 ---
 
+### 3. Pengaturan Background Worker (Golang)
+
+Sistem analitik *background* dan *health monitor* berjalan menggunakan Golang untuk menghemat memori (*RAM*) saat proses *background* berjalan secara asinkron (cocok untuk deployment di Cloud Run).
+
+1. Navigasi masuk ke direktori worker:
+   ```bash
+   cd ../go_worker
+   ```
+
+2. Lakukan kompilasi ke dalam bentuk *binary*:
+   ```bash
+   go build -o worker.exe main.go
+   ```
+
+3. Jalankan worker:
+   * **Windows**:
+     ```bash
+     ./worker.exe
+     ```
+   * **macOS / Linux**:
+     ```bash
+     ./worker
+     ```
+
+---
+
 ## 🗺️ Peta API Endpoints (API Map)
 
 Semua rute API terdaftar di bawah prefiks `/api` pada port backend.

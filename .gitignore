@@ -64,3 +64,5 @@ yarn-error.log*
 *~
 .DS_Store
 Thumbs.db
+backend_golang/
+worker.exe
